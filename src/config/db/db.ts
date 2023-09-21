@@ -1,15 +1,10 @@
 import supabase from "./connection";
 
-async function testConnection() {
-  try {
-    const { data, error } = await supabase.from("user").select("*");
+const db = {
+  connection: supabase,
+  user: supabase.from('user'),
+  task: supabase.from('task'),
+  user_task: supabase.from('user_task')
+};
 
-    if (error) console.log("erro na busca :|");
-    console.log("deu bommm!!");
-
-  } catch (error) {
-    console.error("deu rumm :(", error);
-  }
-}
-
-export default testConnection;
+export default db;
