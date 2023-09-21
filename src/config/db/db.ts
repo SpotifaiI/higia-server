@@ -1,14 +1,15 @@
-import pool from "./connection";
+import supabase from "./connection";
 
 async function testConnection() {
-    try {
-        const client = await pool.connect();
-        console.log('deu bommm!!')
-    } catch (error) {
-        console.error('deu rumm :(', error);
-    }
+  try {
+    const { data, error } = await supabase.from("user").select("*");
 
-    await pool.end()
+    if (error) console.log("erro na busca :|");
+    console.log("deu bommm!!");
+
+  } catch (error) {
+    console.error("deu rumm :(", error);
+  }
 }
 
 export default testConnection;
