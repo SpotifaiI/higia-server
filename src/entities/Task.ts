@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import User from './User';
 
 class Task {
@@ -12,8 +12,16 @@ class Task {
   description: string;
   user: User[]
 
-  constructor(created_at: Date, initial_date: Date, end_date: Date, initial_coordinate: string, end_coordinate: string, observation: string, description: string, user: User[]) {
-    
+  constructor(
+    created_at: Date,
+    initial_date: Date,
+    end_date: Date,
+    initial_coordinate: string,
+    end_coordinate: string,
+    observation: string,
+    description: string,
+    user: User[]
+  ) {
     this.id = uuidv4()
     this.created_at = created_at;
     this.initial_date = initial_date;

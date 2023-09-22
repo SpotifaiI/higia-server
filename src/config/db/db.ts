@@ -1,4 +1,4 @@
-import supabase from "./connection";
+import supabase from "../services/supabase";
 
 const db = {
   connection: supabase,

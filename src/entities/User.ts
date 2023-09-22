@@ -8,7 +8,7 @@ abstract class User {
   created_at: Date;
   phone: string;
 
-  constructor(name: string, birthday: Date, email: string, phone: string) {
+  protected constructor(name: string, birthday: Date, email: string, phone: string) {
     this.id = uuidv4();
     this.name = name;
     this.email = email;
