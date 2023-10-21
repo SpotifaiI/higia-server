@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-
 using HigiaServer.Domain.Entities;
 using HigiaServer.Domain.Validations;
 
@@ -11,22 +10,22 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Address { get; private set; }
-    public DateTime? Birthday { get; private set; }
+    public DateTimeOffset Birthday { get; private set; }
     public string PhoneNumber { get; private set; }
 
-    protected void ChangeNumberPhoneToUser<T>(T user, string phoneNumber) where T: BaseUserEntity
+    protected void UpdateNumberPhoneToUser<T>(T user, string phoneNumber) where T : BaseUserEntity
     {
         ValidateNumber(phoneNumber);
         PhoneNumber = phoneNumber;
     }
 
-    protected void ChangeAdressToUser<T>(T user, string adress) where T : BaseUserEntity
+    protected void UpdateAdressToUser<T>(T user, string adress) where T : BaseUserEntity
     {
         ValidateAdress(adress);
         Address = adress;
     }
 
-    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber, DateTime? birthday, Administrator? lastModifiedBy, Administrator? createdBy)
+    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday, Administrator? lastModifiedBy, Administrator? createdBy)
     : base(lastModifiedBy, createdBy)
     {
         ValidateUser(firstName, lastName, address, birthday, phoneNumber);
@@ -40,7 +39,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         CreatedBy = createdBy;
     }
 
-    protected void ValidateUser(string firstName, string lastName, string address, DateTime? birthday, string phoneNumber)
+    protected void ValidateUser(string firstName, string lastName, string address, DateTimeOffset birthday, string phoneNumber)
     {
         DomainExeptionValidation.When(string.IsNullOrEmpty(firstName), "Invalid first name, valid first name is required");
         DomainExeptionValidation.When(firstName.Length <= 3, "Invalid first name, too short, minimum 3 characters");
