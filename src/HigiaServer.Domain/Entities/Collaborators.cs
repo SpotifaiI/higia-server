@@ -6,8 +6,8 @@ public class Collaborator : BaseUserEntity
 {
     public IList<Task> Tasks { get; private set; } = new List<Task>();
 
-    public Collaborator(string firstName, string lastName, string address, int number, DateTime? birthday, Administrator? lastModifiedBy,
-    Administrator? createdBy) : base(firstName, lastName, address, number, birthday, lastModifiedBy, createdBy)
+    public Collaborator(string firstName, string lastName, string address, string phoneNumber, DateTime? birthday, Administrator? lastModifiedBy,
+    Administrator? createdBy) : base(firstName, lastName, address, phoneNumber, birthday, lastModifiedBy, createdBy)
     {
         IsAdmin = false;
     }
