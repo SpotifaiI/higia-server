@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-
 using HigiaServer.Domain.Entities;
 using HigiaServer.Domain.Validations;
 
@@ -11,24 +10,36 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Address { get; private set; }
-    public DateTime? Birthday { get; private set; }
-    public int Number { get; private set; }
+    public DateTimeOffset Birthday { get; private set; }
+    public string PhoneNumber { get; private set; }
 
-    protected BaseUserEntity(string firstName, string lastName, string address, int number, DateTime? birthday, Administrator? lastModifiedBy, Administrator? createdBy)
+    protected void UpdateNumberPhoneToUser<T>(T user, string phoneNumber) where T : BaseUserEntity
+    {
+        ValidateNumber(phoneNumber);
+        PhoneNumber = phoneNumber;
+    }
+
+    protected void UpdateAdressToUser<T>(T user, string adress) where T : BaseUserEntity
+    {
+        ValidateAdress(adress);
+        Address = adress;
+    }
+
+    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday, Administrator? lastModifiedBy, Administrator? createdBy)
     : base(lastModifiedBy, createdBy)
     {
-        ValidateUser(firstName, lastName, address, birthday, number);
+        ValidateUser(firstName, lastName, address, birthday, phoneNumber);
 
         FirstName = firstName.Trim().ToLower();
         LastName = lastName.Trim().ToLower();
         Address = address;
         Birthday = birthday;
-        Number = number;
+        PhoneNumber = phoneNumber;
         LastModifiedBy = lastModifiedBy;
         CreatedBy = createdBy;
     }
 
-    protected void ValidateUser(string firstName, string lastName, string address, DateTime? birthday, int number)
+    protected void ValidateUser(string firstName, string lastName, string address, DateTimeOffset birthday, string phoneNumber)
     {
         DomainExeptionValidation.When(string.IsNullOrEmpty(firstName), "Invalid first name, valid first name is required");
         DomainExeptionValidation.When(firstName.Length <= 3, "Invalid first name, too short, minimum 3 characters");
@@ -39,7 +50,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         DomainExeptionValidation.When(ValidateAdress(address), "Invalid email address, valid email address is required");
 
         DomainExeptionValidation.When(birthday >= DateTimeOffset.Now.AddYears(-18), "Invalid birthday, minimum age is 18 years old");
-        DomainExeptionValidation.When(ValidateNumber(address), "Invalid number phone, valid number phone is required");
+        DomainExeptionValidation.When(ValidateNumber(phoneNumber), "Invalid number phone, valid number phone is required");
     }
 
     private bool ValidateAdress(string address)
