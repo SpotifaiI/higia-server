@@ -1,5 +1,4 @@
 ﻿using System.Text.RegularExpressions;
-
 using HigiaServer.Domain.Common;
 using HigiaServer.Domain.Entities;
 using HigiaServer.Domain.Validations;
@@ -11,12 +10,12 @@ public class Task : BaseAuditableEntity
     public string InitialCoordinate { get; private set; }
     public string EndCoordinate { get; private set; }
     
-    public string Description { get; private set; }
-    public string Observation { get; private set; }
+    public string? Description { get; private set; }
+    public string? Observation { get; private set; }
 
     public DateTimeOffset InitialTime { get; private set; }
-    public DateTimeOffset EndTime { get; set; }
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset EndTime { get; private set; }
+    public DateTimeOffset StartTime { get; private set; }
 
     public Task(Administrator? lastModifiedBy, Administrator? createdBy, string initialCoordinate, string endCoordinate, string description, string observation) : base(lastModifiedBy, createdBy)
     {
@@ -28,7 +27,7 @@ public class Task : BaseAuditableEntity
         Observation = observation.Trim();
     }
 
-   private void ValidateTask(string initialCoordinate, string endCoordinate, string description, string observation)
+   private void ValidateTask(string initialCoordinate, string endCoordinate, string? description, string? observation)
    {
         DomainExeptionValidation.When(ValidateCoordinate(initialCoordinate), "Invalid initial coordinate, valid initial coordinate is required");
         DomainExeptionValidation.When(ValidateCoordinate(endCoordinate), "Invalid end coordinate, valid end coordinate is required");
