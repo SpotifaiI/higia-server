@@ -14,7 +14,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     public DateTime? Birthday { get; private set; }
     public int Number { get; private set; }
 
-    protected BaseUserEntity(string firstName, string lastName, string address, DateTime? birthday, int number, Administrator? lastModifiedBy, Administrator? createdBy)
+    protected BaseUserEntity(string firstName, string lastName, string address, int number, DateTime? birthday, Administrator? lastModifiedBy, Administrator? createdBy)
     : base(lastModifiedBy, createdBy)
     {
         ValidateUser(firstName, lastName, address, birthday, number);
@@ -24,6 +24,8 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         Address = address;
         Birthday = birthday;
         Number = number;
+        LastModifiedBy = lastModifiedBy;
+        CreatedBy = createdBy;
     }
 
     protected void ValidateUser(string firstName, string lastName, string address, DateTime? birthday, int number)
