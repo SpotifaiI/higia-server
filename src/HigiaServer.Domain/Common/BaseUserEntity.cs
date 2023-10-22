@@ -7,11 +7,11 @@ namespace HigiaServer.Domain.Common;
 public abstract class BaseUserEntity : BaseAuditableEntity
 {
     public bool IsAdmin { get; init; }
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public string Address { get; private set; }
-    public DateTimeOffset Birthday { get; private set; }
-    public string PhoneNumber { get; private set; }
+    public string FirstName { get; protected set; }
+    public string LastName { get; protected set; }
+    public string Address { get; protected set; }
+    public DateTimeOffset Birthday { get; protected set; }
+    public string PhoneNumber { get; protected set; }
 
     protected void UpdateNumberPhoneToUser(string phoneNumber)
     {
@@ -56,13 +56,17 @@ public abstract class BaseUserEntity : BaseAuditableEntity
 
     private bool ValidateAddress(string address)
     {
+        if(string.IsNullOrEmpty(address))   return true;
+
         string pattern = @"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$";
         return !Regex.IsMatch(address, pattern);
     }
 
     private bool ValidateNumber(string number)
-    {
-        string pattern = @"(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})";
+    {  
+        if(string.IsNullOrEmpty(number))    return true;
+
+        string pattern = @"^1\d\d(\d\d)?$|^0800 ?\d{3} ?\d{4}$|^(\(0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d\) ?|0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d[ .-]?)?(9|9[ .-])?[2-9]\d{3}[ .-]?\d{4}$";
         return !Regex.IsMatch(number, pattern);
     }
 }
