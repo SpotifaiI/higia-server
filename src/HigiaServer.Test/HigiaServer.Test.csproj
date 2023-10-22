@@ -22,7 +22,4 @@
   <ItemGroup>
     <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DomainUnitTest/_Builders/" />
-  </ItemGroup>
 </Project>
