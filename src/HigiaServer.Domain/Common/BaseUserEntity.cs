@@ -17,16 +17,16 @@ public abstract class BaseUserEntity : BaseAuditableEntity
             "Invalid number phone, valid number phone is required");
 
         PhoneNumber = phoneNumber;
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateAdressToUser(string address)
     {
         DomainExeptionValidation.When(ValidateAddress(address),
             "Invalid email address, valid email address is required");
+            
         Address = address;
-
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,

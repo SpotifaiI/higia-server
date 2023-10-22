@@ -22,7 +22,7 @@ public class Task : BaseAuditableEntity
             "Invalid initial time, valid initial time is required");
         InitialTime = initialTime;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateInitialCoordinateToTask(string initialCoordinate)
@@ -31,7 +31,7 @@ public class Task : BaseAuditableEntity
             "Invalid initial coordinate, valid initial coordinate is required");
         InitialCoordinate = initialCoordinate;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateEndCoordinateToTask(string endCoordinate)
@@ -40,7 +40,7 @@ public class Task : BaseAuditableEntity
             "Invalid end coordinate, valid end coordinate is required");
         EndCoordinate = endCoordinate;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateExpectedEndTimeToTask(DateTimeOffset expectedEndTime)
@@ -49,7 +49,7 @@ public class Task : BaseAuditableEntity
             "Invalid end time, valid end time is required");
         ExpectedEndTime = expectedEndTime;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateDescriptionToTask(string description)
@@ -57,7 +57,7 @@ public class Task : BaseAuditableEntity
         DomainExeptionValidation.When(description.Length < 3, "Invalid description, valid description is required");
         Description = description;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public void UpdateObservationToTask(string observation)
@@ -65,7 +65,7 @@ public class Task : BaseAuditableEntity
         DomainExeptionValidation.When(observation.Length < 3, "Invalid observation, valid observation is required");
         Observation = observation;
 
-        LastModified = DateTimeOffset.Now;
+        LastModifiedAt = DateTimeOffset.Now;
     }
 
     public Task(Administrator? administrator, string initialCoordinate, string endCoordinate,

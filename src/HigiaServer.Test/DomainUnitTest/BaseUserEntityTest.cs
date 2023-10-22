@@ -124,20 +124,20 @@ public class BaseUserEntityTest
             .WithMessage("Invalid email address, valid email address is required");
     }
 
-    [Fact(DisplayName = "Update Address To BaseUserEntity Last Modified Should Be Updated")]
-    public void UpdateAddressToBaseUserEntity_LastModifiedShouldBeUpdated()
+    [Fact(DisplayName = "Update Address To BaseUserEntity Last Modified At Should Be Updated")]
+    public void UpdateAddressToBaseUserEntity_LastModifiedAtShouldBeUpdated()
     {
-        DateTimeOffset oldDate = _baseUserEntity.LastModified;
+        DateTimeOffset oldDate = _baseUserEntity.LastModifiedAt;
         _baseUserEntity.UpdateAdressToUser("email.exemple@gmail.com");
-        Assert.True(_baseUserEntity.LastModified > oldDate);
+        Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
     }
 
-    [Fact(DisplayName = "Update Number Phone To BaseUserEntity Last Modified Should Be Updated")]
-    public void UpdateNumberPhoneToBaseUserEntity_LastModifiedShouldBeUpdated()
+    [Fact(DisplayName = "Update Number Phone To BaseUserEntity Last Modified At Should Be Updated")]
+    public void UpdateNumberPhoneToBaseUserEntity_LastModifiedAtShouldBeUpdated()
     {
-        DateTimeOffset oldDate = _baseUserEntity.LastModified;
+        DateTimeOffset oldDate = _baseUserEntity.LastModifiedAt;
         _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
-        Assert.True(_baseUserEntity.LastModified > oldDate);
+        Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
     }
 }
 
