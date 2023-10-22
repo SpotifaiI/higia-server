@@ -1,9 +1,9 @@
 ﻿using System.Text.RegularExpressions;
+
 using HigiaServer.Domain.Common;
-using HigiaServer.Domain.Entities;
 using HigiaServer.Domain.Validations;
 
-namespace HigiaServer.Domain;
+namespace HigiaServer.Domain.Entities;
 
 public class Task : BaseAuditableEntity
 {
@@ -29,9 +29,8 @@ public class Task : BaseAuditableEntity
         Observation = observation;
     }
 
-    public Task(Administrator? lastModifiedBy, Administrator? createdBy, string initialCoordinate, string endCoordinate,
-    string description, string observation, DateTimeOffset initialTime, DateTimeOffset endTime, DateTimeOffset startTime)
-    : base(lastModifiedBy, createdBy)
+    public Task(Administrator? administrator, string initialCoordinate, string endCoordinate,
+    string description, string observation, DateTimeOffset initialTime, DateTimeOffset endTime)
     {
         ValidateTask(initialCoordinate, endCoordinate, initialTime, EndTime, StartTime, description, observation);
 
@@ -42,6 +41,9 @@ public class Task : BaseAuditableEntity
 
         InitialTime = initialTime;
         EndTime = endTime;
+
+        CreatedBy = administrator;
+        LastModifiedBy = administrator;
     }
 
     private void ValidateTask(string initialCoordinate, string endCoordinate, DateTimeOffset initialTime, DateTimeOffset endTime, DateTimeOffset startTime, string? description, string? observation)

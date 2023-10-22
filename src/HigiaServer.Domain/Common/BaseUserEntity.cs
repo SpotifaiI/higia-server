@@ -7,26 +7,29 @@ namespace HigiaServer.Domain.Common;
 public abstract class BaseUserEntity : BaseAuditableEntity
 {
     public bool IsAdmin { get; init; }
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public string Address { get; private set; }
-    public DateTimeOffset Birthday { get; private set; }
-    public string PhoneNumber { get; private set; }
+    public string FirstName { get; protected set; }
+    public string LastName { get; protected set; }
+    public string Address { get; protected set; }
+    public DateTimeOffset Birthday { get; protected set; }
+    public string PhoneNumber { get; protected set; }
 
-    protected void UpdateNumberPhoneToUser<T>(T user, string phoneNumber) where T : BaseUserEntity
+    protected void UpdateNumberPhoneToUser(string phoneNumber)
     {
         ValidateNumber(phoneNumber);
         PhoneNumber = phoneNumber;
+
+        LastModified = DateTimeOffset.Now;
     }
 
-    protected void UpdateAdressToUser<T>(T user, string adress) where T : BaseUserEntity
+    protected void UpdateAdressToUser(string adress)
     {
-        ValidateAdress(adress);
+        ValidateAddress(adress);
         Address = adress;
+
+        LastModified = DateTimeOffset.Now;
     }
 
-    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday, Administrator? lastModifiedBy, Administrator? createdBy)
-    : base(lastModifiedBy, createdBy)
+    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday)
     {
         ValidateUser(firstName, lastName, address, birthday, phoneNumber);
 
@@ -35,8 +38,6 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         Address = address;
         Birthday = birthday;
         PhoneNumber = phoneNumber;
-        LastModifiedBy = lastModifiedBy;
-        CreatedBy = createdBy;
     }
 
     protected void ValidateUser(string firstName, string lastName, string address, DateTimeOffset birthday, string phoneNumber)
@@ -47,21 +48,25 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         DomainExeptionValidation.When(string.IsNullOrEmpty(lastName), "Invalid last name, valid last name is required");
         DomainExeptionValidation.When(lastName.Length <= 3, "Invalid last name, too short, minimum 3 characters");
 
-        DomainExeptionValidation.When(ValidateAdress(address), "Invalid email address, valid email address is required");
+        DomainExeptionValidation.When(ValidateAddress(address), "Invalid email address, valid email address is required");
 
         DomainExeptionValidation.When(birthday >= DateTimeOffset.Now.AddYears(-18), "Invalid birthday, minimum age is 18 years old");
         DomainExeptionValidation.When(ValidateNumber(phoneNumber), "Invalid number phone, valid number phone is required");
     }
 
-    private bool ValidateAdress(string address)
+    private bool ValidateAddress(string address)
     {
+        if(string.IsNullOrEmpty(address))   return true;
+
         string pattern = @"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$";
-        return Regex.IsMatch(address, pattern);
+        return !Regex.IsMatch(address, pattern);
     }
 
     private bool ValidateNumber(string number)
-    {
-        string pattern = @"(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})";
-        return Regex.IsMatch(number, pattern);
+    {  
+        if(string.IsNullOrEmpty(number))    return true;
+
+        string pattern = @"^1\d\d(\d\d)?$|^0800 ?\d{3} ?\d{4}$|^(\(0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d\) ?|0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d[ .-]?)?(9|9[ .-])?[2-9]\d{3}[ .-]?\d{4}$";
+        return !Regex.IsMatch(number, pattern);
     }
 }
