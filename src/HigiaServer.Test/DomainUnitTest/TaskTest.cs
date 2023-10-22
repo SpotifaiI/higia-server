@@ -1,4 +1,6 @@
-﻿namespace HigiaServer.Test.DomainUnitTest;
+﻿using Task = HigiaServer.Domain.Entities.Task;
+
+namespace HigiaServer.Test.DomainUnitTest;
 
 public class TaskTest
 {
@@ -11,30 +13,35 @@ public class TaskTest
     private static readonly DateTimeOffset StartTime = DateTimeOffset.Now.AddDays(1);
 
     private readonly Domain.Entities.Task _task;
+
     public TaskTest()
     {
-        _task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime, ExpectedEndTime);
+        _task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime,
+            ExpectedEndTime);
     }
 
 
     [Fact(DisplayName = "Create Task With Valid State")]
     public void CreateTask_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime, ExpectedEndTime);
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            InitialTime, ExpectedEndTime);
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
     [Fact(DisplayName = "Create Valid Task With Null Description")]
     public void CreateTask_WithNullDescription_ResultObjectValidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, null, Observation, InitialTime, ExpectedEndTime);
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, null, Observation,
+            InitialTime, ExpectedEndTime);
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
     [Fact(DisplayName = "Create Valid Task With Null Observation")]
     public void CreateTask_WithNullObservation_ResultObjectValidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, null, InitialTime, ExpectedEndTime);
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, null,
+            InitialTime, ExpectedEndTime);
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
@@ -46,8 +53,10 @@ public class TaskTest
     [InlineData("24.53525235, 23.45235, 23.45235")]
     public void CreateTask_WithInvalidInitialCoordinate_ResultObjectInvalidState(string initialCoordinate)
     {
-        Action action = () => new Domain.Entities.Task(null, initialCoordinate, EndCoordinate, Description, Observation, InitialTime, ExpectedEndTime);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid initial coordinate, valid initial coordinate is required");
+        Action action = () => new Domain.Entities.Task(null, initialCoordinate, EndCoordinate, Description, Observation,
+            InitialTime, ExpectedEndTime);
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid initial coordinate, valid initial coordinate is required");
     }
 
     [Theory(DisplayName = "Create Task With Invalid End Coordinate")]
@@ -58,36 +67,45 @@ public class TaskTest
     [InlineData("24.53525235, 23.45235, 23.45235")]
     public void CreateTask_WithInvalidEndCoordinate_ResultObjectInvalidState(string endCoordinate)
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, endCoordinate, Description, Observation, InitialTime, ExpectedEndTime);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end coordinate, valid end coordinate is required");
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, endCoordinate, Description, Observation,
+            InitialTime, ExpectedEndTime);
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid end coordinate, valid end coordinate is required");
     }
 
     [Fact(DisplayName = "Create Task With Invalid Initial Time")]
     public void CreateTask_WithInvalidInitialTime_ResultObjectInvalidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, DateTimeOffset.Now.AddMinutes(-10), ExpectedEndTime);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid initial time, valid initial time is required");
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            DateTimeOffset.Now.AddMinutes(-10), ExpectedEndTime);
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid initial time, valid initial time is required");
     }
 
     [Fact(DisplayName = "Create Task With Invalid Expected End Time")]
     public void CreateTask_WithInvalidExpectedEndTime_ResultObjectInvalidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime, DateTimeOffset.Now.AddDays(-1));
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            InitialTime, DateTimeOffset.Now.AddDays(-1));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end time, valid end time is required");
     }
 
     [Fact(DisplayName = "Create Task With Invalid Description")]
     public void CreateTask_WithInvalidDescription_ResultObjectInvalidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, "A", Observation, InitialTime, ExpectedEndTime);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid description, valid description is required");
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, "A", Observation,
+            InitialTime, ExpectedEndTime);
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid description, valid description is required");
     }
 
     [Fact(DisplayName = "Create Task With Invalid Observation")]
     public void CreateTask_WithInvalidObservation_ResultObjectInvalidState()
     {
-        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, "A", InitialTime, ExpectedEndTime);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid observation, valid observation is required");
+        Action action = () => new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, "A",
+            InitialTime, ExpectedEndTime);
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid observation, valid observation is required");
     }
 
     [Fact(DisplayName = "Update Description To Task With Valid State")]
@@ -104,7 +122,8 @@ public class TaskTest
     public void UpdateDescriptionToTask_WithInvalidDescription_ResultObjectInvalidState(string description)
     {
         Action action = () => _task.UpdateDescriptionToTask(description);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid description, valid description is required");
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid description, valid description is required");
     }
 
     [Fact(DisplayName = "Update Observation To Task With Valid State")]
@@ -121,7 +140,8 @@ public class TaskTest
     public void UpdateObservationToTask_WithInvalidObservation_ResultObjectInvalidState(string observation)
     {
         Action action = () => _task.UpdateObservationToTask(observation);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid observation, valid observation is required");
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid observation, valid observation is required");
     }
 
     [Fact(DisplayName = "Update Initial Coordinate To Task With Valid State")]
@@ -137,10 +157,12 @@ public class TaskTest
     [InlineData("24.53525235,")]
     [InlineData(", 23.45235")]
     [InlineData("24.53525235, 23.45235, 23.45235")]
-    public void UpdateInitialCoordinateToTask_WithInvalidInitialCoordinate_ResultObjectInvalidState(string initialCoordinate)
+    public void UpdateInitialCoordinateToTask_WithInvalidInitialCoordinate_ResultObjectInvalidState(
+        string initialCoordinate)
     {
         Action action = () => _task.UpdateInitialCoordinateToTask(initialCoordinate);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid initial coordinate, valid initial coordinate is required");
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid initial coordinate, valid initial coordinate is required");
     }
 
     [Fact(DisplayName = "Update End Coordinate To Task With Valid State")]
@@ -159,13 +181,15 @@ public class TaskTest
     public void UpdateEndCoordinateToTask_WithInvalidEndCoordinate_ResultObjectInvalidState(string endCoordinate)
     {
         Action action = () => _task.UpdateEndCoordinateToTask(endCoordinate);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end coordinate, valid end coordinate is required");
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid end coordinate, valid end coordinate is required");
     }
 
     [Fact(DisplayName = "Update Initial Time To Task With Valid State")]
     public void UpdateInitialTimeToTask_WithValidParameters_ResultObjectValidState()
     {
-        var task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
+        Task task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
         Action action = () => _task.UpdateInitialTimeToTask(DateTimeOffset.Now.AddDays(2));
         action.Should().NotThrow<DomainExeptionValidation>();
     }
@@ -173,15 +197,18 @@ public class TaskTest
     [Fact(DisplayName = "Update Initial Time To Task With Invalid Initial Time")]
     public void UpdateInitialTimeToTask_WithInvalidInitialTime_ResultObjectInvalidState()
     {
-        var task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
+        Task task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
         Action action = () => _task.UpdateInitialTimeToTask(DateTimeOffset.Now.AddDays(-1));
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid initial time, valid initial time is required");
+        action.Should().Throw<DomainExeptionValidation>()
+            .WithMessage("Invalid initial time, valid initial time is required");
     }
 
     [Fact(DisplayName = "Update Expected End Time To Task With Valid State")]
     public void UpdateExpectedEndTimeToTask_WithValidParameters_ResultObjectValidState()
     {
-        var task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime, DateTimeOffset.Now.AddDays(1));
+        Task task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            InitialTime, DateTimeOffset.Now.AddDays(1));
         Action action = () => _task.UpdateExpectedEndTimeToTask(DateTimeOffset.Now.AddDays(2));
         action.Should().NotThrow<DomainExeptionValidation>();
     }
@@ -189,9 +216,9 @@ public class TaskTest
     [Fact(DisplayName = "Update Expected End Time To Task With Invalid Expected End Time")]
     public void UpdateExpectedEndTimeToTask_WithInvalidExpectedEndTime_ResultObjectInvalidState()
     {
-        var task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation, InitialTime, DateTimeOffset.Now.AddDays(1));
+        Task task = new Domain.Entities.Task(null, InitialCoordinate, EndCoordinate, Description, Observation,
+            InitialTime, DateTimeOffset.Now.AddDays(1));
         Action action = () => _task.UpdateExpectedEndTimeToTask(DateTimeOffset.Now.AddDays(-1));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end time, valid end time is required");
     }
-
 }

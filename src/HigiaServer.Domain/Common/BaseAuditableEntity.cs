@@ -1,5 +1,4 @@
-﻿using HigiaServer.Domain.Entities;
-namespace HigiaServer.Domain.Common;
+﻿namespace HigiaServer.Domain.Common;
 
 public abstract class BaseAuditableEntity : BaseEntity
 {
