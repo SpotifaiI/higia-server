@@ -13,18 +13,18 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     public DateTimeOffset Birthday { get; protected set; }
     public string PhoneNumber { get; protected set; }
 
-    protected void UpdateNumberPhoneToUser(string phoneNumber)
+    public void UpdateNumberPhoneToUser(string phoneNumber)
     {
-        ValidateNumber(phoneNumber);
-        PhoneNumber = phoneNumber;
+        DomainExeptionValidation.When(ValidateNumber(phoneNumber), "Invalid number phone, valid number phone is required");
 
+        PhoneNumber = phoneNumber;
         LastModified = DateTimeOffset.Now;
     }
 
-    protected void UpdateAdressToUser(string adress)
+    public void UpdateAdressToUser(string address)
     {
-        ValidateAddress(adress);
-        Address = adress;
+        DomainExeptionValidation.When(ValidateAddress(address), "Invalid email address, valid email address is required");
+        Address = address;
 
         LastModified = DateTimeOffset.Now;
     }

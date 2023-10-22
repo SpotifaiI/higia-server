@@ -15,8 +15,8 @@ public class Collaborator : BaseUserEntity
         
     }
 
-    private void AddTaskToCollaborator(Collaborator collaborator, Task task)
+    public void AddTaskToCollaborator(Task task)
     {
-        collaborator.Tasks.Add(task);
+        Tasks.Add(task);
     }
 }
