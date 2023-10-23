@@ -2,14 +2,13 @@ namespace HigiaServer.Domain.Entities;
 
 public class Collaborator : BaseUserEntity
 {
-    public IList<Task> Tasks { get; private set; } = new List<Task>();
+    public Administrator? CreatedBy { get; init; }
+    public Administrator? LastModifiedBy { get; private set; }
+    public List<Entities.Task> Tasks { get; protected set; } = new List<Entities.Task>();
 
-    public Collaborator(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday,
-        Administrator administrator) : base(firstName, lastName, address, phoneNumber, birthday)
+    public Collaborator(string firstName, string lastName, string address, string phoneNumber, DateTimeOffset birthday) : base(firstName, lastName, address, phoneNumber, birthday)
     {
         IsAdmin = false;
-        LastModifiedBy = administrator;
-        CreatedBy = administrator;
     }
 
     public void AddTaskToCollaborator(Task task)

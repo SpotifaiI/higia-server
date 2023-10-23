@@ -1,4 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+
+using Microsoft.VisualBasic;
 
 namespace HigiaServer.Domain.Entities;
 
@@ -15,6 +18,11 @@ public class Task : BaseAuditableEntity
 
     public DateTimeOffset EndTime { get; private set; }
     public DateTimeOffset StartTime { get; private set; }
+
+    public Administrator? CreatedBy { get; init; }
+    public Administrator? LastModifiedBy { get; private set; }
+
+    public List<Collaborator> Collaborators { get; private set; } = new List<Collaborator>();
 
     public void UpdateInitialTimeToTask(DateTimeOffset initialTime)
     {
@@ -68,7 +76,7 @@ public class Task : BaseAuditableEntity
         LastModifiedAt = DateTimeOffset.Now;
     }
 
-    public Task(Administrator? administrator, string initialCoordinate, string endCoordinate,
+    public Task(string initialCoordinate, string endCoordinate,
         string description, string observation, DateTimeOffset initialTime, DateTimeOffset expectedEndTime)
     {
         ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
@@ -80,9 +88,6 @@ public class Task : BaseAuditableEntity
 
         InitialTime = initialTime;
         ExpectedEndTime = expectedEndTime;
-
-        CreatedBy = administrator;
-        LastModifiedBy = administrator;
     }
 
     private void ValidateTask(string initialCoordinate, string endCoordinate, DateTimeOffset initialTime,

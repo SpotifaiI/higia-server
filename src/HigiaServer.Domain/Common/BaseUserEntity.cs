@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-
+﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseAuditableEntity
