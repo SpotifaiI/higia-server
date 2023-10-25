@@ -10,24 +10,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<BaseUserEntity>()
-            .ToTable("user")
-            .HasDiscriminator<bool>(x => x.IsAdmin)
-            .HasValue<Collaborator>(false)
-            .HasValue<Administrator>(true);
-
-        modelBuilder.Entity<Domain.Entities.Task>()
-            .ToTable("task")
-            .HasMany(x => x.Collaborators)
-            .WithMany(x => x.Tasks)
-            .UsingEntity<Dictionary<string, object>>(
-                "task_user",
-                x => x.HasOne<Collaborator>().WithMany().HasForeignKey("user_id"),
-                x => x.HasOne<Domain.Entities.Task>().WithMany().HasForeignKey("task_id"),
-                x => x.HasKey("user_id", "task_id")
-            );
-
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfiguration(new Mappings.BaseUserMap());
+        modelBuilder.ApplyConfiguration(new Mappings.TaskMap());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

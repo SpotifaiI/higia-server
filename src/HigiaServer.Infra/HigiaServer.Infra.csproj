@@ -12,7 +12,4 @@
   <ItemGroup>
     <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data/Mappings/" />
-  </ItemGroup>
 </Project>
