@@ -1,8 +1,4 @@
-﻿using HigiaServer.Domain.Common;
-using HigiaServer.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace HigiaServer.Infra.Data;
+﻿namespace HigiaServer.Infra.Data;
 
 public class ApplicationDbContext : DbContext
 {

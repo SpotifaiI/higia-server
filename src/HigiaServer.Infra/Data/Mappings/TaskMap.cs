@@ -1,10 +1,4 @@
-﻿using HigiaServer.Domain.Common;
-using HigiaServer.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Task = HigiaServer.Domain.Entities.Task;
-
-namespace HigiaServer.Infra.Data.Mappings;
+﻿namespace HigiaServer.Infra.Data.Mappings;
 
 public class TaskMap : IEntityTypeConfiguration<Task>
 {
