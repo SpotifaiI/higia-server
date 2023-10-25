@@ -8,9 +8,9 @@ public class TaskTest
     private static readonly string EndCoordinate = "24.53525235, 23.45235";
     private static readonly string Description = "Description";
     private static readonly string Observation = "Observation";
-    private static readonly DateTimeOffset InitialTime = DateTimeOffset.Now;
-    private static readonly DateTimeOffset ExpectedEndTime = DateTimeOffset.Now.AddDays(3);
-    private static readonly DateTimeOffset StartTime = DateTimeOffset.Now.AddDays(1);
+    private static readonly DateTime InitialTime = DateTime.Now;
+    private static readonly DateTime ExpectedEndTime = DateTime.Now.AddDays(3);
+    private static readonly DateTime StartTime = DateTime.Now.AddDays(1);
 
     private readonly Task _task;
 
@@ -76,7 +76,7 @@ public class TaskTest
     public void CreateTask_WithInvalidInitialTime_ResultObjectInvalidState()
     {
         Action action = () => new Task(InitialCoordinate, EndCoordinate, Description, Observation,
-            DateTimeOffset.Now.AddMinutes(-10), ExpectedEndTime);
+            DateTime.Now.AddMinutes(-10), ExpectedEndTime);
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid initial time, valid initial time is required");
     }
@@ -85,7 +85,7 @@ public class TaskTest
     public void CreateTask_WithInvalidExpectedEndTime_ResultObjectInvalidState()
     {
         Action action = () => new Task(InitialCoordinate, EndCoordinate, Description, Observation,
-            InitialTime, DateTimeOffset.Now.AddDays(-1));
+            InitialTime, DateTime.Now.AddDays(-1));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end time, valid end time is required");
     }
 
@@ -188,8 +188,8 @@ public class TaskTest
     public void UpdateInitialTimeToTask_WithValidParameters_ResultObjectValidState()
     {
         Task task = new(InitialCoordinate, EndCoordinate, Description, Observation,
-            DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
-        Action action = () => _task.UpdateInitialTimeToTask(DateTimeOffset.Now.AddDays(2));
+            DateTime.Now.AddDays(1), ExpectedEndTime);
+        Action action = () => _task.UpdateInitialTimeToTask(DateTime.Now.AddDays(2));
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
@@ -197,8 +197,8 @@ public class TaskTest
     public void UpdateInitialTimeToTask_WithInvalidInitialTime_ResultObjectInvalidState()
     {
         Task task = new(InitialCoordinate, EndCoordinate, Description, Observation,
-            DateTimeOffset.Now.AddDays(1), ExpectedEndTime);
-        Action action = () => _task.UpdateInitialTimeToTask(DateTimeOffset.Now.AddDays(-1));
+            DateTime.Now.AddDays(1), ExpectedEndTime);
+        Action action = () => _task.UpdateInitialTimeToTask(DateTime.Now.AddDays(-1));
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid initial time, valid initial time is required");
     }
@@ -207,8 +207,8 @@ public class TaskTest
     public void UpdateExpectedEndTimeToTask_WithValidParameters_ResultObjectValidState()
     {
         Task task = new(InitialCoordinate, EndCoordinate, Description, Observation,
-            InitialTime, DateTimeOffset.Now.AddDays(1));
-        Action action = () => _task.UpdateExpectedEndTimeToTask(DateTimeOffset.Now.AddDays(2));
+            InitialTime, DateTime.Now.AddDays(1));
+        Action action = () => _task.UpdateExpectedEndTimeToTask(DateTime.Now.AddDays(2));
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
@@ -216,8 +216,8 @@ public class TaskTest
     public void UpdateExpectedEndTimeToTask_WithInvalidExpectedEndTime_ResultObjectInvalidState()
     {
         Task task = new(InitialCoordinate, EndCoordinate, Description, Observation,
-            InitialTime, DateTimeOffset.Now.AddDays(1));
-        Action action = () => _task.UpdateExpectedEndTimeToTask(DateTimeOffset.Now.AddDays(-1));
+            InitialTime, DateTime.Now.AddDays(1));
+        Action action = () => _task.UpdateExpectedEndTimeToTask(DateTime.Now.AddDays(-1));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid end time, valid end time is required");
     }
 }

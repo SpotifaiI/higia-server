@@ -13,24 +13,21 @@ public class Task : BaseAuditableEntity
     public string? Description { get; private set; }
     public string? Observation { get; private set; }
 
-    public DateTimeOffset InitialTime { get; private set; }
-    public DateTimeOffset ExpectedEndTime { get; private set; }
+    public DateTime InitialTime { get; private set; }
+    public DateTime ExpectedEndTime { get; private set; }
 
-    public DateTimeOffset EndTime { get; private set; }
-    public DateTimeOffset StartTime { get; private set; }
-
-    public Administrator? CreatedBy { get; init; }
-    public Administrator? LastModifiedBy { get; private set; }
+    public DateTime EndTime { get; private set; }
+    public DateTime StartTime { get; private set; }
 
     public List<Collaborator> Collaborators { get; private set; } = new List<Collaborator>();
 
-    public void UpdateInitialTimeToTask(DateTimeOffset initialTime)
+    public void UpdateInitialTimeToTask(DateTime initialTime)
     {
-        DomainExeptionValidation.When(initialTime < DateTimeOffset.Now.AddMinutes(-10),
+        DomainExeptionValidation.When(initialTime < DateTime.Now.AddMinutes(-10),
             "Invalid initial time, valid initial time is required");
         InitialTime = initialTime;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public void UpdateInitialCoordinateToTask(string initialCoordinate)
@@ -39,7 +36,7 @@ public class Task : BaseAuditableEntity
             "Invalid initial coordinate, valid initial coordinate is required");
         InitialCoordinate = initialCoordinate;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public void UpdateEndCoordinateToTask(string endCoordinate)
@@ -48,16 +45,16 @@ public class Task : BaseAuditableEntity
             "Invalid end coordinate, valid end coordinate is required");
         EndCoordinate = endCoordinate;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
-    public void UpdateExpectedEndTimeToTask(DateTimeOffset expectedEndTime)
+    public void UpdateExpectedEndTimeToTask(DateTime expectedEndTime)
     {
-        DomainExeptionValidation.When(expectedEndTime < DateTimeOffset.Now,
+        DomainExeptionValidation.When(expectedEndTime < DateTime.Now,
             "Invalid end time, valid end time is required");
         ExpectedEndTime = expectedEndTime;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public void UpdateDescriptionToTask(string description)
@@ -65,7 +62,7 @@ public class Task : BaseAuditableEntity
         DomainExeptionValidation.When(description.Length < 3, "Invalid description, valid description is required");
         Description = description;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public void UpdateObservationToTask(string observation)
@@ -73,11 +70,11 @@ public class Task : BaseAuditableEntity
         DomainExeptionValidation.When(observation.Length < 3, "Invalid observation, valid observation is required");
         Observation = observation;
 
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public Task(string initialCoordinate, string endCoordinate,
-        string description, string observation, DateTimeOffset initialTime, DateTimeOffset expectedEndTime)
+        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
     {
         ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
 
@@ -90,15 +87,15 @@ public class Task : BaseAuditableEntity
         ExpectedEndTime = expectedEndTime;
     }
 
-    private void ValidateTask(string initialCoordinate, string endCoordinate, DateTimeOffset initialTime,
-        DateTimeOffset expectedEndTime, string? description, string? observation)
+    private void ValidateTask(string initialCoordinate, string endCoordinate, DateTime initialTime,
+        DateTime expectedEndTime, string? description, string? observation)
     {
         DomainExeptionValidation.When(ValidateCoordinate(initialCoordinate),
             "Invalid initial coordinate, valid initial coordinate is required");
         DomainExeptionValidation.When(ValidateCoordinate(endCoordinate),
             "Invalid end coordinate, valid end coordinate is required");
 
-        DomainExeptionValidation.When(initialTime < DateTimeOffset.Now.AddMinutes(-10),
+        DomainExeptionValidation.When(initialTime < DateTime.Now.AddMinutes(-10),
             "Invalid initial time, valid initial time is required");
         DomainExeptionValidation.When(expectedEndTime < initialTime, "Invalid end time, valid end time is required");
 

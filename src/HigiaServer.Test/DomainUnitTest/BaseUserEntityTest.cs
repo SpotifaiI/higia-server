@@ -6,7 +6,7 @@ public class BaseUserEntityTest
     private static readonly string LastName = "Sobre Nome";
     private static readonly string Address = "email.exemple@gmail.com";
     private static readonly string PhoneNumber = "47 994324914";
-    private static readonly DateTimeOffset Birthday = DateTimeOffset.Now.AddYears(-18);
+    private static readonly DateTime Birthday = DateTime.Now.AddYears(-18);
 
     private readonly BaseUserEntity_TestEntity _baseUserEntity;
 
@@ -75,7 +75,7 @@ public class BaseUserEntityTest
     public void CreateBaseUserEntity_WithInvalidBirthday_ResultObjectInvalidState()
     {
         Action action = () =>
-            new BaseUserEntity_TestEntity(FristName, LastName, Address, PhoneNumber, DateTimeOffset.Now.AddYears(-17));
+            new BaseUserEntity_TestEntity(FristName, LastName, Address, PhoneNumber, DateTime.Now.AddYears(-17));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid birthday, minimum age is 18 years old");
     }
 
@@ -127,7 +127,7 @@ public class BaseUserEntityTest
     [Fact(DisplayName = "Update Address To BaseUserEntity Last Modified At Should Be Updated")]
     public void UpdateAddressToBaseUserEntity_LastModifiedAtShouldBeUpdated()
     {
-        DateTimeOffset oldDate = _baseUserEntity.LastModifiedAt;
+        DateTime oldDate = _baseUserEntity.LastModifiedAt;
         _baseUserEntity.UpdateAdressToUser("email.exemple@gmail.com");
         Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
     }
@@ -135,7 +135,7 @@ public class BaseUserEntityTest
     [Fact(DisplayName = "Update Number Phone To BaseUserEntity Last Modified At Should Be Updated")]
     public void UpdateNumberPhoneToBaseUserEntity_LastModifiedAtShouldBeUpdated()
     {
-        DateTimeOffset oldDate = _baseUserEntity.LastModifiedAt;
+        DateTime oldDate = _baseUserEntity.LastModifiedAt;
         _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
         Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
     }
@@ -144,7 +144,7 @@ public class BaseUserEntityTest
 public class BaseUserEntity_TestEntity : BaseUserEntity
 {
     public BaseUserEntity_TestEntity(string firstName, string lastName, string address, string phoneNumber,
-        DateTimeOffset birthday)
+        DateTime birthday)
         : base(firstName, lastName, address, phoneNumber, birthday)
     {
     }

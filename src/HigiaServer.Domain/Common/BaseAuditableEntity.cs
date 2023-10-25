@@ -2,6 +2,8 @@
 
 public abstract class BaseAuditableEntity : BaseEntity
 {
-    public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.Now;
-    public DateTimeOffset LastModifiedAt { get; protected set; } = DateTimeOffset.Now;
+    public DateTime CreatedAt { get; init; } = DateTime.Now;
+    public DateTime LastModifiedAt { get; protected set; } = DateTime.Now;
+    public Administrator? CreatedBy { get; init; }
+    public Administrator? LastModifiedBy { get; protected set; }
 }

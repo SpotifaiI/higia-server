@@ -8,7 +8,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     public string FirstName { get; protected set; }
     public string LastName { get; protected set; }
     public string Address { get; protected set; }
-    public DateTimeOffset Birthday { get; protected set; }
+    public DateTime Birthday { get; protected set; }
     public string PhoneNumber { get; protected set; }
 
     public void UpdateNumberPhoneToUser(string phoneNumber)
@@ -17,7 +17,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
             "Invalid number phone, valid number phone is required");
 
         PhoneNumber = phoneNumber;
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     public void UpdateAdressToUser(string address)
@@ -26,11 +26,11 @@ public abstract class BaseUserEntity : BaseAuditableEntity
             "Invalid email address, valid email address is required");
             
         Address = address;
-        LastModifiedAt = DateTimeOffset.Now;
+        LastModifiedAt = DateTime.Now;
     }
 
     protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
-        DateTimeOffset birthday)
+        DateTime birthday)
     {
         ValidateUser(firstName, lastName, address, birthday, phoneNumber);
 
@@ -41,7 +41,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         PhoneNumber = phoneNumber;
     }
 
-    protected void ValidateUser(string firstName, string lastName, string address, DateTimeOffset birthday,
+    protected void ValidateUser(string firstName, string lastName, string address, DateTime birthday,
         string phoneNumber)
     {
         DomainExeptionValidation.When(string.IsNullOrEmpty(firstName),
@@ -54,7 +54,7 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         DomainExeptionValidation.When(ValidateAddress(address),
             "Invalid email address, valid email address is required");
 
-        DomainExeptionValidation.When(birthday >= DateTimeOffset.Now.AddYears(-18),
+        DomainExeptionValidation.When(birthday >= DateTime.Now.AddYears(-18),
             "Invalid birthday, minimum age is 18 years old");
         DomainExeptionValidation.When(ValidateNumber(phoneNumber),
             "Invalid number phone, valid number phone is required");
