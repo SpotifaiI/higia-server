@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace HigiaServer.Application;
 
-public class AdministratorDto
+namespace HigiaServer.Application.DTOs;
+
+public class AdministratorDTO
 {
     [Required(ErrorMessage = "First name is required")]
     [MinLength(3, ErrorMessage = "First name must be at least 3 characters long")]

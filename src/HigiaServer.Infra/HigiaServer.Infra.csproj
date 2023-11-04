@@ -11,5 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj" />
+    <ProjectReference Include="..\HigiaServer.Application\HigiaServer.Application.csproj" />
   </ItemGroup>
 </Project>

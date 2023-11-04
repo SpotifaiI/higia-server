@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HigiaServer.Application;
+namespace HigiaServer.Application.DTOs;
 
 public class TaskDTO
 {
@@ -22,4 +22,6 @@ public class TaskDTO
 
     public DateTime EndTime { get; set; }
     public DateTime StartTime { get; set; }
+
+    public List<CollaboratorDTO> Collaborators { get; set; }
 }

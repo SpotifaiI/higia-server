@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HigiaServer.Application;
+namespace HigiaServer.Application.DTOs;
 
 public class CollaboratorDTO
 {
@@ -26,4 +26,6 @@ public class CollaboratorDTO
     [Required(ErrorMessage = "Phone number is required")]
     [Phone(ErrorMessage = "Phone number is not valid")]
     public string PhoneNumber { get; set; }
+
+    public List<TaskDTO> Tasks { get; set; }
 }
