@@ -7,10 +7,12 @@ public class CollaboratorDTO
 {
     [Required(ErrorMessage = "First name is required")]
     [MinLength(3, ErrorMessage = "First name must be at least 3 characters long")]
+    [MaxLength(18, ErrorMessage = "First name must be at most 18 characters long")]
     public string FirstName { get; set; }
 
     [Required(ErrorMessage = "Last name is required")]
     [MinLength(3, ErrorMessage = "Last name must be at least 3 characters long")]
+    [MaxLength(18, ErrorMessage = "Last name must be at most 18 characters long")]
     public string LastName { get; set; }
 
     [Required(ErrorMessage = "Email address is required")]
