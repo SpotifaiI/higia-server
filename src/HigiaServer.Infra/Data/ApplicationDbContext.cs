@@ -3,6 +3,7 @@
 public class ApplicationDbContext : DbContext
 {
     public DbSet<BaseUserEntity> Users { get; set; }
+    public DbSet<Task> Tasks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

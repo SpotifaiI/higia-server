@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HigiaServer.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231025223926_CreatedInitial")]
+    [Migration("20231028024902_CreatedInitial")]
     partial class CreatedInitial
     {
         /// <inheritdoc />
