@@ -1,4 +1,4 @@
-﻿using HigiaServer.Application.DTOs;
+﻿using Task = System.Threading.Tasks.Task;
 
 namespace HigiaServer.Application.Interfaces;
 

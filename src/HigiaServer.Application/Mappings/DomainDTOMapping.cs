@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-
-using HigiaServer.Application.DTOs;
-using HigiaServer.Domain.Entities;
-
-using Task = HigiaServer.Domain.Entities.Task;
+﻿using Task = HigiaServer.Domain.Entities.Task;
 
 namespace HigiaServer.Application.Mappings;
 

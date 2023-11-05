@@ -1,9 +1,21 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+
 namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseAuditableEntity
 {
+    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
+        DateTime birthday)
+    {
+        ValidateUser(firstName, lastName, address, birthday, phoneNumber);
+
+        FirstName = firstName.Trim().ToLower();
+        LastName = lastName.Trim().ToLower();
+        Address = address;
+        Birthday = birthday;
+        PhoneNumber = phoneNumber;
+    }
+
     public bool IsAdmin { get; init; }
     public string FirstName { get; protected set; }
     public string LastName { get; protected set; }
@@ -24,21 +36,9 @@ public abstract class BaseUserEntity : BaseAuditableEntity
     {
         DomainExeptionValidation.When(ValidateAddress(address),
             "Invalid email address, valid email address is required");
-            
+
         Address = address;
         LastModifiedAt = DateTime.Now;
-    }
-
-    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
-        DateTime birthday)
-    {
-        ValidateUser(firstName, lastName, address, birthday, phoneNumber);
-
-        FirstName = firstName.Trim().ToLower();
-        LastName = lastName.Trim().ToLower();
-        Address = address;
-        Birthday = birthday;
-        PhoneNumber = phoneNumber;
     }
 
     protected void ValidateUser(string firstName, string lastName, string address, DateTime birthday,

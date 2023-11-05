@@ -1,12 +1,23 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.RegularExpressions;
-
-using Microsoft.VisualBasic;
+﻿using System.Text.RegularExpressions;
 
 namespace HigiaServer.Domain.Entities;
 
 public class Task : BaseAuditableEntity
 {
+    public Task(string initialCoordinate, string endCoordinate,
+        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
+    {
+        ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
+
+        InitialCoordinate = initialCoordinate;
+        EndCoordinate = endCoordinate;
+        Description = description.Trim();
+        Observation = observation.Trim();
+
+        InitialTime = initialTime;
+        ExpectedEndTime = expectedEndTime;
+    }
+
     public string InitialCoordinate { get; private set; }
     public string EndCoordinate { get; private set; }
 
@@ -16,10 +27,10 @@ public class Task : BaseAuditableEntity
     public DateTime InitialTime { get; private set; }
     public DateTime ExpectedEndTime { get; private set; }
 
-    public DateTime EndTime { get; private set; }
-    public DateTime StartTime { get; private set; }
+    public DateTime EndTime { get; }
+    public DateTime StartTime { get; }
 
-    public List<Collaborator> Collaborators { get; private set; } = new List<Collaborator>();
+    public List<Collaborator> Collaborators { get; private set; } = new();
 
     public void UpdateInitialTimeToTask(DateTime initialTime)
     {
@@ -71,20 +82,6 @@ public class Task : BaseAuditableEntity
         Observation = observation;
 
         LastModifiedAt = DateTime.Now;
-    }
-
-    public Task(string initialCoordinate, string endCoordinate,
-        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
-    {
-        ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
-
-        InitialCoordinate = initialCoordinate;
-        EndCoordinate = endCoordinate;
-        Description = description.Trim();
-        Observation = observation.Trim();
-
-        InitialTime = initialTime;
-        ExpectedEndTime = expectedEndTime;
     }
 
     private void ValidateTask(string initialCoordinate, string endCoordinate, DateTime initialTime,

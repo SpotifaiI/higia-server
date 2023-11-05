@@ -1,4 +1,6 @@
-﻿namespace HigiaServer.Infra.Data;
+﻿using HigiaServer.Infra.Data.Mappings;
+
+namespace HigiaServer.Infra.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -7,8 +9,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new Mappings.BaseUserMap());
-        modelBuilder.ApplyConfiguration(new Mappings.TaskMap());
+        modelBuilder.ApplyConfiguration(new BaseUserMap());
+        modelBuilder.ApplyConfiguration(new TaskMap());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

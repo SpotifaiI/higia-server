@@ -5,7 +5,7 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
     public void Configure(EntityTypeBuilder<BaseUserEntity> builder)
     {
         builder.ToTable("user")
-            .HasDiscriminator<bool>(x => x.IsAdmin)
+            .HasDiscriminator(x => x.IsAdmin)
             .HasValue<Collaborator>(false)
             .HasValue<Administrator>(true);
 
@@ -16,19 +16,19 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnName("id")
             .HasColumnType("uuid")
             .IsRequired();
-        
+
         builder.Property(x => x.FirstName)
             .HasColumnName("first_name")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
-        
+
         builder.Property(x => x.LastName)
             .HasColumnName("last_name")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
 
         builder.Property(x => x.Address)
-            .HasColumnName("address")   
+            .HasColumnName("address")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
 
@@ -51,7 +51,7 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnName("created_at")
             .HasColumnType("TIMESTAMP")
             .IsRequired();
-        
+
         builder.Property(x => x.LastModifiedAt)
             .HasColumnName("last_modified_at")
             .HasColumnType("TIMESTAMP")

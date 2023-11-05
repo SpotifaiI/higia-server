@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using HigiaServer.Application.DTOs;
-using HigiaServer.Application.Interfaces;
-using HigiaServer.Domain.Entities;
-using HigiaServer.Domain.Interfaces;
-
-using Task = System.Threading.Tasks.Task;
+﻿using Task = System.Threading.Tasks.Task;
 
 namespace HigiaServer.Application.Services;
 
@@ -12,6 +6,7 @@ public class AdministratorService : IAdministratorService
 {
     private readonly IAdministratorRepository _administratorRepository;
     private readonly IMapper _mapper;
+
     public AdministratorService(IAdministratorRepository administratorRepository, IMapper mapper)
     {
         _administratorRepository = administratorRepository;
@@ -20,7 +15,7 @@ public class AdministratorService : IAdministratorService
 
     public async Task CreateAdministrator(AdministratorDTO administratorDto)
     {
-        var administrator = _mapper.Map<Administrator>(administratorDto);
+        Administrator? administrator = _mapper.Map<Administrator>(administratorDto);
         await _administratorRepository.CreateAdministrator(administrator);
     }
 
@@ -31,21 +26,21 @@ public class AdministratorService : IAdministratorService
 
     public async Task<AdministratorDTO> GetAdministratorById(Guid id)
     {
-        var administrator = await _administratorRepository.GetAdministratorById(id);
-        var administratorDto = _mapper.Map<AdministratorDTO>(administrator);
+        Administrator administrator = await _administratorRepository.GetAdministratorById(id);
+        AdministratorDTO? administratorDto = _mapper.Map<AdministratorDTO>(administrator);
         return administratorDto;
     }
 
     public async Task<List<AdministratorDTO>> GetAdministrators()
     {
-        var administrators = await _administratorRepository.GetAdministrators();
-        var administratorsDto = _mapper.Map<List<AdministratorDTO>>(administrators);
+        List<Administrator> administrators = await _administratorRepository.GetAdministrators();
+        List<AdministratorDTO>? administratorsDto = _mapper.Map<List<AdministratorDTO>>(administrators);
         return administratorsDto;
     }
 
     public async Task UpdateAdministrator(AdministratorDTO administratorDto)
     {
-        var administrator = _mapper.Map<Administrator>(administratorDto);
+        Administrator? administrator = _mapper.Map<Administrator>(administratorDto);
         await _administratorRepository.UpdateAdministrator(administrator);
     }
 }

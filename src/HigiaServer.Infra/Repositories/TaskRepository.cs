@@ -5,7 +5,8 @@ namespace HigiaServer.Infra.Repositories;
 
 public class TaskRepository : ITaskRepository
 {
-    readonly ApplicationDbContext _taskContext;
+    private readonly ApplicationDbContext _taskContext;
+
     public TaskRepository(ApplicationDbContext taskContext)
     {
         _taskContext = taskContext;
@@ -28,7 +29,7 @@ public class TaskRepository : ITaskRepository
 
     public async Task<Task> GetTaskById(Guid id)
     {
-        var task = await _taskContext.Tasks
+        Task? task = await _taskContext.Tasks
             .Where(x => x.Id == id).FirstOrDefaultAsync();
 
         return task!;
