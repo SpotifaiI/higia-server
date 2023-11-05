@@ -46,4 +46,13 @@ public class CollaboratorRepository : ICollaboratorRepository
         await _collaboratorContext.SaveChangesAsync();
         return collaborator;
     }
+
+    public async Task<Collaborator> AddTask(Guid id, Task task)
+    {
+        var collaborator = await GetCollaboratorById(id);
+        collaborator.Tasks.Add(task);
+        await _collaboratorContext.SaveChangesAsync();
+        
+        return collaborator;
+    }
 }

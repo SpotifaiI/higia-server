@@ -8,4 +8,6 @@ public interface ICollaboratorRepository
     Task<Collaborator> CreateCollaborator(Collaborator collaborator);
     Task<Collaborator> UpdateCollaborator(Collaborator collaborator);
     Task<Collaborator> DeleteCollaborator(Guid id);
+
+    Task<Collaborator> AddTask(Guid id, Entities.Task task);
 }
