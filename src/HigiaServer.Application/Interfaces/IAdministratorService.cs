@@ -4,10 +4,10 @@ namespace HigiaServer.Application.Interfaces;
 
 public interface IAdministratorService
 {
-    Task<List<AdministratorDTO>> GetAdministratorDTOs();
-    Task<AdministratorDTO> GetAdministratorDTOById(Guid id);
+    Task<List<AdministratorDTO>> GetAdministrators();
+    Task<AdministratorDTO> GetAdministratorById(Guid id);
     
-    Task<AdministratorDTO> CreateAdministratorDTO(AdministratorDTO administrator);
-    Task<AdministratorDTO> UpdateAdministrator(AdministratorDTO administrator);
-    Task<AdministratorDTO> DeleteAdministrator(Guid id);
+    Task CreateAdministrator(AdministratorDTO administratorDto);
+    Task UpdateAdministrator(AdministratorDTO administratorDto);
+    Task DeleteAdministrator(Guid id);
 }
