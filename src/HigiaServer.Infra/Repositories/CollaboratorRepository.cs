@@ -5,7 +5,8 @@ namespace HigiaServer.Infra.Repositories;
 
 public class CollaboratorRepository : ICollaboratorRepository
 {
-    readonly ApplicationDbContext _collaboratorContext;
+    private readonly ApplicationDbContext _collaboratorContext;
+
     public CollaboratorRepository(ApplicationDbContext collaboratorContext)
     {
         _collaboratorContext = collaboratorContext;
@@ -28,7 +29,7 @@ public class CollaboratorRepository : ICollaboratorRepository
 
     public async Task<Collaborator> GetCollaboratorById(Guid id)
     {
-        var collaborator = await _collaboratorContext.Users
+        Collaborator? collaborator = await _collaboratorContext.Users
             .OfType<Collaborator>().Where(x => x.Id == id).FirstOrDefaultAsync();
 
         return collaborator!;
@@ -49,10 +50,10 @@ public class CollaboratorRepository : ICollaboratorRepository
 
     public async Task<Collaborator> AddTask(Guid id, Task task)
     {
-        var collaborator = await GetCollaboratorById(id);
+        Collaborator collaborator = await GetCollaboratorById(id);
         collaborator.Tasks.Add(task);
         await _collaboratorContext.SaveChangesAsync();
-        
+
         return collaborator;
     }
 }

@@ -5,7 +5,8 @@ namespace HigiaServer.Infra.Repositories;
 
 public class AdminsistratorRepository : IAdministratorRepository
 {
-    readonly ApplicationDbContext _administratorContext;
+    private readonly ApplicationDbContext _administratorContext;
+
     public AdminsistratorRepository(ApplicationDbContext administratorContext)
     {
         _administratorContext = administratorContext;
@@ -28,7 +29,7 @@ public class AdminsistratorRepository : IAdministratorRepository
 
     public async Task<Administrator> GetAdministratorById(Guid id)
     {
-        var administrator = await _administratorContext.Users
+        Administrator? administrator = await _administratorContext.Users
             .OfType<Administrator>().Where(x => x.Id == id).FirstOrDefaultAsync();
 
         return administrator!;

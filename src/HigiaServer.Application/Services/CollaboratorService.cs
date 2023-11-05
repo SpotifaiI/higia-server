@@ -1,17 +1,12 @@
-﻿using AutoMapper;
-
-using HigiaServer.Application.DTOs;
-using HigiaServer.Application.Interfaces;
-using HigiaServer.Domain.Entities;
-using HigiaServer.Domain.Interfaces;
-using Task = System.Threading.Tasks.Task;
+﻿using Task = System.Threading.Tasks.Task;
 
 namespace HigiaServer.Application.Services;
 
 public class CollaboratorService : ICollaboratorService
-{   
-    private readonly IMapper _mapper;
+{
     private readonly ICollaboratorRepository _collaboratorRepository;
+    private readonly IMapper _mapper;
+
     public CollaboratorService(ICollaboratorRepository collaboratorRepository, IMapper mapper)
     {
         _collaboratorRepository = collaboratorRepository;
@@ -20,7 +15,7 @@ public class CollaboratorService : ICollaboratorService
 
     public async Task CreateCollaborator(CollaboratorDTO collaboratorDto)
     {
-        var collaborator = _mapper.Map<Collaborator>(collaboratorDto);
+        Collaborator? collaborator = _mapper.Map<Collaborator>(collaboratorDto);
         await _collaboratorRepository.CreateCollaborator(collaborator);
     }
 
@@ -31,21 +26,21 @@ public class CollaboratorService : ICollaboratorService
 
     public async Task<CollaboratorDTO> GetCollaboratorById(Guid id)
     {
-        var collaborator = await _collaboratorRepository.GetCollaboratorById(id);
-        var collaboratorDto = _mapper.Map<CollaboratorDTO>(collaborator);
+        Collaborator collaborator = await _collaboratorRepository.GetCollaboratorById(id);
+        CollaboratorDTO? collaboratorDto = _mapper.Map<CollaboratorDTO>(collaborator);
         return collaboratorDto;
     }
 
     public async Task<List<CollaboratorDTO>> GetCollaborators()
     {
-        var collaborators = await _collaboratorRepository.GetCollaborators();
-        var collaboratorsDto = _mapper.Map<List<CollaboratorDTO>>(collaborators);
+        List<Collaborator> collaborators = await _collaboratorRepository.GetCollaborators();
+        List<CollaboratorDTO>? collaboratorsDto = _mapper.Map<List<CollaboratorDTO>>(collaborators);
         return collaboratorsDto;
     }
 
     public async Task UpdateCollaborator(CollaboratorDTO collaboratorDto)
     {
-        var collaborator = _mapper.Map<Collaborator>(collaboratorDto);
+        Collaborator? collaborator = _mapper.Map<Collaborator>(collaboratorDto);
         await _collaboratorRepository.UpdateCollaborator(collaborator);
     }
 

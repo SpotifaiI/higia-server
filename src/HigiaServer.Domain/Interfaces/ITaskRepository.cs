@@ -1,11 +1,13 @@
-﻿namespace HigiaServer.Domain.Interfaces;
+﻿using Task = HigiaServer.Domain.Entities.Task;
+
+namespace HigiaServer.Domain.Interfaces;
 
 public interface ITaskRepository
 {
-    Task<List<Entities.Task>> GetTasks();
-    Task<Entities.Task> GetTaskById(Guid id);
-    
-    Task<Entities.Task> CreateTask(Entities.Task task);
-    Task<Entities.Task> UpdateTask(Entities.Task task);
-    Task<Entities.Task> DeleteTask(Guid id);
+    Task<List<Task>> GetTasks();
+    Task<Task> GetTaskById(Guid id);
+
+    Task<Task> CreateTask(Task task);
+    Task<Task> UpdateTask(Task task);
+    Task<Task> DeleteTask(Guid id);
 }

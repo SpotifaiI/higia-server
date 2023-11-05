@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace HigiaServer.Application.DTOs;
+﻿namespace HigiaServer.Application.DTOs;
 
 public class TaskDTO
 {
@@ -9,7 +7,7 @@ public class TaskDTO
 
     [Required(ErrorMessage = "End coordinate is required")]
     public string EndCoordinate { get; set; }
-    
+
     [MinLength(3, ErrorMessage = "Description must be at least 3 characters long")]
     [MaxLength(64, ErrorMessage = "Description must be at most 18 characters long")]
     public string? Description { get; set; }

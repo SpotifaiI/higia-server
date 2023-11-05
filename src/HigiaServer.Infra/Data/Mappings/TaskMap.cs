@@ -10,7 +10,7 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .UsingEntity<Dictionary<string, object>>(
                 "task_user",
                 x => x.HasOne<Collaborator>().WithMany().HasForeignKey("user_id"),
-                x => x.HasOne<Domain.Entities.Task>().WithMany().HasForeignKey("task_id"),
+                x => x.HasOne<Task>().WithMany().HasForeignKey("task_id"),
                 x => x.HasKey("user_id", "task_id")
             );
 
@@ -31,7 +31,7 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .HasColumnName("final_coordinate")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
-        
+
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
             .HasColumnType("TIMESTAMP")
@@ -51,7 +51,7 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .HasColumnName("last_modified_by")
             .HasColumnType("uuid")
             .IsRequired();
-        
+
         builder.Property(x => x.Description)
             .HasColumnName("description")
             .HasColumnType("NVARCHAR(255)")
@@ -61,7 +61,7 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .HasColumnName("observation")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
-        
+
         builder.Property(x => x.InitialCoordinate)
             .HasColumnName("initial_coordinate")
             .HasColumnType("NVARCHAR(255)")
@@ -86,5 +86,5 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .HasColumnName("start_time")
             .HasColumnType("TIMESTAMP")
             .IsRequired();
-    }   
+    }
 }

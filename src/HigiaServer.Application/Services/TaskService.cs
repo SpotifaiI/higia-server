@@ -1,15 +1,12 @@
-﻿using AutoMapper;
+﻿using Task = System.Threading.Tasks.Task;
 
-using HigiaServer.Application.DTOs;
-using HigiaServer.Application.Interfaces;
-using HigiaServer.Domain.Interfaces;
-
-namespace HigiaServer.Application;
+namespace HigiaServer.Application.Services;
 
 public class TaskService : ITaskService
 {
-    private readonly ITaskRepository _taskRepository;
     private readonly IMapper _mapper;
+    private readonly ITaskRepository _taskRepository;
+
     public TaskService(ITaskRepository taskRepository, IMapper mapper)
     {
         _taskRepository = taskRepository;
@@ -18,7 +15,7 @@ public class TaskService : ITaskService
 
     public async Task CreateTask(TaskDTO taskDto)
     {
-        var task = _mapper.Map<Domain.Entities.Task>(taskDto);
+        Domain.Entities.Task? task = _mapper.Map<Domain.Entities.Task>(taskDto);
         await _taskRepository.CreateTask(task);
     }
 
@@ -29,23 +26,23 @@ public class TaskService : ITaskService
 
     public async Task<TaskDTO> GetTaskById(Guid id)
     {
-        var task = await _taskRepository.GetTaskById(id);
-        var taskDto = _mapper.Map<TaskDTO>(task);
-        
+        Domain.Entities.Task task = await _taskRepository.GetTaskById(id);
+        TaskDTO? taskDto = _mapper.Map<TaskDTO>(task);
+
         return taskDto;
     }
 
     public async Task<List<TaskDTO>> GetTasks()
     {
-        var tasks = await _taskRepository.GetTasks();
-        var tasksDto = _mapper.Map<List<TaskDTO>>(tasks);
+        List<Domain.Entities.Task> tasks = await _taskRepository.GetTasks();
+        List<TaskDTO>? tasksDto = _mapper.Map<List<TaskDTO>>(tasks);
 
         return tasksDto;
     }
 
     public async Task UpdateTask(TaskDTO taskDto)
     {
-        var task = _mapper.Map<Domain.Entities.Task>(taskDto);
+        Domain.Entities.Task? task = _mapper.Map<Domain.Entities.Task>(taskDto);
         await _taskRepository.UpdateTask(task);
     }
 }

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace HigiaServer.Application.DTOs;
+﻿namespace HigiaServer.Application.DTOs;
 
 public class CollaboratorDTO
 {

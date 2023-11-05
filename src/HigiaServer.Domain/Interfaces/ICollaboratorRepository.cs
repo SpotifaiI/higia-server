@@ -1,4 +1,6 @@
-﻿namespace HigiaServer.Domain.Interfaces;
+﻿using Task = HigiaServer.Domain.Entities.Task;
+
+namespace HigiaServer.Domain.Interfaces;
 
 public interface ICollaboratorRepository
 {
@@ -9,5 +11,5 @@ public interface ICollaboratorRepository
     Task<Collaborator> UpdateCollaborator(Collaborator collaborator);
     Task<Collaborator> DeleteCollaborator(Guid id);
 
-    Task<Collaborator> AddTask(Guid id, Entities.Task task);
+    Task<Collaborator> AddTask(Guid id, Task task);
 }
