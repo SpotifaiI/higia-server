@@ -1,5 +1,4 @@
-﻿using HigiaServer.Domain.Interfaces;
-using HigiaServer.Infra.Data;
+﻿using HigiaServer.Infra.Data;
 
 namespace HigiaServer.Infra.Repositories;
 

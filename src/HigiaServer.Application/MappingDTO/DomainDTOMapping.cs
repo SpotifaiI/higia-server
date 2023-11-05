@@ -1,10 +1,10 @@
 ﻿using Task = HigiaServer.Domain.Entities.Task;
 
-namespace HigiaServer.Application.Mappings;
+namespace HigiaServer.Application.MappingDTO;
 
-public class DomainDTOMappings : Profile
+public class DomainDTOMapping : Profile
 {
-    public DomainDTOMappings()
+    public DomainDTOMapping()
     {
         CreateMap<Administrator, AdministratorDTO>().ReverseMap();
         CreateMap<Collaborator, CollaboratorDTO>().ReverseMap();
