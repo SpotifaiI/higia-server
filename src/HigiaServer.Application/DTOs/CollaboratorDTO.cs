@@ -1,7 +1,9 @@
 ﻿namespace HigiaServer.Application.DTOs;
 
 public class CollaboratorDTO
-{
+{   
+    [Key] public Guid Id { get; set; }
+
     [Required(ErrorMessage = "First name is required")]
     [MinLength(3, ErrorMessage = "First name must be at least 3 characters long")]
     [MaxLength(18, ErrorMessage = "First name must be at most 18 characters long")]

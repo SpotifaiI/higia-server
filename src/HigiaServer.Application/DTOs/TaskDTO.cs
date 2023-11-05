@@ -2,6 +2,8 @@
 
 public class TaskDTO
 {
+    [Key] public Guid Id { get; set; }
+
     [Required(ErrorMessage = "Initial coordinate is required")]
     public string InitialCoordinate { get; set; }
 
