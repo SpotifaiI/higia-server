@@ -46,25 +46,5 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnName("phone_number")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
-
-        builder.Property(x => x.CreatedAt)
-            .HasColumnName("created_at")
-            .HasColumnType("TIMESTAMP")
-            .IsRequired();
-
-        builder.Property(x => x.LastModifiedAt)
-            .HasColumnName("last_modified_at")
-            .HasColumnType("TIMESTAMP")
-            .IsRequired();
-
-        builder.Property(x => x.CreatedBy)
-            .HasColumnName("created_by")
-            .HasColumnType("uuid")
-            .IsRequired();
-
-        builder.Property(x => x.LastModifiedBy)
-            .HasColumnName("last_modified_by")
-            .HasColumnType("uuid")
-            .IsRequired();
     }
 }

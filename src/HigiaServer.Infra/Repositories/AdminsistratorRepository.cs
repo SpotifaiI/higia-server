@@ -2,11 +2,11 @@
 
 namespace HigiaServer.Infra.Repositories;
 
-public class AdminsistratorRepository : IAdministratorRepository
+public class AdministratorRepository : IAdministratorRepository
 {
     private readonly ApplicationDbContext _administratorContext;
 
-    public AdminsistratorRepository(ApplicationDbContext administratorContext)
+    public AdministratorRepository(ApplicationDbContext administratorContext)
     {
         _administratorContext = administratorContext;
     }
