@@ -15,7 +15,7 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(DomainDTOMapping));
 
         services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
-        services.AddScoped<IAdministratorRepository, AdminsistratorRepository>();
+        services.AddScoped<IAdministratorRepository, AdministratorRepository>();
         services.AddScoped<ITaskRepository, TaskRepository>();
 
         services.AddScoped<ICollaboratorService, CollaboratorService>();

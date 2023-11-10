@@ -2,8 +2,15 @@
 
 namespace HigiaServer.Domain.Common;
 
-public abstract class BaseUserEntity : BaseAuditableEntity
+public abstract class BaseUserEntity : BaseEntity
 {
+    public bool IsAdmin { get; init; }
+    public string FirstName { get; protected set; }
+    public string LastName { get; protected set; }
+    public string Address { get; protected set; }
+    public DateTime Birthday { get; protected set; }
+    public string PhoneNumber { get; protected set; }
+
     protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
         DateTime birthday)
     {
@@ -16,30 +23,23 @@ public abstract class BaseUserEntity : BaseAuditableEntity
         PhoneNumber = phoneNumber;
     }
 
-    public bool IsAdmin { get; init; }
-    public string FirstName { get; protected set; }
-    public string LastName { get; protected set; }
-    public string Address { get; protected set; }
-    public DateTime Birthday { get; protected set; }
-    public string PhoneNumber { get; protected set; }
+    // public void UpdateNumberPhoneToUser(string phoneNumber)
+    // {
+    //     DomainExeptionValidation.When(ValidateNumber(phoneNumber),
+    //         "Invalid number phone, valid number phone is required");
 
-    public void UpdateNumberPhoneToUser(string phoneNumber)
-    {
-        DomainExeptionValidation.When(ValidateNumber(phoneNumber),
-            "Invalid number phone, valid number phone is required");
+    //     PhoneNumber = phoneNumber;
+    //     LastModifiedAt = DateTime.Now;
+    // }
 
-        PhoneNumber = phoneNumber;
-        LastModifiedAt = DateTime.Now;
-    }
+    // public void UpdateAdressToUser(string address)
+    // {
+    //     DomainExeptionValidation.When(ValidateAddress(address),
+    //         "Invalid email address, valid email address is required");
 
-    public void UpdateAdressToUser(string address)
-    {
-        DomainExeptionValidation.When(ValidateAddress(address),
-            "Invalid email address, valid email address is required");
-
-        Address = address;
-        LastModifiedAt = DateTime.Now;
-    }
+    //     Address = address;
+    //     LastModifiedAt = DateTime.Now;
+    // }
 
     protected void ValidateUser(string firstName, string lastName, string address, DateTime birthday,
         string phoneNumber)

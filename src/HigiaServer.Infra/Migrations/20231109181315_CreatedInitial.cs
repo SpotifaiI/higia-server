@@ -23,11 +23,7 @@ namespace HigiaServer.Infra.Migrations
                     InitialTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     expected_end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    start_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    last_modified_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    created_by = table.Column<byte[]>(type: "uuid", nullable: false),
-                    last_modified_by = table.Column<byte[]>(type: "uuid", nullable: false)
+                    start_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,11 +40,7 @@ namespace HigiaServer.Infra.Migrations
                     last_name = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
                     address = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
                     birthday = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    phone_number = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    last_modified_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    created_by = table.Column<byte[]>(type: "uuid", nullable: false),
-                    last_modified_by = table.Column<byte[]>(type: "uuid", nullable: false)
+                    phone_number = table.Column<string>(type: "NVARCHAR(255)", nullable: false)
                 },
                 constraints: table =>
                 {

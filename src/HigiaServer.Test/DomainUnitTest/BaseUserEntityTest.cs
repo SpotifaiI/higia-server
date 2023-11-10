@@ -91,54 +91,55 @@ public class BaseUserEntityTest
             .WithMessage("Invalid number phone, valid number phone is required");
     }
 
-    [Fact(DisplayName = "Update Number Phone To BaseUserEntity With Valid State")]
-    public void UpdateNumberPhoneToBaseUserEntity_WithValidParameters_ResultObjectValidState()
-    {
-        Action action = () => _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
-        action.Should().NotThrow<DomainExeptionValidation>();
-    }
+//     [Fact(DisplayName = "Update Number Phone To BaseUserEntity With Valid State")]
+//     public void UpdateNumberPhoneToBaseUserEntity_WithValidParameters_ResultObjectValidState()
+//     {
+//         Action action = () => _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
+//         action.Should().NotThrow<DomainExeptionValidation>();
+//     }
 
-    [Theory(DisplayName = "Update Number Phone To BaseUserEntity With Invalid Number Phone")]
-    [InlineData(null)]
-    [InlineData("11 9943249141891")]
-    [InlineData("43 994324914a")]
-    [InlineData("")]
-    public void UpdateNumberPhoneToBaseUserEntity_WithInvalidNumberPhone_ResultObjectInvalidState(string numberPhone)
-    {
-        Action action = () => _baseUserEntity.UpdateNumberPhoneToUser(numberPhone);
-        action.Should().Throw<DomainExeptionValidation>()
-            .WithMessage("Invalid number phone, valid number phone is required");
-    }
+//     [Theory(DisplayName = "Update Number Phone To BaseUserEntity With Invalid Number Phone")]
+//     [InlineData(null)]
+//     [InlineData("11 9943249141891")]
+//     [InlineData("43 994324914a")]
+//     [InlineData("")]
+//     public void UpdateNumberPhoneToBaseUserEntity_WithInvalidNumberPhone_ResultObjectInvalidState(string numberPhone)
+//     {
+//         Action action = () => _baseUserEntity.UpdateNumberPhoneToUser(numberPhone);
+//         action.Should().Throw<DomainExeptionValidation>()
+//             .WithMessage("Invalid number phone, valid number phone is required");
+//     }
 
-    [Theory(DisplayName = "Update Address To BaseUserEntity With Valid State")]
-    [InlineData("email.exemple")]
-    [InlineData("email.exemple@")]
-    [InlineData("email.exemple@gmail")]
-    [InlineData("email.exemple@gmail.")]
-    [InlineData("")]
-    [InlineData(null)]
-    public void UpdateAddressToBaseUserEntity_WithInvalidAddress_ResultObjectInvalidState(string address)
-    {
-        Action action = () => _baseUserEntity.UpdateAdressToUser(address);
-        action.Should().Throw<DomainExeptionValidation>()
-            .WithMessage("Invalid email address, valid email address is required");
-    }
+//     [Theory(DisplayName = "Update Address To BaseUserEntity With Valid State")]
+//     [InlineData("email.exemple")]
+//     [InlineData("email.exemple@")]
+//     [InlineData("email.exemple@gmail")]
+//     [InlineData("email.exemple@gmail.")]
+//     [InlineData("")]
+//     [InlineData(null)]
+//     public void UpdateAddressToBaseUserEntity_WithInvalidAddress_ResultObjectInvalidState(string address)
+//     {
+//         Action action = () => _baseUserEntity.UpdateAdressToUser(address);
+//         action.Should().Throw<DomainExeptionValidation>()
+//             .WithMessage("Invalid email address, valid email address is required");
+//     }
 
-    [Fact(DisplayName = "Update Address To BaseUserEntity Last Modified At Should Be Updated")]
-    public void UpdateAddressToBaseUserEntity_LastModifiedAtShouldBeUpdated()
-    {
-        DateTime oldDate = _baseUserEntity.LastModifiedAt;
-        _baseUserEntity.UpdateAdressToUser("email.exemple@gmail.com");
-        Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
-    }
+//     [Fact(DisplayName = "Update Address To BaseUserEntity Last Modified At Should Be Updated")]
+//     public void UpdateAddressToBaseUserEntity_LastModifiedAtShouldBeUpdated()
+//     {
+//         DateTime oldDate = _baseUserEntity.LastModifiedAt;
+//         _baseUserEntity.UpdateAdressToUser("email.exemple@gmail.com");
+//         Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
+//     }
 
-    [Fact(DisplayName = "Update Number Phone To BaseUserEntity Last Modified At Should Be Updated")]
-    public void UpdateNumberPhoneToBaseUserEntity_LastModifiedAtShouldBeUpdated()
-    {
-        DateTime oldDate = _baseUserEntity.LastModifiedAt;
-        _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
-        Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
-    }
+//     [Fact(DisplayName = "Update Number Phone To BaseUserEntity Last Modified At Should Be Updated")]
+//     public void UpdateNumberPhoneToBaseUserEntity_LastModifiedAtShouldBeUpdated()
+//     {
+//         DateTime oldDate = _baseUserEntity.LastModifiedAt;
+//         _baseUserEntity.UpdateNumberPhoneToUser("47 994324914");
+//         Assert.True(_baseUserEntity.LastModifiedAt > oldDate);
+//     }
+// }
 }
 
 public class BaseUserEntity_TestEntity : BaseUserEntity

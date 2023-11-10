@@ -1,6 +1,6 @@
 ﻿namespace HigiaServer.Application.DTOs;
 
-public class AdministratorDTO
+public record AdministratorDTO
 {
     [Key] public Guid Id { get; set; }
 
