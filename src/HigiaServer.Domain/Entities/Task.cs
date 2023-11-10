@@ -7,8 +7,8 @@ public class Task : BaseEntity
     public string InitialCoordinate { get; private set; }
     public string EndCoordinate { get; private set; }
 
-    public string? Description { get; private set; }
-    public string? Observation { get; private set; }
+    public string? Description { get; private set; } = string.Empty;
+    public string? Observation { get; private set; } = string.Empty;
 
     public DateTime InitialTime { get; private set; }
     public DateTime ExpectedEndTime { get; private set; }
