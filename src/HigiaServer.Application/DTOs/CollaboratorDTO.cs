@@ -1,6 +1,6 @@
 ﻿namespace HigiaServer.Application.DTOs;
 
-public class CollaboratorDTO
+public record CollaboratorDTO
 {
     [Key] public Guid Id { get; set; }
 

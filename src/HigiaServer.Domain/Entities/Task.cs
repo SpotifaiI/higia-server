@@ -4,20 +4,6 @@ namespace HigiaServer.Domain.Entities;
 
 public class Task : BaseEntity
 {
-    public Task(string initialCoordinate, string endCoordinate,
-        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
-    {
-        ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
-
-        InitialCoordinate = initialCoordinate;
-        EndCoordinate = endCoordinate;
-        Description = description.Trim();
-        Observation = observation.Trim();
-
-        InitialTime = initialTime;
-        ExpectedEndTime = expectedEndTime;
-    }
-
     public string InitialCoordinate { get; private set; }
     public string EndCoordinate { get; private set; }
 
@@ -31,6 +17,20 @@ public class Task : BaseEntity
     public DateTime StartTime { get; }
 
     public List<Collaborator> Collaborators { get; private set; } = new();
+
+    public Task(string initialCoordinate, string endCoordinate,
+        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
+    {
+        ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
+
+        InitialCoordinate = initialCoordinate;
+        EndCoordinate = endCoordinate;
+        Description = description.Trim();
+        Observation = observation.Trim();
+
+        InitialTime = initialTime;
+        ExpectedEndTime = expectedEndTime;
+    }
 
     // public void UpdateInitialTimeToTask(DateTime initialTime)
     // {

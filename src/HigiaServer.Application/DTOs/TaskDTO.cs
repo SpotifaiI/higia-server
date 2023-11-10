@@ -1,6 +1,6 @@
 ﻿namespace HigiaServer.Application.DTOs;
 
-public class TaskDTO
+public record TaskDTO
 {
     [Key] public Guid Id { get; set; }
 
