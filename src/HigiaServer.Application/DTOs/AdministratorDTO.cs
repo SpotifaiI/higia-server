@@ -2,7 +2,7 @@
 
 public record AdministratorDTO
 {
-    [Key] public Guid Id { get; set; }
+    [Key] public Guid? Id { get; set; }
 
     [Required(ErrorMessage = "First name is required")]
     [MinLength(3, ErrorMessage = "First name must be at least 3 characters long")]

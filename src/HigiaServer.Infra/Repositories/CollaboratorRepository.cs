@@ -50,7 +50,7 @@ public class CollaboratorRepository : ICollaboratorRepository
     public async Task<Collaborator> AddTask(Guid id, Task task)
     {
         Collaborator collaborator = await GetCollaboratorById(id);
-        collaborator.Tasks.Add(task);
+        collaborator.Tasks!.Add(task);
         await _collaboratorContext.SaveChangesAsync();
 
         return collaborator;

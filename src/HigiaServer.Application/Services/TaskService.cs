@@ -45,4 +45,12 @@ public class TaskService : ITaskService
         Domain.Entities.Task? task = _mapper.Map<Domain.Entities.Task>(taskDto);
         await _taskRepository.UpdateTask(task);
     }
+
+    public async Task<TaskDTO> AddCollaborator(TaskDTO taskDto, CollaboratorDTO collaboratorDto)
+    {
+        Domain.Entities.Task? task = _mapper.Map<Domain.Entities.Task>(taskDto);
+        Collaborator? collaborator = _mapper.Map<Domain.Entities.Collaborator>(collaboratorDto);
+        
+        return _mapper.Map<TaskDTO>(await _taskRepository.AddCollaborator(task, collaborator));
+    }
 }

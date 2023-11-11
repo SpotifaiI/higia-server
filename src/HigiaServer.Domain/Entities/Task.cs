@@ -16,7 +16,7 @@ public class Task : BaseEntity
     public DateTime EndTime { get; }
     public DateTime StartTime { get; }
 
-    public List<Collaborator> Collaborators { get; private set; } = new();
+    public List<Collaborator> ?Collaborators { get; private set; } = new();
 
     public Task(string initialCoordinate, string endCoordinate,
         string description, string observation, DateTime initialTime, DateTime expectedEndTime)
@@ -30,6 +30,13 @@ public class Task : BaseEntity
 
         InitialTime = initialTime;
         ExpectedEndTime = expectedEndTime;
+    }
+
+    public void AddCollaborator(Collaborator collaborator)
+    {
+        DomainExeptionValidation.When(Collaborators.Contains(collaborator),
+            "Collaborator already exists in this task");
+        Collaborators.Add(collaborator);
     }
 
     // public void UpdateInitialTimeToTask(DateTime initialTime)

@@ -45,4 +45,13 @@ public class TaskRepository : ITaskRepository
         await _taskContext.SaveChangesAsync();
         return task;
     }
+
+    public async Task<Task> AddCollaborator(Task task, Collaborator collaborator)
+    {
+        task.Collaborators!.Add(collaborator);
+        _taskContext.Update(task);
+        
+        await _taskContext.SaveChangesAsync();
+        return task;
+    }
 }

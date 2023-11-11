@@ -50,7 +50,7 @@ public class AdministratorController : ControllerBase
         try
         {
             await _administratorService.CreateAdministrator(administratorDTO);
-            return Created("Administrator created successfully", administratorDTO);
+            return StatusCode(201, "Administrator created successfully");
         }
         catch (Exception error)
         {
