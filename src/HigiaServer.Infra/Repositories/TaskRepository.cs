@@ -46,7 +46,7 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task<Task> AddCollaborator(Task task, Collaborator collaborator)
+    public async Task<Task> AddCollaborator(Collaborator collaborator, Task task)
     {
         task.Collaborators!.Add(collaborator);
         _taskContext.Update(task);

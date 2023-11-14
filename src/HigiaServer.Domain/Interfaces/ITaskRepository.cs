@@ -11,5 +11,5 @@ public interface ITaskRepository
     Task<Task> UpdateTask(Task task);
     Task<Task> DeleteTask(Guid id);
 
-    Task<Task> AddCollaborator(Task task, Collaborator collaborator);
+    Task<Task> AddCollaborator(Collaborator collaborator, Task task);
 }

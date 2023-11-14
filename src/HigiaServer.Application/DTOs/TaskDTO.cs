@@ -20,8 +20,8 @@ public record TaskDTO
     public DateTime InitialTime { get; set; }
     public DateTime ExpectedEndTime { get; set; }
 
-    public DateTime EndTime { get; set; }
-    public DateTime StartTime { get; set; }
+    public DateTime ?EndTime { get; set; }
+    public DateTime ?StartTime { get; set; }
 
     public List<CollaboratorDTO>? Collaborators { get; set; }
 }

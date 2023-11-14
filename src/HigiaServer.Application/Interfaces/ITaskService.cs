@@ -10,4 +10,6 @@ public interface ITaskService
     Task CreateTask(TaskDTO taskDto);
     Task UpdateTask(TaskDTO taskDto);
     Task DeleteTask(Guid id);
+
+    Task<TaskDTO> AddCollaboratorToTask(Guid idCollaborator, Guid idTask);
 }

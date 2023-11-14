@@ -7,26 +7,26 @@ public class Task : BaseEntity
     public string InitialCoordinate { get; private set; }
     public string EndCoordinate { get; private set; }
 
-    public string? Description { get; private set; } = string.Empty;
-    public string? Observation { get; private set; } = string.Empty;
+    public string? Description { get; private set; }
+    public string? Observation { get; private set; }
 
     public DateTime InitialTime { get; private set; }
     public DateTime ExpectedEndTime { get; private set; }
 
-    public DateTime EndTime { get; }
-    public DateTime StartTime { get; }
+    public DateTime ?EndTime { get; }
+    public DateTime ?StartTime { get; }
 
     public List<Collaborator> ?Collaborators { get; private set; } = new();
 
     public Task(string initialCoordinate, string endCoordinate,
-        string description, string observation, DateTime initialTime, DateTime expectedEndTime)
+        string ?description, string ?observation, DateTime initialTime, DateTime expectedEndTime)
     {
         ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
 
         InitialCoordinate = initialCoordinate;
         EndCoordinate = endCoordinate;
-        Description = description.Trim();
-        Observation = observation.Trim();
+        Description = description?.Trim();
+        Observation = observation?.Trim();
 
         InitialTime = initialTime;
         ExpectedEndTime = expectedEndTime;
