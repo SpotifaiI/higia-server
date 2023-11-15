@@ -34,7 +34,7 @@ public class Task : BaseEntity
 
     public void AddCollaborator(Collaborator collaborator)
     {
-        DomainExeptionValidation.When(Collaborators.Contains(collaborator),
+        DomainExeptionValidation.When(Collaborators!.Contains(collaborator),
             "Collaborator already exists in this task");
         Collaborators.Add(collaborator);
     }

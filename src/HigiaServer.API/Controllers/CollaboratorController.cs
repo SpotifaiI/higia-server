@@ -47,6 +47,8 @@ public class CollaboratorController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCollaborator(CollaboratorDTO collaboratorDTO)
     {
+        if(!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+        
         try
         {
             await _collaboratorService.CreateCollaborator(collaboratorDTO);
@@ -61,6 +63,8 @@ public class CollaboratorController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCollaborator(CollaboratorDTO collaboratorDTO)
     {
+        if(!ModelState.IsValid) return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+
         try
         {
             await _collaboratorService.UpdateCollaborator(collaboratorDTO);
