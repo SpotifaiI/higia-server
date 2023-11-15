@@ -50,7 +50,7 @@ public class TaskRepository : ITaskRepository
     {
         task.Collaborators!.Add(collaborator);
         _taskContext.Update(task);
-        
+
         await _taskContext.SaveChangesAsync();
         return task;
     }

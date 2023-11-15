@@ -12,16 +12,16 @@ public record TaskDTO
 
     [MinLength(3, ErrorMessage = "Description must be at least 3 characters long")]
     [MaxLength(64, ErrorMessage = "Description must be at most 18 characters long")]
-    public string ?Description { get; set; }
+    public string? Description { get; set; }
 
     [MaxLength(244, ErrorMessage = "Observation must be at most 244 characters long")]
-    public string ?Observation { get; set; }
+    public string? Observation { get; set; }
 
     public required DateTime InitialTime { get; set; }
     public required DateTime ExpectedEndTime { get; set; }
 
-    public DateTime ?EndTime { get; set; }
-    public DateTime ?StartTime { get; set; }
+    public DateTime? EndTime { get; set; }
+    public DateTime? StartTime { get; set; }
 
-    public List<CollaboratorDTO> ?Collaborators { get; set; } 
+    public List<CollaboratorDTO>? Collaborators { get; set; }
 }

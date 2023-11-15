@@ -1,16 +1,15 @@
 ﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
-using HigiaServer.Domain.Interfaces;
-
 using Microsoft.AspNetCore.Mvc;
 
-namespace HigiaServer.API;
+namespace HigiaServer.API.Controllers;
 
 [ApiController]
 [Route("api/collaborators")]
 public class CollaboratorController : ControllerBase
 {
     private readonly ICollaboratorService _collaboratorService;
+
     public CollaboratorController(ICollaboratorService collaboratorService)
     {
         _collaboratorService = collaboratorService;
@@ -23,7 +22,7 @@ public class CollaboratorController : ControllerBase
         {
             List<CollaboratorDTO> collaborators = await _collaboratorService.GetCollaborators();
             return collaborators is null || collaborators.Count == 0 ? NoContent() : Ok(collaborators);
-        } 
+        }
         catch (Exception error)
         {
             return BadRequest(error.Message);
@@ -47,6 +46,11 @@ public class CollaboratorController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCollaborator(CollaboratorDTO collaboratorDTO)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+        }
+
         try
         {
             await _collaboratorService.CreateCollaborator(collaboratorDTO);
@@ -61,6 +65,11 @@ public class CollaboratorController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCollaborator(CollaboratorDTO collaboratorDTO)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+        }
+
         try
         {
             await _collaboratorService.UpdateCollaborator(collaboratorDTO);

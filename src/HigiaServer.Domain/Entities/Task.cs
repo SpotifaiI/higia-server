@@ -4,22 +4,8 @@ namespace HigiaServer.Domain.Entities;
 
 public class Task : BaseEntity
 {
-    public string InitialCoordinate { get; private set; }
-    public string EndCoordinate { get; private set; }
-
-    public string? Description { get; private set; }
-    public string? Observation { get; private set; }
-
-    public DateTime InitialTime { get; private set; }
-    public DateTime ExpectedEndTime { get; private set; }
-
-    public DateTime ?EndTime { get; }
-    public DateTime ?StartTime { get; }
-
-    public List<Collaborator> ?Collaborators { get; private set; } = new();
-
     public Task(string initialCoordinate, string endCoordinate,
-        string ?description, string ?observation, DateTime initialTime, DateTime expectedEndTime)
+        string? description, string? observation, DateTime initialTime, DateTime expectedEndTime)
     {
         ValidateTask(initialCoordinate, endCoordinate, initialTime, expectedEndTime, description, observation);
 
@@ -32,9 +18,23 @@ public class Task : BaseEntity
         ExpectedEndTime = expectedEndTime;
     }
 
+    public string InitialCoordinate { get; private set; }
+    public string EndCoordinate { get; private set; }
+
+    public string? Description { get; private set; }
+    public string? Observation { get; private set; }
+
+    public DateTime InitialTime { get; private set; }
+    public DateTime ExpectedEndTime { get; private set; }
+
+    public DateTime? EndTime { get; }
+    public DateTime? StartTime { get; }
+
+    public List<Collaborator>? Collaborators { get; } = new();
+
     public void AddCollaborator(Collaborator collaborator)
     {
-        DomainExeptionValidation.When(Collaborators.Contains(collaborator),
+        DomainExeptionValidation.When(Collaborators!.Contains(collaborator),
             "Collaborator already exists in this task");
         Collaborators.Add(collaborator);
     }

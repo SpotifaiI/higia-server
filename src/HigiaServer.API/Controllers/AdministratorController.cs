@@ -1,6 +1,5 @@
 ﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace HigiaServer.API.Controllers;
@@ -47,6 +46,11 @@ public class AdministratorController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateAdministrator(AdministratorDTO administratorDTO)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+        }
+
         try
         {
             await _administratorService.CreateAdministrator(administratorDTO);
@@ -61,6 +65,11 @@ public class AdministratorController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateAdministrator(AdministratorDTO administratorDTO)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
+        }
+
         try
         {
             await _administratorService.UpdateAdministrator(administratorDTO);
