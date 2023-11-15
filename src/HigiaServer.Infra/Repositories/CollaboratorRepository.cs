@@ -37,7 +37,7 @@ public class CollaboratorRepository : ICollaboratorRepository
     public async Task<List<Collaborator>> GetCollaborators()
     {
         return await _collaboratorContext.Users
-            .OfType<Collaborator>().ToListAsync();
+            .OfType<Collaborator>().Include(x => x.Tasks).ToListAsync();
     }
 
     public async Task<Collaborator> UpdateCollaborator(Collaborator collaborator)

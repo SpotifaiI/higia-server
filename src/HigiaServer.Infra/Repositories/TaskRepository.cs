@@ -36,7 +36,7 @@ public class TaskRepository : ITaskRepository
 
     public async Task<List<Task>> GetTasks()
     {
-        return await _taskContext.Tasks.ToListAsync();
+        return await _taskContext.Tasks.Include(x => x.Collaborators).ToListAsync();
     }
 
     public async Task<Task> UpdateTask(Task task)

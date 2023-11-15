@@ -18,12 +18,12 @@ namespace HigiaServer.Infra.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     initial_coordinate = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
                     final_coordinate = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
-                    description = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
-                    observation = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
+                    description = table.Column<string>(type: "NVARCHAR(255)", nullable: true),
+                    observation = table.Column<string>(type: "NVARCHAR(255)", nullable: true),
                     InitialTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     expected_end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    start_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                    end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
+                    start_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -80,11 +80,11 @@ public class TaskController : ControllerBase
         }
         catch (Exception error)
         {
-            return BadRequest(error);
+            return BadRequest(error.Message);
         }
     }
 
-    [HttpPut("{idTask}")]
+    [HttpPut("{idCollaborator}/assign")]
     public async Task<IActionResult> AddCollaboratorToTask(Guid idTask, Guid idCollaborator)
     {
         try

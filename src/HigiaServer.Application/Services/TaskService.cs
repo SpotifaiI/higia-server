@@ -48,10 +48,10 @@ public class TaskService : ITaskService
         await _taskRepository.UpdateTask(task);
     }
 
-    public async Task<TaskDTO> AddCollaboratorToTask(Guid idCollaborator, Guid idTask)
+    public async Task<TaskDTO> AddCollaboratorToTask(Guid idTask, Guid idCollaborator)
     {
-        Domain.Entities.Task? task = await _taskRepository.GetTaskById(idTask);
-        Collaborator? collaborator = await _collaboratorRepository.GetCollaboratorById(idCollaborator);
+        Domain.Entities.Task task = await _taskRepository.GetTaskById(idTask);
+        Collaborator collaborator = await _collaboratorRepository.GetCollaboratorById(idCollaborator);
         
         return _mapper.Map<TaskDTO>(await _taskRepository.AddCollaborator(collaborator, task));
     }

@@ -72,7 +72,6 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR(255)")
                         .HasColumnName("description");
 
@@ -81,7 +80,7 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnType("NVARCHAR(255)")
                         .HasColumnName("final_coordinate");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("end_time");
 
@@ -98,11 +97,10 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observation")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR(255)")
                         .HasColumnName("observation");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("start_time");
 
