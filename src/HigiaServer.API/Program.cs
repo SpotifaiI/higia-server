@@ -1,11 +1,18 @@
+using System.Text.Json.Serialization;
+
 using HigiaServer.Infra;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure();
+
+// object reference loop error
+builder.Services.AddControllers().AddNewtonsoftJson
+(
+    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 WebApplication app = builder.Build();
 

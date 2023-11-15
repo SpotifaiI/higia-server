@@ -34,13 +34,11 @@ public class TaskMap : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasColumnType("NVARCHAR(255)")
-            .IsRequired();
+            .HasColumnType("NVARCHAR(255)");
 
         builder.Property(x => x.Observation)
             .HasColumnName("observation")
-            .HasColumnType("NVARCHAR(255)")
-            .IsRequired();
+            .HasColumnType("NVARCHAR(255)");
 
         builder.Property(x => x.InitialCoordinate)
             .HasColumnName("initial_coordinate")
@@ -59,12 +57,10 @@ public class TaskMap : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.EndTime)
             .HasColumnName("end_time")
-            .HasColumnType("TIMESTAMP")
-            .IsRequired();
+            .HasColumnType("TIMESTAMP");
 
         builder.Property(x => x.StartTime)
             .HasColumnName("start_time")
-            .HasColumnType("TIMESTAMP")
-            .IsRequired();
+            .HasColumnType("TIMESTAMP");
     }
 }

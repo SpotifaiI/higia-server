@@ -22,7 +22,7 @@ public class AdministratorController : ControllerBase
         try
         {
             List<AdministratorDTO> administrators = await _administratorService.GetAdministrators();
-            return Ok(administrators);
+            return administrators is null || administrators.Count == 0 ? NoContent() : Ok(administrators);
         }
         catch (Exception error)
         {
@@ -36,7 +36,49 @@ public class AdministratorController : ControllerBase
         try
         {
             AdministratorDTO administrator = await _administratorService.GetAdministratorById(id);
-            return Ok(administrator);
+            return administrator is null ? NoContent() : Ok(administrator);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateAdministrator(AdministratorDTO administratorDTO)
+    {
+        try
+        {
+            await _administratorService.CreateAdministrator(administratorDTO);
+            return StatusCode(201, "Administrator created successfully");
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateAdministrator(AdministratorDTO administratorDTO)
+    {
+        try
+        {
+            await _administratorService.UpdateAdministrator(administratorDTO);
+            return Ok("Administrator updated successfully");
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAdministrator(Guid id)
+    {
+        try
+        {
+            await _administratorService.DeleteAdministrator(id);
+            return Ok("Administrator deleted successfully");
         }
         catch (Exception error)
         {

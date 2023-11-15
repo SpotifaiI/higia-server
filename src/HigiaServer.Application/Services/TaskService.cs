@@ -4,12 +4,14 @@ namespace HigiaServer.Application.Services;
 
 public class TaskService : ITaskService
 {
-    private readonly IMapper _mapper;
     private readonly ITaskRepository _taskRepository;
+    private readonly IMapper _mapper;
+    private readonly ICollaboratorRepository _collaboratorRepository;
 
-    public TaskService(ITaskRepository taskRepository, IMapper mapper)
+    public TaskService(ITaskRepository taskRepository, IMapper mapper, ICollaboratorRepository collaboratorRepository)
     {
         _taskRepository = taskRepository;
+        _collaboratorRepository = collaboratorRepository;
         _mapper = mapper;
     }
 
@@ -44,5 +46,13 @@ public class TaskService : ITaskService
     {
         Domain.Entities.Task? task = _mapper.Map<Domain.Entities.Task>(taskDto);
         await _taskRepository.UpdateTask(task);
+    }
+
+    public async Task<TaskDTO> AddCollaboratorToTask(Guid idTask, Guid idCollaborator)
+    {
+        Domain.Entities.Task task = await _taskRepository.GetTaskById(idTask);
+        Collaborator collaborator = await _collaboratorRepository.GetCollaboratorById(idCollaborator);
+        
+        return _mapper.Map<TaskDTO>(await _taskRepository.AddCollaborator(collaborator, task));
     }
 }

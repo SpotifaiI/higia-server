@@ -37,7 +37,7 @@ public class CollaboratorRepository : ICollaboratorRepository
     public async Task<List<Collaborator>> GetCollaborators()
     {
         return await _collaboratorContext.Users
-            .OfType<Collaborator>().ToListAsync();
+            .OfType<Collaborator>().Include(x => x.Tasks).ToListAsync();
     }
 
     public async Task<Collaborator> UpdateCollaborator(Collaborator collaborator)
@@ -50,7 +50,7 @@ public class CollaboratorRepository : ICollaboratorRepository
     public async Task<Collaborator> AddTask(Guid id, Task task)
     {
         Collaborator collaborator = await GetCollaboratorById(id);
-        collaborator.Tasks.Add(task);
+        collaborator.Tasks!.Add(task);
         await _collaboratorContext.SaveChangesAsync();
 
         return collaborator;

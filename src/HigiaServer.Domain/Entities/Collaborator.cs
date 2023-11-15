@@ -8,10 +8,5 @@ public class Collaborator : BaseUserEntity
         IsAdmin = false;
     }
 
-    public List<Task> Tasks { get; protected set; } = new();
-
-    public void AddTaskToCollaborator(Task task)
-    {
-        Tasks.Add(task);
-    }
+    public List<Task> ?Tasks { get; protected set; } = new();
 }

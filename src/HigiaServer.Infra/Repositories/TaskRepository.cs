@@ -36,12 +36,21 @@ public class TaskRepository : ITaskRepository
 
     public async Task<List<Task>> GetTasks()
     {
-        return await _taskContext.Tasks.ToListAsync();
+        return await _taskContext.Tasks.Include(x => x.Collaborators).ToListAsync();
     }
 
     public async Task<Task> UpdateTask(Task task)
     {
         _taskContext.Update(task);
+        await _taskContext.SaveChangesAsync();
+        return task;
+    }
+
+    public async Task<Task> AddCollaborator(Collaborator collaborator, Task task)
+    {
+        task.Collaborators!.Add(collaborator);
+        _taskContext.Update(task);
+        
         await _taskContext.SaveChangesAsync();
         return task;
     }
