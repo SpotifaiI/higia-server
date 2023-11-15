@@ -9,6 +9,7 @@ namespace HigiaServer.API.Controllers;
 public class TaskController : ControllerBase
 {
     private readonly ITaskService _taskService;
+
     public TaskController(ITaskService taskService)
     {
         _taskService = taskService;
@@ -21,7 +22,7 @@ public class TaskController : ControllerBase
         {
             List<TaskDTO> tasks = await _taskService.GetTasks();
             return tasks is null || tasks.Count == 0 ? NoContent() : Ok(tasks);
-        } 
+        }
         catch (Exception error)
         {
             return BadRequest(error.Message);

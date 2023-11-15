@@ -4,13 +4,6 @@ namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseEntity
 {
-    public bool IsAdmin { get; init; }
-    public string FirstName { get; protected set; }
-    public string LastName { get; protected set; }
-    public string Address { get; protected set; }
-    public DateTime Birthday { get; protected set; }
-    public string PhoneNumber { get; protected set; }
-
     protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
         DateTime birthday)
     {
@@ -22,6 +15,13 @@ public abstract class BaseUserEntity : BaseEntity
         Birthday = birthday;
         PhoneNumber = phoneNumber;
     }
+
+    public bool IsAdmin { get; init; }
+    public string FirstName { get; protected set; }
+    public string LastName { get; protected set; }
+    public string Address { get; protected set; }
+    public DateTime Birthday { get; protected set; }
+    public string PhoneNumber { get; protected set; }
 
     // public void UpdateNumberPhoneToUser(string phoneNumber)
     // {
