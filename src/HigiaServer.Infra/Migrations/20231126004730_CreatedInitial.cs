@@ -38,7 +38,7 @@ namespace HigiaServer.Infra.Migrations
                     is_admin = table.Column<bool>(type: "BOOLEAN", nullable: false),
                     first_name = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
                     last_name = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
-                    address = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
+                    email = table.Column<string>(type: "NVARCHAR(255)", nullable: false),
                     birthday = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     phone_number = table.Column<string>(type: "NVARCHAR(255)", nullable: false)
                 },

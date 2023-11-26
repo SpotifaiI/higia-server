@@ -27,8 +27,8 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
 
-        builder.Property(x => x.Address)
-            .HasColumnName("address")
+        builder.Property(x => x.Email)
+            .HasColumnName("email")
             .HasColumnType("NVARCHAR(255)")
             .IsRequired();
 

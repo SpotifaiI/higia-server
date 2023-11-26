@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HigiaServer.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231114221801_CreatedInitial")]
+    [Migration("20231126004730_CreatedInitial")]
     partial class CreatedInitial
     {
         /// <inheritdoc />
@@ -27,14 +27,14 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
-                        .HasColumnName("address");
-
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("birthday");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

@@ -24,14 +24,14 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
-                        .HasColumnName("address");
-
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("birthday");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
