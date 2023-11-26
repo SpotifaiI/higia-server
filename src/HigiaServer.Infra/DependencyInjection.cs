@@ -2,8 +2,8 @@
 using HigiaServer.Application.MappingDTO;
 using HigiaServer.Application.Services;
 using HigiaServer.Infra.Data;
-using Microsoft.Extensions.Configuration;
 
+using Microsoft.Extensions.Configuration;
 
 namespace HigiaServer.Infra;
 
@@ -13,7 +13,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            var stringConnection = configuration.GetConnectionString("DefaultConnection");
+            string? stringConnection = configuration.GetConnectionString("DefaultConnection");
             options.UseNpgsql(stringConnection);
         });
 
