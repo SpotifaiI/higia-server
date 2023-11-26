@@ -4,21 +4,19 @@ namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseEntity
 {
-    protected BaseUserEntity(string firstName, string lastName, string email, string phoneNumber,
+    protected BaseUserEntity(string name, string email, string phoneNumber,
         DateTime birthday)
     {
-        ValidateUser(firstName, lastName, email, birthday, phoneNumber);
+        ValidateUser(name, email, birthday, phoneNumber);
 
-        FirstName = firstName.Trim().ToLower();
-        LastName = lastName.Trim().ToLower();
+        Name = name.Trim().ToLower();
         Email = email;
         Birthday = birthday;
         PhoneNumber = phoneNumber;
     }
 
     public bool IsAdmin { get; init; }
-    public string FirstName { get; protected set; }
-    public string LastName { get; protected set; }
+    public string Name { get; protected set; }
     public string Email { get; protected set; }
     public DateTime Birthday { get; protected set; }
     public string PhoneNumber { get; protected set; }
@@ -41,15 +39,13 @@ public abstract class BaseUserEntity : BaseEntity
     //     LastModifiedAt = DateTime.Now;
     // }
 
-    protected void ValidateUser(string firstName, string lastName, string email, DateTime birthday,
+    protected void ValidateUser(string name, string email, DateTime birthday,
         string phoneNumber)
     {
-        DomainExeptionValidation.When(string.IsNullOrEmpty(firstName),
+        DomainExeptionValidation.When(string.IsNullOrEmpty(name),
             "Invalid first name, valid first name is required");
-        DomainExeptionValidation.When(firstName.Length < 3, "Invalid first name, too short, minimum 3 characters");
 
-        DomainExeptionValidation.When(string.IsNullOrEmpty(lastName), "Invalid last name, valid last name is required");
-        DomainExeptionValidation.When(lastName.Length < 3, "Invalid last name, too short, minimum 3 characters");
+        DomainExeptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
 
         DomainExeptionValidation.When(ValidateEmailAdress(email),
             "Invalid email address, valid email address is required");

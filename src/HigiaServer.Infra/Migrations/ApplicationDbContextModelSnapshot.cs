@@ -38,19 +38,14 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("email");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("first_name");
-
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("BOOLEAN")
                         .HasColumnName("is_admin");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
-                        .HasColumnName("last_name");
+                        .HasColumnName("name");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

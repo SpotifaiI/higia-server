@@ -17,13 +17,8 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnType("uuid")
             .IsRequired();
 
-        builder.Property(x => x.FirstName)
-            .HasColumnName("first_name")
-            .HasColumnType("TEXT")
-            .IsRequired();
-
-        builder.Property(x => x.LastName)
-            .HasColumnName("last_name")
+        builder.Property(x => x.Name)
+            .HasColumnName("name")
             .HasColumnType("TEXT")
             .IsRequired();
 

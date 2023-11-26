@@ -2,8 +2,7 @@
 
 public class BaseUserEntityTest
 {
-    private static readonly string FristName = "Primeiro Nome";
-    private static readonly string LastName = "Sobre Nome";
+    private static readonly string Name = "Name";
     private static readonly string Address = "email.exemple@gmail.com";
     private static readonly string PhoneNumber = "47 994324914";
     private static readonly DateTime Birthday = DateTime.Now.AddYears(-18);
@@ -12,49 +11,14 @@ public class BaseUserEntityTest
 
     public BaseUserEntityTest()
     {
-        _baseUserEntity = new BaseUserEntity_TestEntity(FristName, LastName, Address, PhoneNumber, Birthday);
+        _baseUserEntity = new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday);
     }
 
     [Fact(DisplayName = "Create BaseUserEntity With Valid State")]
     public void CreateBaseUserEntity_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new BaseUserEntity_TestEntity(FristName, LastName, Address, PhoneNumber, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday);
         action.Should().NotThrow<DomainExeptionValidation>();
-    }
-
-    [Fact(DisplayName = "Create BaseUserEntity Short First Name")]
-    public void CreateBaseUserEntity_WithShortFirstName_ResultObjectInvalidState()
-    {
-        Action action = () => new BaseUserEntity_TestEntity("A", LastName, Address, PhoneNumber, Birthday);
-        action.Should().Throw<DomainExeptionValidation>()
-            .WithMessage("Invalid first name, too short, minimum 3 characters");
-    }
-
-    [Theory(DisplayName = "Create BaseUserEntity With Null Or Empty First Name")]
-    [InlineData(null)]
-    [InlineData("")]
-    public void CreateBaseUserEntity_WithNullEmptyFistName_ResultObjectInvalidState(string firstName)
-    {
-        Action action = () => new BaseUserEntity_TestEntity(firstName, LastName, Address, PhoneNumber, Birthday);
-        action.Should().Throw<DomainExeptionValidation>()
-            .WithMessage("Invalid first name, valid first name is required");
-    }
-
-    [Fact(DisplayName = "Create BaseUserEntity Short Last Name")]
-    public void CreateAdmintrator_WithShortLastName_ResultObjectInvalidState()
-    {
-        Action action = () => new BaseUserEntity_TestEntity(FristName, "A", Address, PhoneNumber, Birthday);
-        action.Should().Throw<DomainExeptionValidation>()
-            .WithMessage("Invalid last name, too short, minimum 3 characters");
-    }
-
-    [Theory(DisplayName = "Create BaseUserEntity With Null Or Empty Last Name")]
-    [InlineData(null)]
-    [InlineData("")]
-    public void CreateBaseUserEntity_WithNullEmptyLastName_ResultObjectInvalidState(string lastName)
-    {
-        Action action = () => new BaseUserEntity_TestEntity(FristName, lastName, Address, PhoneNumber, Birthday);
-        action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid last name, valid last name is required");
     }
 
     [Theory(DisplayName = "Create BaseUserEntity With Invalid Address")]
@@ -66,7 +30,7 @@ public class BaseUserEntityTest
     [InlineData(null)]
     public void CreateBaseUserEntity_WithInvalidAddress_ResultObjectInvalidState(string address)
     {
-        Action action = () => new BaseUserEntity_TestEntity(FristName, LastName, address, PhoneNumber, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, address, PhoneNumber, Birthday);
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid email address, valid email address is required");
     }
@@ -75,7 +39,7 @@ public class BaseUserEntityTest
     public void CreateBaseUserEntity_WithInvalidBirthday_ResultObjectInvalidState()
     {
         Action action = () =>
-            new BaseUserEntity_TestEntity(FristName, LastName, Address, PhoneNumber, DateTime.Now.AddYears(-17));
+            new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, DateTime.Now.AddYears(-17));
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid birthday, minimum age is 18 years old");
     }
 
@@ -86,7 +50,7 @@ public class BaseUserEntityTest
     [InlineData("")]
     public void CreateBaseUserEntity_WithInvalidNumberPhone_ResultObjectInvalidState(string numberPhone)
     {
-        Action action = () => new BaseUserEntity_TestEntity(FristName, LastName, Address, numberPhone, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, Address, numberPhone, Birthday);
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid number phone, valid number phone is required");
     }
@@ -144,9 +108,9 @@ public class BaseUserEntityTest
 
 public class BaseUserEntity_TestEntity : BaseUserEntity
 {
-    public BaseUserEntity_TestEntity(string firstName, string lastName, string address, string phoneNumber,
+    public BaseUserEntity_TestEntity(string name, string address, string phoneNumber,
         DateTime birthday)
-        : base(firstName, lastName, address, phoneNumber, birthday)
+        : base(name, address, phoneNumber, birthday)
     {
     }
 }

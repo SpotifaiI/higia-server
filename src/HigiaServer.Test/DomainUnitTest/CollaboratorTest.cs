@@ -2,8 +2,7 @@
 
 public class CollaboratorTest
 {
-    private static readonly string FristName = "Primeiro Nome";
-    private static readonly string LastName = "Sobre Nome";
+    private static readonly string Name = "Name";
     private static readonly string Address = "email.exemplo@gmail.com";
     private static readonly string PhoneNumber = "47 994324914";
     private static readonly DateTime Birthday = DateTime.Now.AddYears(-18);
@@ -11,7 +10,7 @@ public class CollaboratorTest
     [Fact(DisplayName = "Create Collaborator With Valid State")]
     public void CreateCollaborator_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new Collaborator(FristName, LastName, Address, PhoneNumber, Birthday);
+        Action action = () => new Collaborator(Name, Address, PhoneNumber, Birthday);
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 }
