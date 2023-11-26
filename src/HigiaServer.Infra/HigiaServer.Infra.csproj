@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11"/>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj"/>
-    <ProjectReference Include="..\HigiaServer.Application\HigiaServer.Application.csproj"/>
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj"/>
+        <ProjectReference Include="..\HigiaServer.Application\HigiaServer.Application.csproj"/>
+    </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ public class Task : BaseEntity
     public DateTime? EndTime { get; }
     public DateTime? StartTime { get; }
 
-    public List<Collaborator>? Collaborators { get; private set; } = new();
+    public List<Collaborator>? Collaborators { get; } = new();
 
     public void AddCollaborator(Collaborator collaborator)
     {
@@ -99,7 +99,8 @@ public class Task : BaseEntity
         DomainExeptionValidation.When(ValidateCoordinate(endCoordinate),
             "Invalid end coordinate, valid end coordinate is required");
 
-        DomainExeptionValidation.When(expectedEndTime < initialTime, "Expected end time must be greater than initial time");
+        DomainExeptionValidation.When(expectedEndTime < initialTime,
+            "Expected end time must be greater than initial time");
 
         DomainExeptionValidation.When(description?.Length < 3, "Invalid description, valid description is required");
         DomainExeptionValidation.When(observation?.Length < 3, "Invalid observation, valid observation is required");
@@ -110,4 +111,4 @@ public class Task : BaseEntity
         string pattern = @"^-?(90|[0-8]?\d)(\.\d+)?, *-?(180|1[0-7]\d|\d?\d)(\.\d+)?$";
         return !Regex.IsMatch(coordinate, pattern);
     }
-}   
+}

@@ -51,8 +51,8 @@ public class CollaboratorService : ICollaboratorService
 
     public async Task<List<TaskDTO>> GetTasksFromCollaborator(Guid id)
     {
-        var tasks = await _collaboratorRepository.GetTasksFromCollaborator(id);
-        var tasksDto = _mapper.Map<List<TaskDTO>>(tasks);
+        List<Domain.Entities.Task> tasks = await _collaboratorRepository.GetTasksFromCollaborator(id);
+        List<TaskDTO>? tasksDto = _mapper.Map<List<TaskDTO>>(tasks);
         return tasksDto;
     }
 }

@@ -1,4 +1,5 @@
 using HigiaServer.Infra;
+
 using Newtonsoft.Json;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

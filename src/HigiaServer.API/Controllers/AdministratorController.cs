@@ -1,5 +1,6 @@
 ﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace HigiaServer.API.Controllers;
