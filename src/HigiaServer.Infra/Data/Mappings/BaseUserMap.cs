@@ -39,7 +39,7 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
 
         builder.Property(x => x.Birthday)
             .HasColumnName("birthday")
-            .HasColumnType("TIMESTAMP")
+            .HasColumnType("TIMESTAMP without time zone")
             .IsRequired();
 
         builder.Property(x => x.PhoneNumber)

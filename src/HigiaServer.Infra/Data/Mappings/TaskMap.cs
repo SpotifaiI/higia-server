@@ -45,9 +45,14 @@ public class TaskMap : IEntityTypeConfiguration<Task>
             .HasColumnType("TEXT")
             .IsRequired();
 
+        builder.Property(x => x.InitialTime)
+            .HasColumnName("initial_time")
+            .HasColumnType("TIMESTAMP without time zone")
+            .IsRequired();
+
         builder.Property(x => x.ExpectedEndTime)
             .HasColumnName("expected_end_time")
-            .HasColumnType("TIMESTAMP")
+            .HasColumnType("TIMESTAMP without time zone")
             .IsRequired();
 
         builder.Property(x => x.EndCoordinate)
@@ -57,10 +62,10 @@ public class TaskMap : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.EndTime)
             .HasColumnName("end_time")
-            .HasColumnType("TIMESTAMP");
+            .HasColumnType("TIMESTAMP without time zone");
 
         builder.Property(x => x.StartTime)
             .HasColumnName("start_time")
-            .HasColumnType("TIMESTAMP");
+            .HasColumnType("TIMESTAMP without time zone");
     }
 }

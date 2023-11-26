@@ -30,7 +30,7 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnName("id");
 
                     b.Property<DateTime>("Birthday")
-                        .HasColumnType("TIMESTAMP")
+                        .HasColumnType("TIMESTAMP without time zone")
                         .HasColumnName("birthday");
 
                     b.Property<string>("Email")
@@ -86,11 +86,11 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnName("final_coordinate");
 
                     b.Property<DateTime?>("EndTime")
-                        .HasColumnType("TIMESTAMP")
+                        .HasColumnType("TIMESTAMP without time zone")
                         .HasColumnName("end_time");
 
                     b.Property<DateTime>("ExpectedEndTime")
-                        .HasColumnType("TIMESTAMP")
+                        .HasColumnType("TIMESTAMP without time zone")
                         .HasColumnName("expected_end_time");
 
                     b.Property<string>("InitialCoordinate")
@@ -99,14 +99,15 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnName("initial_coordinate");
 
                     b.Property<DateTime>("InitialTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TIMESTAMP without time zone")
+                        .HasColumnName("initial_time");
 
                     b.Property<string>("Observation")
                         .HasColumnType("TEXT")
                         .HasColumnName("observation");
 
                     b.Property<DateTime?>("StartTime")
-                        .HasColumnType("TIMESTAMP")
+                        .HasColumnType("TIMESTAMP without time zone")
                         .HasColumnName("start_time");
 
                     b.HasKey("Id");

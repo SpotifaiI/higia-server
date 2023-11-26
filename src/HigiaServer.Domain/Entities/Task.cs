@@ -99,9 +99,7 @@ public class Task : BaseEntity
         DomainExeptionValidation.When(ValidateCoordinate(endCoordinate),
             "Invalid end coordinate, valid end coordinate is required");
 
-        DomainExeptionValidation.When(initialTime < DateTime.Now.AddMinutes(-10),
-            "Invalid initial time, valid initial time is required");
-        DomainExeptionValidation.When(expectedEndTime < initialTime, "Invalid end time, valid end time is required");
+        DomainExeptionValidation.When(expectedEndTime < initialTime, "Expected end time must be greater than initial time");
 
         DomainExeptionValidation.When(description?.Length < 3, "Invalid description, valid description is required");
         DomainExeptionValidation.When(observation?.Length < 3, "Invalid observation, valid observation is required");
@@ -112,4 +110,4 @@ public class Task : BaseEntity
         string pattern = @"^-?(90|[0-8]?\d)(\.\d+)?, *-?(180|1[0-7]\d|\d?\d)(\.\d+)?$";
         return !Regex.IsMatch(coordinate, pattern);
     }
-}
+}   

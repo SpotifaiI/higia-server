@@ -20,10 +20,10 @@ namespace HigiaServer.Infra.Migrations
                     final_coordinate = table.Column<string>(type: "TEXT", nullable: false),
                     description = table.Column<string>(type: "TEXT", nullable: true),
                     observation = table.Column<string>(type: "TEXT", nullable: true),
-                    InitialTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    expected_end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
-                    end_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: true),
-                    start_time = table.Column<DateTime>(type: "TIMESTAMP", nullable: true)
+                    initial_time = table.Column<DateTime>(type: "TIMESTAMP without time zone", nullable: false),
+                    expected_end_time = table.Column<DateTime>(type: "TIMESTAMP without time zone", nullable: false),
+                    end_time = table.Column<DateTime>(type: "TIMESTAMP without time zone", nullable: true),
+                    start_time = table.Column<DateTime>(type: "TIMESTAMP without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,7 +39,7 @@ namespace HigiaServer.Infra.Migrations
                     first_name = table.Column<string>(type: "TEXT", nullable: false),
                     last_name = table.Column<string>(type: "TEXT", nullable: false),
                     email = table.Column<string>(type: "TEXT", nullable: false),
-                    birthday = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
+                    birthday = table.Column<DateTime>(type: "TIMESTAMP without time zone", nullable: false),
                     phone_number = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
