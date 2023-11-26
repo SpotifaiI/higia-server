@@ -5,14 +5,9 @@ public record AdministratorDTO
     [Key] public Guid? Id { get; set; }
 
     [Required(ErrorMessage = "First name is required")]
-    [MinLength(3, ErrorMessage = "First name must be at least 3 characters long")]
-    [MaxLength(18, ErrorMessage = "First name must be at most 18 characters long")]
-    public required string FirstName { get; set; }
-
-    [Required(ErrorMessage = "Last name is required")]
-    [MinLength(3, ErrorMessage = "Last name must be at least 3 characters long")]
-    [MaxLength(18, ErrorMessage = "Last name must be at most 18 characters long")]
-    public required string LastName { get; set; }
+    [MinLength(3, ErrorMessage = "Name must be at least 3 characters long")]
+    [MaxLength(18, ErrorMessage = "Name must be at most 18 characters long")]
+    public required string Name { get; set; }
 
     [Required(ErrorMessage = "Email address is required")]
     [EmailAddress(ErrorMessage = "Email address is not valid")]
