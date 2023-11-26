@@ -5,20 +5,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace HigiaServer.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231126004730_CreatedInitial")]
+    [Migration("20231126030213_CreatedInitial")]
     partial class CreatedInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("HigiaServer.Domain.Common.BaseUserEntity", b =>
                 {
@@ -33,12 +38,12 @@ namespace HigiaServer.Infra.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("first_name");
 
                     b.Property<bool>("IsAdmin")
@@ -47,12 +52,12 @@ namespace HigiaServer.Infra.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("last_name");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("phone_number");
 
                     b.HasKey("Id");
@@ -75,12 +80,12 @@ namespace HigiaServer.Infra.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("description");
 
                     b.Property<string>("EndCoordinate")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("final_coordinate");
 
                     b.Property<DateTime?>("EndTime")
@@ -93,14 +98,14 @@ namespace HigiaServer.Infra.Migrations
 
                     b.Property<string>("InitialCoordinate")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("initial_coordinate");
 
                     b.Property<DateTime>("InitialTime")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Observation")
-                        .HasColumnType("NVARCHAR(255)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("observation");
 
                     b.Property<DateTime?>("StartTime")

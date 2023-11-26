@@ -24,25 +24,25 @@ public class TaskMap : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.InitialCoordinate)
             .HasColumnName("initial_coordinate")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.EndCoordinate)
             .HasColumnName("final_coordinate")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasColumnType("NVARCHAR(255)");
+            .HasColumnType("TEXT");
 
         builder.Property(x => x.Observation)
             .HasColumnName("observation")
-            .HasColumnType("NVARCHAR(255)");
+            .HasColumnType("TEXT");
 
         builder.Property(x => x.InitialCoordinate)
             .HasColumnName("initial_coordinate")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.ExpectedEndTime)
@@ -52,7 +52,7 @@ public class TaskMap : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.EndCoordinate)
             .HasColumnName("final_coordinate")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.EndTime)

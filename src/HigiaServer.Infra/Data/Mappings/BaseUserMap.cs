@@ -19,17 +19,17 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
 
         builder.Property(x => x.FirstName)
             .HasColumnName("first_name")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.LastName)
             .HasColumnName("last_name")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.Email)
             .HasColumnName("email")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
 
         builder.Property(x => x.IsAdmin)
@@ -44,7 +44,7 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
 
         builder.Property(x => x.PhoneNumber)
             .HasColumnName("phone_number")
-            .HasColumnType("NVARCHAR(255)")
+            .HasColumnType("TEXT")
             .IsRequired();
     }
 }

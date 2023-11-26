@@ -2,15 +2,20 @@
 using HigiaServer.Application.MappingDTO;
 using HigiaServer.Application.Services;
 using HigiaServer.Infra.Data;
+using Microsoft.Extensions.Configuration;
+
 
 namespace HigiaServer.Infra;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(
-            options => options.UseSqlite("DataSource=application.db;Cache=Shared"));
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            var stringConnection = configuration.GetConnectionString("DefaultConnection");
+            options.UseNpgsql(stringConnection);
+        });
 
         services.AddAutoMapper(typeof(DomainDTOMapping));
 
