@@ -22,6 +22,4 @@ public record TaskDTO
 
     public DateTime? EndTime { get; set; }
     public DateTime? StartTime { get; set; }
-
-    public List<CollaboratorDTO>? Collaborators { get; set; }
 }

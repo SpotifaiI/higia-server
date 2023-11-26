@@ -46,10 +46,10 @@ public abstract class BaseUserEntity : BaseEntity
     {
         DomainExeptionValidation.When(string.IsNullOrEmpty(firstName),
             "Invalid first name, valid first name is required");
-        DomainExeptionValidation.When(firstName.Length <= 3, "Invalid first name, too short, minimum 3 characters");
+        DomainExeptionValidation.When(firstName.Length < 3, "Invalid first name, too short, minimum 3 characters");
 
         DomainExeptionValidation.When(string.IsNullOrEmpty(lastName), "Invalid last name, valid last name is required");
-        DomainExeptionValidation.When(lastName.Length <= 3, "Invalid last name, too short, minimum 3 characters");
+        DomainExeptionValidation.When(lastName.Length < 3, "Invalid last name, too short, minimum 3 characters");
 
         DomainExeptionValidation.When(ValidateEmailAdress(email),
             "Invalid email address, valid email address is required");

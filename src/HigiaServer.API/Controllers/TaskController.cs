@@ -98,4 +98,18 @@ public class TaskController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("{id}/collaborators")]
+    public async Task<IActionResult> GetCollaboratorsFromTask(Guid id)
+    {
+        try
+        {
+            List<CollaboratorDTO> collaborators = await _taskService.GetCollaboratorsFromTask(id);
+            return collaborators is null || collaborators.Count == 0 ? NoContent() : Ok(collaborators);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

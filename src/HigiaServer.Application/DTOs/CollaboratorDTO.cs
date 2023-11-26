@@ -25,6 +25,4 @@ public record CollaboratorDTO
     [Required(ErrorMessage = "Phone number is required")]
     [Phone(ErrorMessage = "Phone number is not valid")]
     public required string PhoneNumber { get; set; }
-
-    public List<TaskDTO>? Tasks { get; set; }
 }

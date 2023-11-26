@@ -30,7 +30,7 @@ public class Task : BaseEntity
     public DateTime? EndTime { get; }
     public DateTime? StartTime { get; }
 
-    public List<Collaborator>? Collaborators { get; } = new();
+    public List<Collaborator>? Collaborators { get; private set; } = new();
 
     public void AddCollaborator(Collaborator collaborator)
     {

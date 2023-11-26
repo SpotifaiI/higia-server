@@ -55,4 +55,11 @@ public class CollaboratorRepository : ICollaboratorRepository
 
         return collaborator;
     }
+
+    public Task<List<Task>> GetTasksFromCollaborator(Guid id)
+    {
+        return _collaboratorContext.Users
+            .OfType<Collaborator>().Where(x => x.Id == id)
+            .SelectMany(x => x.Tasks!).ToListAsync();
+    }
 }

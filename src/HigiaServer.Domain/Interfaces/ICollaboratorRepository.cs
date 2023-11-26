@@ -12,4 +12,5 @@ public interface ICollaboratorRepository
     Task<Collaborator> DeleteCollaborator(Guid id);
 
     Task<Collaborator> AddTask(Guid id, Task task);
+    Task<List<Task>> GetTasksFromCollaborator(Guid id);
 }

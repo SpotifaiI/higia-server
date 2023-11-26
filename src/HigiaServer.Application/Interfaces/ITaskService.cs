@@ -12,4 +12,5 @@ public interface ITaskService
     Task DeleteTask(Guid id);
 
     Task<TaskDTO> AddCollaboratorToTask(Guid idCollaborator, Guid idTask);
+    Task<List<CollaboratorDTO>> GetCollaboratorsFromTask(Guid id);
 }
