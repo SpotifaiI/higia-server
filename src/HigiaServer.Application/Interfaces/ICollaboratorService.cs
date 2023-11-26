@@ -12,4 +12,5 @@ public interface ICollaboratorService
     Task DeleteCollaborator(Guid id);
 
     Task AddTask(Guid id, Domain.Entities.Task task);
+    Task<List<TaskDTO>> GetTasksFromCollaborator(Guid id);
 }

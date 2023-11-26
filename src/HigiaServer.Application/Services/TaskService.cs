@@ -55,4 +55,11 @@ public class TaskService : ITaskService
 
         return _mapper.Map<TaskDTO>(await _taskRepository.AddCollaborator(collaborator, task));
     }
+
+    public async Task<List<CollaboratorDTO>> GetCollaboratorsFromTask(Guid id)
+    {
+        var tasks = await _taskRepository.GetCollaboratorsFromTask(id);
+        var tasksDto = _mapper.Map<List<CollaboratorDTO>>(tasks);
+        return tasksDto;
+    }
 }

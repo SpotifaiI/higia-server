@@ -17,11 +17,12 @@ public record TaskDTO
     [MaxLength(244, ErrorMessage = "Observation must be at most 244 characters long")]
     public string? Observation { get; set; }
 
+    [DataType(DataType.Date)]
     public required DateTime InitialTime { get; set; }
+    
+    [DataType(DataType.Date)]
     public required DateTime ExpectedEndTime { get; set; }
 
     public DateTime? EndTime { get; set; }
     public DateTime? StartTime { get; set; }
-
-    public List<CollaboratorDTO>? Collaborators { get; set; }
 }

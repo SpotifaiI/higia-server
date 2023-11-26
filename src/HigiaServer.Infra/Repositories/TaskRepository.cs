@@ -29,14 +29,15 @@ public class TaskRepository : ITaskRepository
     public async Task<Task> GetTaskById(Guid id)
     {
         Task? task = await _taskContext.Tasks
-            .Where(x => x.Id == id).FirstOrDefaultAsync();
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
 
         return task!;
     }
 
     public async Task<List<Task>> GetTasks()
     {
-        return await _taskContext.Tasks.Include(x => x.Collaborators).ToListAsync();
+        return await _taskContext.Tasks.ToListAsync();
     }
 
     public async Task<Task> UpdateTask(Task task)
@@ -53,5 +54,12 @@ public class TaskRepository : ITaskRepository
 
         await _taskContext.SaveChangesAsync();
         return task;
+    }
+
+    public Task<List<Collaborator>> GetCollaboratorsFromTask(Guid id)
+    {
+        return _taskContext.Tasks.Where(x => x.Id == id)
+            .SelectMany(x => x.Collaborators!)
+            .ToListAsync();
     }
 }

@@ -12,4 +12,5 @@ public interface ITaskRepository
     Task<Task> DeleteTask(Guid id);
 
     Task<Task> AddCollaborator(Collaborator collaborator, Task task);
+    Task<List<Collaborator>> GetCollaboratorsFromTask(Guid id);
 }

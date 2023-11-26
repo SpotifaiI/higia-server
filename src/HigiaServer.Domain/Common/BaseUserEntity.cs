@@ -4,14 +4,14 @@ namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseEntity
 {
-    protected BaseUserEntity(string firstName, string lastName, string address, string phoneNumber,
+    protected BaseUserEntity(string firstName, string lastName, string email, string phoneNumber,
         DateTime birthday)
     {
-        ValidateUser(firstName, lastName, address, birthday, phoneNumber);
+        ValidateUser(firstName, lastName, email, birthday, phoneNumber);
 
         FirstName = firstName.Trim().ToLower();
         LastName = lastName.Trim().ToLower();
-        Address = address;
+        Email = email;
         Birthday = birthday;
         PhoneNumber = phoneNumber;
     }
@@ -19,7 +19,7 @@ public abstract class BaseUserEntity : BaseEntity
     public bool IsAdmin { get; init; }
     public string FirstName { get; protected set; }
     public string LastName { get; protected set; }
-    public string Address { get; protected set; }
+    public string Email { get; protected set; }
     public DateTime Birthday { get; protected set; }
     public string PhoneNumber { get; protected set; }
 
@@ -34,24 +34,24 @@ public abstract class BaseUserEntity : BaseEntity
 
     // public void UpdateAdressToUser(string address)
     // {
-    //     DomainExeptionValidation.When(ValidateAddress(address),
+    //     DomainExeptionValidation.When(ValidateEmailAdress(address),
     //         "Invalid email address, valid email address is required");
 
     //     Address = address;
     //     LastModifiedAt = DateTime.Now;
     // }
 
-    protected void ValidateUser(string firstName, string lastName, string address, DateTime birthday,
+    protected void ValidateUser(string firstName, string lastName, string email, DateTime birthday,
         string phoneNumber)
     {
         DomainExeptionValidation.When(string.IsNullOrEmpty(firstName),
             "Invalid first name, valid first name is required");
-        DomainExeptionValidation.When(firstName.Length <= 3, "Invalid first name, too short, minimum 3 characters");
+        DomainExeptionValidation.When(firstName.Length < 3, "Invalid first name, too short, minimum 3 characters");
 
         DomainExeptionValidation.When(string.IsNullOrEmpty(lastName), "Invalid last name, valid last name is required");
-        DomainExeptionValidation.When(lastName.Length <= 3, "Invalid last name, too short, minimum 3 characters");
+        DomainExeptionValidation.When(lastName.Length < 3, "Invalid last name, too short, minimum 3 characters");
 
-        DomainExeptionValidation.When(ValidateAddress(address),
+        DomainExeptionValidation.When(ValidateEmailAdress(email),
             "Invalid email address, valid email address is required");
 
         DomainExeptionValidation.When(birthday >= DateTime.Now.AddYears(-18),
@@ -60,15 +60,15 @@ public abstract class BaseUserEntity : BaseEntity
             "Invalid number phone, valid number phone is required");
     }
 
-    private bool ValidateAddress(string address)
+    private bool ValidateEmailAdress(string email)
     {
-        if (string.IsNullOrEmpty(address))
+        if (string.IsNullOrEmpty(email))
         {
             return true;
         }
 
         string pattern = @"^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$";
-        return !Regex.IsMatch(address, pattern);
+        return !Regex.IsMatch(email, pattern);
     }
 
     private bool ValidateNumber(string number)

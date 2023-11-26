@@ -16,7 +16,7 @@ public record AdministratorDTO
 
     [Required(ErrorMessage = "Email address is required")]
     [EmailAddress(ErrorMessage = "Email address is not valid")]
-    public required string Address { get; set; }
+    public required string Email { get; set; }
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Birthday is required")]

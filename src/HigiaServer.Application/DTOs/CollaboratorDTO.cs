@@ -16,7 +16,7 @@ public record CollaboratorDTO
 
     [Required(ErrorMessage = "Email address is required")]
     [EmailAddress(ErrorMessage = "Email address is not valid")]
-    public required string Address { get; set; }
+    public required string Email { get; set; }
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Birthday is required")]
@@ -25,6 +25,4 @@ public record CollaboratorDTO
     [Required(ErrorMessage = "Phone number is required")]
     [Phone(ErrorMessage = "Phone number is not valid")]
     public required string PhoneNumber { get; set; }
-
-    public List<TaskDTO>? Tasks { get; set; }
 }

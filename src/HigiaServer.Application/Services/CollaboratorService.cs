@@ -48,4 +48,11 @@ public class CollaboratorService : ICollaboratorService
     {
         await _collaboratorRepository.AddTask(id, task);
     }
+
+    public async Task<List<TaskDTO>> GetTasksFromCollaborator(Guid id)
+    {
+        var tasks = await _collaboratorRepository.GetTasksFromCollaborator(id);
+        var tasksDto = _mapper.Map<List<TaskDTO>>(tasks);
+        return tasksDto;
+    }
 }
