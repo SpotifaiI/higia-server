@@ -20,24 +20,7 @@ public abstract class BaseUserEntity : BaseEntity
     public string Email { get; protected set; }
     public DateTime Birthday { get; protected set; }
     public string PhoneNumber { get; protected set; }
-
-    // public void UpdateNumberPhoneToUser(string phoneNumber)
-    // {
-    //     DomainExeptionValidation.When(ValidateNumber(phoneNumber),
-    //         "Invalid number phone, valid number phone is required");
-
-    //     PhoneNumber = phoneNumber;
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateAdressToUser(string address)
-    // {
-    //     DomainExeptionValidation.When(ValidateEmailAdress(address),
-    //         "Invalid email address, valid email address is required");
-
-    //     Address = address;
-    //     LastModifiedAt = DateTime.Now;
-    // }
+    public string PasswordHash { get; protected set; } = string.Empty;
 
     protected void ValidateUser(string name, string email, DateTime birthday,
         string phoneNumber)

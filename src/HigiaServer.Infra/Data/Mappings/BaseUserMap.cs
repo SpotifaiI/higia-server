@@ -27,6 +27,11 @@ public class BaseUserMap : IEntityTypeConfiguration<BaseUserEntity>
             .HasColumnType("TEXT")
             .IsRequired();
 
+        builder.Property(x => x.PasswordHash)
+            .HasColumnName("password_hash")
+            .HasColumnType("TEXT")
+            .IsRequired();
+
         builder.Property(x => x.IsAdmin)
             .HasColumnName("is_admin")
             .HasColumnType("BOOLEAN")

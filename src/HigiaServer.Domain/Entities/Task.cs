@@ -39,58 +39,6 @@ public class Task : BaseEntity
         Collaborators.Add(collaborator);
     }
 
-    // public void UpdateInitialTimeToTask(DateTime initialTime)
-    // {
-    //     DomainExeptionValidation.When(initialTime < DateTime.Now.AddMinutes(-10),
-    //         "Invalid initial time, valid initial time is required");
-    //     InitialTime = initialTime;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateInitialCoordinateToTask(string initialCoordinate)
-    // {
-    //     DomainExeptionValidation.When(ValidateCoordinate(initialCoordinate),
-    //         "Invalid initial coordinate, valid initial coordinate is required");
-    //     InitialCoordinate = initialCoordinate;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateEndCoordinateToTask(string endCoordinate)
-    // {
-    //     DomainExeptionValidation.When(ValidateCoordinate(endCoordinate),
-    //         "Invalid end coordinate, valid end coordinate is required");
-    //     EndCoordinate = endCoordinate;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateExpectedEndTimeToTask(DateTime expectedEndTime)
-    // {
-    //     DomainExeptionValidation.When(expectedEndTime < DateTime.Now,
-    //         "Invalid end time, valid end time is required");
-    //     ExpectedEndTime = expectedEndTime;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateDescriptionToTask(string description)
-    // {
-    //     DomainExeptionValidation.When(description.Length < 3, "Invalid description, valid description is required");
-    //     Description = description;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
-    // public void UpdateObservationToTask(string observation)
-    // {
-    //     DomainExeptionValidation.When(observation.Length < 3, "Invalid observation, valid observation is required");
-    //     Observation = observation;
-
-    //     LastModifiedAt = DateTime.Now;
-    // }
-
     private void ValidateTask(string initialCoordinate, string endCoordinate, DateTime initialTime,
         DateTime expectedEndTime, string? description, string? observation)
     {
