@@ -21,6 +21,6 @@ public record TaskDTO
 
     [DataType(DataType.Date)] public required DateTime ExpectedEndTime { get; set; }
 
-    public DateTime? EndTime { get; set; }
-    public DateTime? StartTime { get; set; }
+    [DataType(DataType.Date)] public DateTime? EndTime { get; set; }
+    [DataType(DataType.Date)] public DateTime? StartTime { get; set; }
 }
