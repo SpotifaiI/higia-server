@@ -13,7 +13,7 @@ public class AdministratorService : IAdministratorService
         _mapper = mapper;
     }
 
-    public async Task CreateAdministrator(AdministratorDTO administratorDto)
+    public async Task CreateAdministrator(CreateAdministratorDTO administratorDto)
     {
         Administrator? administrator = _mapper.Map<Administrator>(administratorDto);
         await _administratorRepository.CreateAdministrator(administrator);

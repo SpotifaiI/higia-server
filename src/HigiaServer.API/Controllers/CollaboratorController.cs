@@ -1,4 +1,5 @@
-﻿using HigiaServer.Application.DTOs;
+﻿using HigiaServer.Application;
+using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCollaborator(CollaboratorDTO collaboratorDTO)
+    public async Task<IActionResult> CreateCollaborator(CreateCollaboratorDTO collaboratorDTO)
     {
         if (!ModelState.IsValid)
         {

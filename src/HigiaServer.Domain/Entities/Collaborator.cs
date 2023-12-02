@@ -2,8 +2,9 @@ namespace HigiaServer.Domain.Entities;
 
 public class Collaborator : BaseUserEntity
 {
-    public Collaborator(string name, string email, string phoneNumber, DateTime birthday) :
-        base(name, email, phoneNumber, birthday)
+    protected Collaborator() { }
+    public Collaborator(string name, string email, string phoneNumber, DateTime birthday, string passwordHash) :
+        base(name, email, phoneNumber, birthday, passwordHash)
     {
         IsAdmin = false;
     }

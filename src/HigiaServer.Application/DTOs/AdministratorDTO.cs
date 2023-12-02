@@ -6,7 +6,7 @@ public record AdministratorDTO
 
     [Required(ErrorMessage = "First name is required")]
     [MinLength(3, ErrorMessage = "Name must be at least 3 characters long")]
-    [MaxLength(18, ErrorMessage = "Name must be at most 18 characters long")]
+    [MaxLength(64, ErrorMessage = "Name must be at most 64 characters long")]
     public required string Name { get; set; }
 
     [Required(ErrorMessage = "Email address is required")]
