@@ -1,4 +1,5 @@
-﻿using HigiaServer.Application.DTOs;
+﻿using HigiaServer.Application;
+using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
 
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,7 @@ public class AdministratorController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAdministrator(AdministratorDTO administratorDTO)
+    public async Task<IActionResult> CreateAdministrator(CreateAdministratorDTO administratorDTO)
     {
         if (!ModelState.IsValid)
         {

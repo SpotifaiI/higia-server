@@ -13,7 +13,7 @@ public class CollaboratorService : ICollaboratorService
         _mapper = mapper;
     }
 
-    public async Task CreateCollaborator(CollaboratorDTO collaboratorDto)
+    public async Task CreateCollaborator(CreateCollaboratorDTO collaboratorDto)
     {
         Collaborator? collaborator = _mapper.Map<Collaborator>(collaboratorDto);
         await _collaboratorRepository.CreateCollaborator(collaborator);
