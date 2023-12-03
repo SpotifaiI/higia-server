@@ -1,7 +1,5 @@
-﻿using HigiaServer.Application;
-using HigiaServer.Application.DTOs;
+﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
-using HigiaServer.Domain.Entities;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -4,7 +4,7 @@ namespace HigiaServer.Domain.Common;
 
 public abstract class BaseUserEntity : BaseEntity
 {
-    #pragma warning disable CS8618
+#pragma warning disable CS8618
     protected BaseUserEntity() { }
 
     protected BaseUserEntity(string name, string email, string phoneNumber,

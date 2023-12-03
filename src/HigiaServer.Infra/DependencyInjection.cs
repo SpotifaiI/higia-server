@@ -1,8 +1,8 @@
-﻿using HigiaServer.Application;
-using HigiaServer.Application.Interfaces;
+﻿using HigiaServer.Application.Interfaces;
 using HigiaServer.Application.MappingDTO;
 using HigiaServer.Application.Services;
 using HigiaServer.Infra.Data;
+
 using Microsoft.Extensions.Configuration;
 
 namespace HigiaServer.Infra;
