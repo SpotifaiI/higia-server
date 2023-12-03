@@ -10,7 +10,7 @@ public class AdministratorTest
     [Fact(DisplayName = "Create Administrator With Valid State")]
     public void CreateAdministrator_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new Administrator(Name, Address, PhoneNumber, Birthday);
+        Action action = () => new Administrator(Name, Address, PhoneNumber, Birthday, "1234");
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 }

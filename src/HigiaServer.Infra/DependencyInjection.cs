@@ -1,8 +1,8 @@
-﻿using HigiaServer.Application.Interfaces;
+﻿using HigiaServer.Application;
+using HigiaServer.Application.Interfaces;
 using HigiaServer.Application.MappingDTO;
 using HigiaServer.Application.Services;
 using HigiaServer.Infra.Data;
-
 using Microsoft.Extensions.Configuration;
 
 namespace HigiaServer.Infra;
@@ -26,6 +26,8 @@ public static class DependencyInjection
         services.AddScoped<ICollaboratorService, CollaboratorService>();
         services.AddScoped<IAdministratorService, AdministratorService>();
         services.AddScoped<ITaskService, TaskService>();
+        services.AddTransient<AuthenticationService>();
+        services.AddAuthorization();
 
         return services;
     }

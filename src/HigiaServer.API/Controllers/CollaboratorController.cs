@@ -1,7 +1,9 @@
 ﻿using HigiaServer.Application;
 using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
+using HigiaServer.Domain.Entities;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HigiaServer.API.Controllers;
@@ -18,6 +20,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetCollaborators()
     {
         try
@@ -32,6 +35,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetCollaboratorById(Guid id)
     {
         try
@@ -46,6 +50,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> CreateCollaborator(CreateCollaboratorDTO collaboratorDTO)
     {
         if (!ModelState.IsValid)
@@ -65,6 +70,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> UpdateCollaborator(CollaboratorDTO collaboratorDTO)
     {
         if (!ModelState.IsValid)
@@ -84,6 +90,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> DeleteCollaborator(Guid id)
     {
         try
@@ -98,6 +105,7 @@ public class CollaboratorController : ControllerBase
     }
 
     [HttpGet("{id}/tasks")]
+    [Authorize]
     public async Task<IActionResult> GetTasksFromCollaborator(Guid id)
     {
         try

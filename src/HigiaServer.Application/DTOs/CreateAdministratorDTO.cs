@@ -1,4 +1,4 @@
-﻿namespace HigiaServer.Application;
+﻿namespace HigiaServer.Application.DTOs;
 
 public record class CreateAdministratorDTO : AdministratorDTO
 {

@@ -2,12 +2,14 @@
 using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HigiaServer.API.Controllers;
 
 [ApiController]
 [Route("api/administrators")]
+[Authorize(Roles = "Administrator")]
 public class AdministratorController : ControllerBase
 {
     private readonly IAdministratorService _administratorService;
@@ -46,6 +48,7 @@ public class AdministratorController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> CreateAdministrator(CreateAdministratorDTO administratorDTO)
     {
         if (!ModelState.IsValid)
