@@ -1,5 +1,4 @@
-﻿using HigiaServer.Application;
-using HigiaServer.Application.DTOs;
+﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
 
 using Microsoft.AspNetCore.Authorization;

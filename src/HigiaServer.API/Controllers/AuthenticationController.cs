@@ -1,5 +1,6 @@
 ﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Services;
+using HigiaServer.Domain.Common;
 using HigiaServer.Infra.Data;
 
 using Microsoft.AspNetCore.Mvc;
@@ -27,22 +28,25 @@ public class AuthenticationController : ControllerBase
         }
 
         try
-        {   
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == authenticateDTO.Email).ConfigureAwait(false);
-            if(user == null) return NotFound("User not found");
-            if(BCrypt.Net.BCrypt.Verify(authenticateDTO.Password, user!.PasswordHash))
+        {
+            BaseUserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == authenticateDTO.Email)
+                .ConfigureAwait(false);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            if (BCrypt.Net.BCrypt.Verify(authenticateDTO.Password, user!.PasswordHash))
             {
                 string token = _authenticationService.GenerateToken(user);
                 return Ok(token);
             }
-            else
-            {
-                return BadRequest("Invalid credentials");
-            }
+
+            return BadRequest("Invalid credentials");
         }
         catch (Exception error)
         {
             return BadRequest(error);
         }
     }
-}   
+}

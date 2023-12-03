@@ -71,5 +71,6 @@ public class BaseUserEntity_TestEntity : BaseUserEntity
     public BaseUserEntity_TestEntity(string name, string address, string phoneNumber,
         DateTime birthday, string senha)
         : base(name, address, phoneNumber, birthday, senha)
-    {}
+    {
+    }
 }
