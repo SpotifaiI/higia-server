@@ -10,7 +10,7 @@ public class CollaboratorTest
     [Fact(DisplayName = "Create Collaborator With Valid State")]
     public void CreateCollaborator_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new Collaborator(Name, Address, PhoneNumber, Birthday);
+        Action action = () => new Collaborator(Name, Address, PhoneNumber, Birthday, "senha");
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 }

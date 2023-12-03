@@ -11,13 +11,13 @@ public class BaseUserEntityTest
 
     public BaseUserEntityTest()
     {
-        _baseUserEntity = new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday);
+        _baseUserEntity = new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday, "senha");
     }
 
     [Fact(DisplayName = "Create BaseUserEntity With Valid State")]
     public void CreateBaseUserEntity_WithValidParameters_ResultObjectValidState()
     {
-        Action action = () => new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, Birthday, "senha");
         action.Should().NotThrow<DomainExeptionValidation>();
     }
 
@@ -30,7 +30,7 @@ public class BaseUserEntityTest
     [InlineData(null)]
     public void CreateBaseUserEntity_WithInvalidAddress_ResultObjectInvalidState(string address)
     {
-        Action action = () => new BaseUserEntity_TestEntity(Name, address, PhoneNumber, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, address, PhoneNumber, Birthday, "senha");
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid email address, valid email address is required");
     }
@@ -39,7 +39,7 @@ public class BaseUserEntityTest
     public void CreateBaseUserEntity_WithInvalidBirthday_ResultObjectInvalidState()
     {
         Action action = () =>
-            new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, DateTime.Now.AddYears(-17));
+            new BaseUserEntity_TestEntity(Name, Address, PhoneNumber, DateTime.Now.AddYears(-17), "senha");
         action.Should().Throw<DomainExeptionValidation>().WithMessage("Invalid birthday, minimum age is 18 years old");
     }
 
@@ -50,7 +50,7 @@ public class BaseUserEntityTest
     [InlineData("")]
     public void CreateBaseUserEntity_WithInvalidNumberPhone_ResultObjectInvalidState(string numberPhone)
     {
-        Action action = () => new BaseUserEntity_TestEntity(Name, Address, numberPhone, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(Name, Address, numberPhone, Birthday, "senha");
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid number phone, valid number phone is required");
     }
@@ -60,7 +60,7 @@ public class BaseUserEntityTest
     [InlineData(null)]
     public void CreateBaseUserEntity_WithInvalidName_ResultObjectInvalidState(string name)
     {
-        Action action = () => new BaseUserEntity_TestEntity(name, Address, PhoneNumber, Birthday);
+        Action action = () => new BaseUserEntity_TestEntity(name, Address, PhoneNumber, Birthday, "senha");
         action.Should().Throw<DomainExeptionValidation>()
             .WithMessage("Invalid name, valid name is required");
     }
@@ -69,7 +69,7 @@ public class BaseUserEntityTest
 public class BaseUserEntity_TestEntity : BaseUserEntity
 {
     public BaseUserEntity_TestEntity(string name, string address, string phoneNumber,
-        DateTime birthday)
-        : base(name, address, phoneNumber, birthday)
+        DateTime birthday, string senha)
+        : base(name, address, phoneNumber, birthday, senha)
     {}
 }

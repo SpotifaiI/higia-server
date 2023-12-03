@@ -1,6 +1,7 @@
 ﻿using HigiaServer.Application.DTOs;
 using HigiaServer.Application.Interfaces;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HigiaServer.API.Controllers;
@@ -17,6 +18,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetTasks()
     {
         try
@@ -31,6 +33,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetTaskById(Guid id)
     {
         try
@@ -45,6 +48,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> UpdateTask(TaskDTO taskDTO)
     {
         try
@@ -59,6 +63,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> DeleteTask(Guid id)
     {
         try
@@ -73,6 +78,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> CreateTask(TaskDTO taskDTO)
     {
         try
@@ -87,6 +93,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpPut("{idCollaborator}/assign")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> AddCollaboratorToTask(Guid idTask, Guid idCollaborator)
     {
         try
@@ -101,6 +108,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet("{id}/collaborators")]
+    [Authorize]
     public async Task<IActionResult> GetCollaboratorsFromTask(Guid id)
     {
         try
