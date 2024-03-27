@@ -1,6 +1,0 @@
-@HigiaServer.API_HostAddress = http://localhost:5007
-
-GET {{HigiaServer.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
