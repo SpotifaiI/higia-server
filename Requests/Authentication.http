@@ -8,9 +8,9 @@ Content-Type: application/json
 {
   "email": "user@example.com",
   "password": "string",
-  "Name": "user",
-  "IsAdmin": true,
-  "Number": "000000000000"
+  "name": "user",
+  "isAdmin": true,
+  "number": "000000000000"
 }
 
 ###
