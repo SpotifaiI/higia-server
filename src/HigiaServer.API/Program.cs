@@ -1,15 +1,19 @@
-var builder = WebApplication.CreateBuilder(args);
+using HigiaServer.Infra;
+using HigiaServer.API.Extensions;
+using HigiaServer.API.Endpoints;
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+builder.Services
+    .AddCustomSwagger()
+    .AddEndpointsApiExplorer()
+    .AddInfra();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
+app.AddAuthenticationEndpoint();
+app.AddCustomErrors();
+app.AddCustomSwagger();
+
 app.Run();

@@ -4,8 +4,8 @@ namespace HigiaServer.Infra.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private static readonly List<User> _users = [];
-    public void AddUser(User user) => _users.Add(user);
-    public User? GetUserByEmail(string email) => _users.SingleOrDefault(x => x.Email == email)!;
+    private static readonly List<User> User = [];
+    public void AddUser(User user) => User.Add(user);
+    public User? GetUserByEmail(string email) => User.SingleOrDefault(x => x.Email == email)!;
 
 }
