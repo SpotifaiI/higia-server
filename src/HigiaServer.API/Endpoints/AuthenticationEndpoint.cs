@@ -1,8 +1,9 @@
+using AutoMapper;
+
 using HigiaServer.Application.Contracts.Requests;
 using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Entities;
 using HigiaServer.Application.Errors;
-using AutoMapper;
 using HigiaServer.Application.Contracts.Responses;
 
 namespace HigiaServer.API.Endpoints;
@@ -11,7 +12,7 @@ public static class AuthenticationEndpoint
 {
     public static IEndpointRouteBuilder AddAuthenticationEndpoint(this IEndpointRouteBuilder app)
     {
-        RouteGroupBuilder authEndpoint = app.MapGroup("password-manager/api/");
+        RouteGroupBuilder authEndpoint = app.MapGroup("higia-server/api/");
 
         // register
         authEndpoint.MapPost("register", async (RegisterRequest request, IUserRepository repository, IMapper mapper) 
@@ -21,8 +22,8 @@ public static class AuthenticationEndpoint
         .Produces<StandardSuccessResponse<AuthenticationResponse>>()
         .WithOpenApi(x =>
         {
-            x.Summary = "Register to the Password Manager API";
-            x.Description = "Register to the Password Manager API with your credentials";
+            x.Summary = "Register to the Higia Server";
+            x.Description = "Register to the Higia Server with your credentials";
             return x;
         });
 
@@ -34,8 +35,8 @@ public static class AuthenticationEndpoint
         .Produces<StandardSuccessResponse<AuthenticationResponse>>()
         .WithOpenApi(x =>
         {
-            x.Summary = "Login to the Password Manager API";
-            x.Description = "Login to the Password Manager API with your credentials";
+            x.Summary = "Login to the Higia Server";
+            x.Description = "Login to the Higia Server with your credentials";
             return x;
         });
 
@@ -49,6 +50,7 @@ public static class AuthenticationEndpoint
             throw new DuplicateEmailException();
         }
         
+        request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var user = mapper.Map<User>(request);
         var authResponse = mapper.Map<AuthenticationResponse>(user);
 
@@ -61,6 +63,11 @@ public static class AuthenticationEndpoint
         if (repository.GetUserByEmail(request.Email) is not User user)
         {
             throw new EmailGivenNotFoundException();
+        }
+
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+        {
+            throw new InvalidPasswordException();
         }
 
         var authResponse = mapper.Map<AuthenticationResponse>(user);
