@@ -7,8 +7,7 @@ public static class CustomSwaggerExtension
     {
         services.AddSwaggerGen(x =>x.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Password Manager v2",
-                Description = "Easily protect sensitive passwords with this API",
+                Title = "Higia Server",
                 Version = "v2"
             })
         );
@@ -19,7 +18,7 @@ public static class CustomSwaggerExtension
     public static WebApplication AddCustomSwagger(this WebApplication app)
     {
         app.UseSwagger();
-        app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "Password Manager API"));
+        app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "Higia Server"));
         app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
 
         return app;
