@@ -1,0 +1,24 @@
+@host = http://localhost:8080/higia-server/api
+
+###
+# @name Register
+POST {{host}}/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "string",
+  "name": "user",
+  "isAdmin": true,
+  "number": "000000000000"
+}
+
+###
+# @name Login
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "string"
+}
