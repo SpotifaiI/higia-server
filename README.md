@@ -2,11 +2,17 @@
 
 ```
 ├── Dockerfile
+├── docs
+│   ├── Requests
+│   │   ├── Authentication.http
+│   │   ├── Task.http
+│   │   └── User.http
+│   └── Responses
+│       └── Authentication.md
+├── fly.toml
 ├── HigiaServer.sln
 ├── Makefile
 ├── README.md
-├── Requests
-│   └── Authentication.http
 └── src
     ├── HigiaServer.API
     │   ├── appsettings.Development.json
