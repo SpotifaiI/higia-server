@@ -19,15 +19,14 @@ public class AuthenticationMapping : Profile
                 request.IsAdmin, 
                 request.Email, 
                 request.Name, 
-                request.Number, 
-                request.Password
+                request.Password,
+                null
             ));
 
         CreateMap<User, UserResponse>()
             .ConstructUsing(user => new UserResponse(
                 user.Email, 
                 user.Name, 
-                user.Number, 
                 user.IsAdmin
             ));
     }
