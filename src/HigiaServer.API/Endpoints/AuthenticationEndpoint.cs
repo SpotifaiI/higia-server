@@ -5,6 +5,7 @@ using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Entities;
 using HigiaServer.Application.Errors;
 using HigiaServer.Application.Contracts.Responses;
+using HigiaServer.Application.Services;
 
 namespace HigiaServer.API.Endpoints;
 
@@ -15,8 +16,8 @@ public static class AuthenticationEndpoint
         RouteGroupBuilder authEndpoint = app.MapGroup("higia-server/api/");
 
         // register
-        authEndpoint.MapPost("register", async (RegisterRequest request, IUserRepository repository, IMapper mapper) 
-            => await HandleRegister(request, repository, mapper)
+        authEndpoint.MapPost("register", async (RegisterRequest request, IUserRepository repository, IMapper mapper, IJwtTokenService jwtTokenService)
+            => await HandleRegister(request, repository, mapper, jwtTokenService)
         )
         .WithName("Register")
         .Produces<StandardSuccessResponse<AuthenticationResponse>>()
@@ -28,8 +29,8 @@ public static class AuthenticationEndpoint
         });
 
         // login
-        authEndpoint.MapPost("login", async (LoginRequest request, IUserRepository repository, IMapper mapper) 
-            => await HandleLogin(request, repository, mapper)
+        authEndpoint.MapPost("login", async (LoginRequest request, IUserRepository repository, IMapper mapper, IJwtTokenService jwtTokenService) 
+            => await HandleLogin(request, repository, mapper, jwtTokenService)
         )
         .WithName("Login")
         .Produces<StandardSuccessResponse<AuthenticationResponse>>()
@@ -43,7 +44,7 @@ public static class AuthenticationEndpoint
         return app;
     }
 
-    public static async Task<IResult> HandleRegister(RegisterRequest request, IUserRepository repository, IMapper mapper)
+    public static async Task<IResult> HandleRegister(RegisterRequest request, IUserRepository repository, IMapper mapper, IJwtTokenService jwtTokenService)
     {
         if (repository.GetUserByEmail(request.Email) != null)
         {
@@ -52,13 +53,18 @@ public static class AuthenticationEndpoint
         
         request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var user = mapper.Map<User>(request);
-        var authResponse = mapper.Map<AuthenticationResponse>(user);
+        jwtTokenService.GenerateToken(user);
+        
+        var authResponse = new AuthenticationResponse(
+            mapper.Map<UserResponse>(user), 
+            jwtTokenService.GenerateToken(user)
+        );
 
         repository.AddUser(user);
         return Results.Ok(mapper.Map<StandardSuccessResponse<AuthenticationResponse>>(authResponse));
     }
 
-    public static async Task<IResult> HandleLogin(LoginRequest request, IUserRepository repository, IMapper mapper)
+    public static async Task<IResult> HandleLogin(LoginRequest request, IUserRepository repository, IMapper mapper, IJwtTokenService jwtTokenService)
     {
         if (repository.GetUserByEmail(request.Email) is not User user)
         {
@@ -70,7 +76,11 @@ public static class AuthenticationEndpoint
             throw new InvalidPasswordException();
         }
 
-        var authResponse = mapper.Map<AuthenticationResponse>(user);
+        var authResponse = new AuthenticationResponse(
+            mapper.Map<UserResponse>(user), 
+            jwtTokenService.GenerateToken(user)
+        );
+        
         return Results.Ok(mapper.Map<StandardSuccessResponse<AuthenticationResponse>>(authResponse));
     }
 }

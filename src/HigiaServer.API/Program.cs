@@ -7,7 +7,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddCustomSwagger()
     .AddEndpointsApiExplorer()
-    .AddInfra();
+    .AddInfra(builder.Configuration);
 
 WebApplication app = builder.Build();
 

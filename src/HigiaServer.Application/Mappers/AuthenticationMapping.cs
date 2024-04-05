@@ -21,17 +21,14 @@ public class AuthenticationMapping : Profile
                 request.Name, 
                 request.Number, 
                 request.Password
-            )); 
+            ));
 
-        CreateMap<User, AuthenticationResponse>()
-        .ConstructUsing(user => new AuthenticationResponse(
-            new UserResponse(
+        CreateMap<User, UserResponse>()
+            .ConstructUsing(user => new UserResponse(
                 user.Email, 
                 user.Name, 
                 user.Number, 
                 user.IsAdmin
-            ), 
-        "token"));
-
+            ));
     }
 }
