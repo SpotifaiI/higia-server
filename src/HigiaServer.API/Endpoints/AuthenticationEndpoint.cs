@@ -12,7 +12,7 @@ public static class AuthenticationEndpoint
 {
     public static IEndpointRouteBuilder AddAuthenticationEndpoint(this IEndpointRouteBuilder app)
     {
-        var authEndpoint = app.MapGroup("higia-server/api/")
+        var authEndpoint = app.MapGroup("higia-server/api/auth")
             .WithTags("Authentication");
 
         // register
@@ -69,7 +69,7 @@ public static class AuthenticationEndpoint
     private static async Task<IResult> HandleLogin(LoginRequest request, IUserRepository repository, IMapper mapper,
         IJwtTokenService jwtTokenService)
     {
-        if (repository.GetUserByEmail(request.Email) is not User user) throw new EmailGivenNotFoundException();
+        if (repository.GetUserByEmail(request.Email) is not { } user) throw new EmailGivenNotFoundException();
 
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password)) throw new InvalidPasswordException();
 
