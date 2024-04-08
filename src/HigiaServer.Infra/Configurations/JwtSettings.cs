@@ -1,4 +1,4 @@
-namespace HigiaServer.Infra.Utils;
+namespace HigiaServer.Infra.Configurations;
 
 public class JwtSettings
 {

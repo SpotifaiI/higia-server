@@ -1,11 +1,12 @@
 using HigiaServer.Domain.Enums;
+
 namespace HigiaServer.Domain.Entities;
 
 public class Task(
-    string title, 
-    string[] coordinates, 
-    UrgencyLevel urgencyLevel, 
-    List<User> collaborators, 
+    string title,
+    string[] coordinates,
+    UrgencyLevel urgencyLevel,
+    List<User> collaborators,
     string? description)
 {
     public string Title { get; private set; } = title;

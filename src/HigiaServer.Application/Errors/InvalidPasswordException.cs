@@ -1,4 +1,5 @@
 using System.Net;
+
 namespace HigiaServer.Application.Errors;
 
 public class InvalidPasswordException : Exception, IServiceException

@@ -1,4 +1,5 @@
 namespace HigiaServer.Domain.Enums;
+
 public enum UrgencyLevel
 {
     Low = 0,

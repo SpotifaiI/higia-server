@@ -1,11 +1,12 @@
 using Microsoft.OpenApi.Models;
+
 namespace HigiaServer.API.Extensions;
 
 public static class CustomSwaggerExtension
 {
     public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
     {
-        services.AddSwaggerGen(x =>x.SwaggerDoc("v1", new OpenApiInfo
+        services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Higia Server",
                 Version = "v2"

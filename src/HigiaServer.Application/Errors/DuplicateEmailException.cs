@@ -1,4 +1,5 @@
 using System.Net;
+
 namespace HigiaServer.Application.Errors;
 
 public class DuplicateEmailException : Exception, IServiceException
