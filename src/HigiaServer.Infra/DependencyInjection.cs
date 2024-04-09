@@ -4,6 +4,7 @@ using HigiaServer.Application.Services;
 using HigiaServer.Infra.Configurations;
 using HigiaServer.Infra.Repositories;
 using HigiaServer.Infra.Services;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,7 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(AuthenticationMapping));
 
         services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<ITaskRepository, TaskRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
