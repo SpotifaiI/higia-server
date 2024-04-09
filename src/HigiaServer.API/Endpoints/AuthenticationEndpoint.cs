@@ -1,4 +1,5 @@
 using AutoMapper;
+
 using HigiaServer.Application.Contracts.Requests;
 using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Application.Errors;

@@ -3,10 +3,10 @@ using HigiaServer.Domain.Enums;
 namespace HigiaServer.Application.Contracts.Requests;
 
 public class AddTaskRequest(
-    string title, 
-    UrgencyLevel urgencyLevel, 
-    string description, 
-    Coordinates coordinates, 
+    string title,
+    UrgencyLevel urgencyLevel,
+    string description,
+    Coordinates coordinates,
     List<Guid> collaborators)
 {
     public string Title { get; set; } = title;

@@ -1,4 +1,5 @@
 using HigiaServer.Application.Errors;
+
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

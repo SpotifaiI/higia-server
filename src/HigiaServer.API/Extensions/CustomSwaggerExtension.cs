@@ -7,10 +7,10 @@ public static class CustomSwaggerExtension
     public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "Higia Server",
-                Version = "v2"
-            })
+        {
+            Title = "Higia Server",
+            Version = "v2"
+        })
         );
 
         return services;
