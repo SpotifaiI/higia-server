@@ -1,8 +1,9 @@
-using HigiaServer.Domain.Entities;
+using Task = HigiaServer.Domain.Entities.Task;
 
 namespace HigiaServer.Application.Repositories;
 
 public interface ITaskRepository
 {
-    void AddTask(Domain.Entities.Task task);
+    void AddTask(Task task);
+    Task? GetTaskById(Guid taskId);
 }
