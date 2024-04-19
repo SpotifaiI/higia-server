@@ -1,9 +1,7 @@
 using System.Text;
-
 using HigiaServer.API.Endpoints;
 using HigiaServer.API.Extensions;
 using HigiaServer.Infra;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,7 +11,11 @@ builder.Services.AddCustomSwagger();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfra(builder.Configuration);
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("admin", policy => policy.RequireRole("admin"));
+    options.AddPolicy("collaborator", policy => policy.RequireRole("collaborator"));
+});
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -34,6 +36,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.AddAuthenticationEndpoint();
+app.AddTaskEndpoint();
 app.UseAuthentication();
 app.UseAuthorization();
 app.AddCustomErrors();
