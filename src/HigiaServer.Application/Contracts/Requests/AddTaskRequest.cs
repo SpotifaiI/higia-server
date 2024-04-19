@@ -5,15 +5,19 @@ namespace HigiaServer.Application.Contracts.Requests;
 public class AddTaskRequest(
     string title,
     UrgencyLevel urgencyLevel,
-    string description,
     Coordinates coordinates,
-    List<Guid> collaborators)
+    List<Guid> collaboratorsId,
+    string? description)
 {
-    public string Title { get; set; } = title;
-    public UrgencyLevel UrgencyLevel { get; set; } = urgencyLevel;
-    public string Description { get; set; } = description;
-    public Coordinates Coordinates { get; set; } = coordinates;
-    public List<Guid> Collaborators { get; set; } = collaborators;
+    public string Title { get; private set; } = title;
+    public UrgencyLevel UrgencyLevel { get; private set; } = urgencyLevel;
+    public Coordinates Coordinates { get; private set; } = coordinates;
+    public List<Guid> CollaboratorsId { get; private set; } = collaboratorsId;
+    public string? Description { get; private set; } = description;
 }
 
-public record Coordinates(string Latitude, string Longitude);
+public class Coordinates(string latitude, string longitude)
+{
+    public string Latitude { get; private set; } = latitude;
+    public string Longitude { get; private set; } = longitude;
+}
