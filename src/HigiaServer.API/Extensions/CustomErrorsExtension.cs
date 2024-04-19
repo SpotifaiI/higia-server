@@ -1,5 +1,5 @@
 using HigiaServer.Application.Errors;
-
+using HigiaServer.Application.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ public static class CustomErrorsExtension
         app.Map(endPoint, (HttpContext context) =>
         {
             var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-            (var statusCode, var title) = exception switch
+            var (statusCode, title) = exception switch
             {
                 IServiceException serviceException => ((int)serviceException.StatusCode, serviceException.ErrorMessage),
                 _ => (StatusCodes.Status500InternalServerError, "An error occurred while processing your request")

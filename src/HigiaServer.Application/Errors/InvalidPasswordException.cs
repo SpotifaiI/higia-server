@@ -1,4 +1,5 @@
 using System.Net;
+using HigiaServer.Application.Services;
 
 namespace HigiaServer.Application.Errors;
 
