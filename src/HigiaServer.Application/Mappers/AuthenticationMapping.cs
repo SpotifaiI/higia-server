@@ -1,5 +1,4 @@
 using AutoMapper;
-
 using HigiaServer.Application.Contracts.Requests;
 using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Domain.Entities;
@@ -13,14 +12,15 @@ public class AuthenticationMapping : Profile
         CreateMap<RegisterRequest, User>()
             .ConstructUsing(request => new User(
                 request.IsAdmin,
-                request.Email,
                 request.Name,
+                request.Email,
                 request.Password,
                 null
             ));
 
         CreateMap<User, UserResponse>()
             .ConstructUsing(user => new UserResponse(
+                user.Id,
                 user.Email,
                 user.Name,
                 user.IsAdmin
