@@ -5,11 +5,11 @@ namespace HigiaServer.Application.Contracts.Requests;
 
 public class RegisterRequest(string email, string password, string name, bool isAdmin)
 {
-    [EmailAddress] public string Name { get; set; } = name;
+    public string Name { get; private set; } = name;
 
-    public string Email { get; set; } = email;
+    [EmailAddress] public string Email { get; private set; } = email;
 
     [PasswordPropertyText] public string Password { get; set; } = password;
 
-    public bool IsAdmin { get; set; } = isAdmin;
+    public bool IsAdmin { get; private set; } = isAdmin;
 }
