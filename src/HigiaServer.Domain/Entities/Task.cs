@@ -6,7 +6,8 @@ public class Task(
     string title,
     string[] coordinates,
     UrgencyLevel urgencyLevel,
-    string? description)
+    string? description
+)
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string Title { get; private set; } = title;
@@ -16,13 +17,9 @@ public class Task(
     public Status Status { get; private set; } = Status.New;
     public List<User> Collaborators { get; } = [];
 
-    public void AddCollaboratorToTask(User user)
-    {
-        Collaborators.Add(user);
-    }
+    public void AddCollaboratorToTask(User user) => Collaborators.Add(user);
 
-    public void AddCollaboratorsToTask(IEnumerable<User> user)
-    {
-        Collaborators.AddRange(user);
-    }
+    public void AddCollaboratorsToTask(List<User> user) => Collaborators.AddRange(user);
+
+    public void UpdateTaskStatus(Status newStatus) => Status = newStatus;
 }

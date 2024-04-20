@@ -9,11 +9,7 @@ public static class CustomSwaggerExtension
     {
         services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "Higia Server",
-                Version = "v2"
-            });
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Higia Server", Version = "v2" });
 
             var jwtSecurityScheme = new OpenApiSecurityScheme
             {
@@ -31,10 +27,9 @@ public static class CustomSwaggerExtension
                 }
             };
             options.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                { jwtSecurityScheme, Array.Empty<string>() }
-            });
+            options.AddSecurityRequirement(
+                new OpenApiSecurityRequirement { { jwtSecurityScheme, Array.Empty<string>() } }
+            );
         });
 
         return services;

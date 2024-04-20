@@ -1,24 +1,19 @@
 using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Entities;
+using HigiaServer.Infra.DbContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace HigiaServer.Infra.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(HigiaServerContext context) : IUserRepository
 {
-    private static readonly List<User> Users = [];
+    private readonly HigiaServerContext _context = context;
 
-    public void AddUser(User user)
+    public async void AddUser(User user)
     {
-        Users.Add(user);
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
     }
-
-    public User? GetUserByEmail(string email)
-    {
-        return Users.SingleOrDefault(x => x.Email == email)!;
-    }
-
-    public User? GetUserById(Guid userId)
-    {
-        return Users.SingleOrDefault(x => x.Id == userId);
-    }
+    public async Task<User?> GetUserByEmail(string email) => await _context.Users.SingleOrDefaultAsync(x => x.Email == email)!;
+    public async Task<User?> GetUserById(Guid userId) => await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
 }

@@ -7,9 +7,11 @@ public class RegisterRequest(string email, string password, string name, bool is
 {
     public string Name { get; private set; } = name;
 
-    [EmailAddress] public string Email { get; private set; } = email;
+    [EmailAddress]
+    public string Email { get; private set; } = email;
 
-    [PasswordPropertyText] public string Password { get; set; } = password;
+    [PasswordPropertyText]
+    public string Password { get; set; } = password;
 
     public bool IsAdmin { get; private set; } = isAdmin;
 }

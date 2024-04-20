@@ -22,6 +22,7 @@ public class TaskMapping : Profile
                 task.Id,
                 task.Title,
                 task.UrgencyLevel,
+                task.Status,
                 new Coordinates(task.Coordinates[0], task.Coordinates[1]),
                 task.Collaborators.Select(c => c.Id).ToList(),
                 task.Description

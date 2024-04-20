@@ -7,10 +7,12 @@ public class AddTaskRequest(
     UrgencyLevel urgencyLevel,
     Coordinates coordinates,
     List<Guid> collaboratorsId,
-    string? description)
+    string? description
+)
 {
     public string Title { get; private set; } = title;
     public UrgencyLevel UrgencyLevel { get; private set; } = urgencyLevel;
+    public Status Status { get; private set; } = Status.New;
     public Coordinates Coordinates { get; private set; } = coordinates;
     public List<Guid> CollaboratorsId { get; private set; } = collaboratorsId;
     public string? Description { get; private set; } = description;

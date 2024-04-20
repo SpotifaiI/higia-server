@@ -20,8 +20,8 @@ public class AuthenticationMapping : Profile
 
         CreateMap<User, UserResponse>()
             .ConstructUsing(user => new UserResponse(
-                user.Id,
-                user.Email,
+                user.Id, 
+                user.Email, 
                 user.Name,
                 user.IsAdmin
             ));

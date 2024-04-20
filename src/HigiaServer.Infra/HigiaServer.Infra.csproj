@@ -4,10 +4,21 @@
         <ProjectReference Include="..\HigiaServer.Domain\HigiaServer.Domain.csproj"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0"/>
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="DatabaseContext\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="DatabaseContext\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="DatabaseContext\**" />
     </ItemGroup>
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
