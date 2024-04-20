@@ -1,0 +1,21 @@
+@host = http://localhost:8080/higia-server/api/
+
+###
+# @name AddTask
+POST {{host}}/tasks HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "title",
+    "urgencyLevel": 0,
+    "description": "description",
+    "coordinates": [
+        "latitude": "29435842937"
+        "longitude" "-12"
+    ],
+    "collaborators": [
+        "00000000-0000-0000-0000-000000000000",
+        "00000000-0000-0000-0000-000000000000",
+        "00000000-0000-0000-0000-000000000000"
+    ]
+}

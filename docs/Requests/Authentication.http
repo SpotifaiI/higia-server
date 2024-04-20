@@ -1,4 +1,4 @@
-@host = http://localhost:8080/higia-server/api
+@host = http://localhost:8080/higia-server/api/auth
 
 ###
 # @name Register

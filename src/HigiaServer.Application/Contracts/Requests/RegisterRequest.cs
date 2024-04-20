@@ -1,13 +1,15 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace HigiaServer.Application.Contracts.Requests;
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 public class RegisterRequest(string email, string password, string name, bool isAdmin)
 {
-    [EmailAddress]
-    public string Name { get; set; } = name;
-    public string Email { get; set; } = email;
-    [PasswordPropertyText]
-    public string Password { get; set; } = password;
-    public bool IsAdmin { get; set; } = isAdmin;
+    public string Name { get; private set; } = name;
+
+    [EmailAddress] public string Email { get; private set; } = email;
+
+    [PasswordPropertyText] public string Password { get; set; } = password;
+
+    public bool IsAdmin { get; private set; } = isAdmin;
 }
