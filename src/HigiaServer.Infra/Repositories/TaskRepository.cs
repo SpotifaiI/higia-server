@@ -1,19 +1,28 @@
 using HigiaServer.Application.Repositories;
+using HigiaServer.Infra.DbContext;
+using Microsoft.EntityFrameworkCore;
 using Task = HigiaServer.Domain.Entities.Task;
 
 namespace HigiaServer.Infra.Repositories;
 
-public class TaskRepository : ITaskRepository
+public class TaskRepository(HigiaServerContext context) : ITaskRepository
 {
-    private static readonly List<Task> Tasks = [];
+    private readonly HigiaServerContext _context = context;
 
-    public void AddTask(Task task)
+    public async void AddTask(Task task)
     {
-        Tasks.Add(task);
+        await _context.Tasks.AddAsync(task);
+        await _context.SaveChangesAsync();
     }
 
-    public Task? GetTaskById(Guid taskId)
+    public async Task<Task?> GetTaskById(Guid taskId)
     {
-        return Tasks.SingleOrDefault(x => x.Id == taskId);
+        return await _context.Tasks.SingleOrDefaultAsync(x => x.Id == taskId);
+    }
+
+    public async void UpdateTask(Task task)
+    {
+        _context.Tasks.Update(task);
+        await _context.SaveChangesAsync();
     }
 }
