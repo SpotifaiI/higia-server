@@ -3,7 +3,7 @@ using HigiaServer.Application.Services;
 
 namespace HigiaServer.Application.Errors;
 
-public class CollaboratorIdNotFound(string collaboratorId) : Exception, IServiceException
+public class AddTaskCollaboratorNotFoundException(string collaboratorId) : Exception, IServiceException
 {
     public HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
 

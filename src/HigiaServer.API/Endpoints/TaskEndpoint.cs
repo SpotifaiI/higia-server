@@ -26,7 +26,7 @@ public static class TaskEndpoint
             });
 
         // get task by id
-        authEndpoint.MapGet("/{taskId}", HandleGetTask)
+        authEndpoint.MapGet("/{taskId:guid}", HandleGetTask)
             .WithName("Get task by id")
             .Produces<TaskResponse>()
             .WithOpenApi(x =>
@@ -35,7 +35,7 @@ public static class TaskEndpoint
                 return x;
             });
 
-        authEndpoint.MapPatch("/{taskId}/{status}", HandleUpdateTaskStatus)
+        authEndpoint.MapPatch("/{taskId:guid}/{status}", HandleUpdateTaskStatus)
             .WithName("Update Task Status")
             .WithOpenApi(x =>
             {
@@ -50,14 +50,13 @@ public static class TaskEndpoint
 
     private static async Task<IResult> HandleUpdateTaskStatus(
         HttpContext context,
-        string taskId,
+        Guid taskId,
         Status status,
         ITaskRepository taskRepository
     )
     {
         CheckAuthorizationAsAdministrator(context);
-        if (!Guid.TryParse(taskId, out var id)) throw new NonGuidTypeException(taskId);
-        var task = await taskRepository.GetTaskById(id) ?? throw new TaskIdGivenNotFoundException(id.ToString());
+        if (await taskRepository.GetTaskById(taskId) is not { } task) return Results.NoContent();
         
         task.UpdateTaskStatus(status);
         taskRepository.UpdateTask(task);
@@ -78,7 +77,7 @@ public static class TaskEndpoint
         var task = mapper.Map<Domain.Entities.Task>(request);
         
         var collaborators = (await Task.WhenAll(request.CollaboratorsId
-            .Select(async id => await userRepository.GetUserById(id) ?? throw new CollaboratorIdNotFound(id.ToString()))))
+            .Select(async id => await userRepository.GetUserById(id) ?? throw new AddTaskCollaboratorNotFoundException(id.ToString()))))
             .ToList();
 
         task.AddCollaboratorsToTask(collaborators);
@@ -92,14 +91,14 @@ public static class TaskEndpoint
 
     private static async Task<IResult> HandleGetTask(
         HttpContext context,
-        string taskId,
+        Guid taskId,
         ITaskRepository taskRepository,
         IMapper mapper
     )
     {
-        if (!context.User!.Identity!.IsAuthenticated) throw new AuthenticationException();
-        if (!Guid.TryParse(taskId, out var id)) throw new NonGuidTypeException(taskId);
-        var task = await taskRepository.GetTaskById(id) ?? throw new TaskIdGivenNotFoundException(id.ToString());
+        if (!context.User!.Identity!.IsAuthenticated) throw new UnauthenticatedException();
+        
+        if (await taskRepository.GetTaskById(taskId) is not { } task) return Results.NoContent();
         
         var taskResponse = mapper.Map<TaskResponse>(task);
         return Results.Ok(new StandardSuccessResponse<TaskResponse>(taskResponse));
