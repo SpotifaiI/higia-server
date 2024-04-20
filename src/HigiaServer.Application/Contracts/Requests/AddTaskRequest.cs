@@ -7,7 +7,8 @@ public class AddTaskRequest(
     UrgencyLevel urgencyLevel,
     Coordinates coordinates,
     List<Guid> collaboratorsId,
-    string? description)
+    string? description
+)
 {
     public string Title { get; private set; } = title;
     public UrgencyLevel UrgencyLevel { get; private set; } = urgencyLevel;

@@ -9,4 +9,5 @@ public record TaskResponse(
     UrgencyLevel UrgencyLevel,
     Coordinates Coordinates,
     List<Guid> Collaborators,
-    string? Description);
+    string? Description
+);

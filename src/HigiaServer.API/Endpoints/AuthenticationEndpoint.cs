@@ -13,8 +13,7 @@ public static class AuthenticationEndpoint
 {
     public static IEndpointRouteBuilder AddAuthenticationEndpoint(this IEndpointRouteBuilder app)
     {
-        var authEndpoint = app.MapGroup("higia-server/api/auth")
-            .WithTags("Authentication");
+        var authEndpoint = app.MapGroup("higia-server/api/auth").WithTags("Authentication");
 
         // register
         authEndpoint.MapPost("register", HandleRegister)
@@ -41,8 +40,12 @@ public static class AuthenticationEndpoint
         return app;
     }
 
-    private static async Task<IResult> HandleRegister(RegisterRequest request, IUserRepository repository,
-        IMapper mapper, IJwtTokenService jwtTokenService)
+    private static async Task<IResult> HandleRegister(
+        RegisterRequest request,
+        IUserRepository repository,
+        IMapper mapper,
+        IJwtTokenService jwtTokenService
+    )
     {
         if (repository.GetUserByEmail(request.Email) != null) throw new DuplicateEmailException(request.Email);
 
@@ -59,12 +62,16 @@ public static class AuthenticationEndpoint
         return Results.Ok(new StandardSuccessResponse<AuthenticationResponse>(authResponse));
     }
 
-    private static async Task<IResult> HandleLogin(LoginRequest request, IUserRepository repository, IMapper mapper,
-        IJwtTokenService jwtTokenService)
+    private static async Task<IResult> HandleLogin(
+        LoginRequest request,
+        IUserRepository repository,
+        IMapper mapper,
+        IJwtTokenService jwtTokenService
+    )
     {
         if (repository.GetUserByEmail(request.Email) is not { } user) throw new EmailGivenNotFoundException(request.Email);
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password)) throw new InvalidPasswordException();
-        
+
         var authResponse = new AuthenticationResponse(
             mapper.Map<UserResponse>(user),
             jwtTokenService.GenerateToken(user)
