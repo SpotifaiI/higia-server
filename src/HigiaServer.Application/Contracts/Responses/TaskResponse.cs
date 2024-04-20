@@ -7,6 +7,7 @@ public record TaskResponse(
     Guid Id,
     string Title,
     UrgencyLevel UrgencyLevel,
+    Status Status,
     Coordinates Coordinates,
     List<Guid> Collaborators,
     string? Description
