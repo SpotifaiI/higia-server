@@ -19,7 +19,7 @@ public class Task(
 
     public void AddCollaboratorToTask(User user) => Collaborators.Add(user);
 
-    public void AddCollaboratorsToTask(IEnumerable<User> user) => Collaborators.AddRange(user);
+    public void AddCollaboratorsToTask(List<User> user) => Collaborators.AddRange(user);
 
     public void UpdateTaskStatus(Status newStatus) => Status = newStatus;
 }

@@ -47,7 +47,7 @@ public static class AuthenticationEndpoint
         IJwtTokenService jwtTokenService
     )
     {
-        if (repository.GetUserByEmail(request.Email) != null) throw new DuplicateEmailException(request.Email);
+        if (await repository.GetUserByEmail(request.Email) != null) throw new DuplicateEmailException(request.Email);
 
         request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var user = mapper.Map<User>(request);
@@ -69,7 +69,7 @@ public static class AuthenticationEndpoint
         IJwtTokenService jwtTokenService
     )
     {
-        if (repository.GetUserByEmail(request.Email) is not { } user) throw new EmailGivenNotFoundException(request.Email);
+        if (await repository.GetUserByEmail(request.Email) is not { } user) throw new EmailGivenNotFoundException(request.Email);
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password)) throw new InvalidPasswordException();
 
         var authResponse = new AuthenticationResponse(
