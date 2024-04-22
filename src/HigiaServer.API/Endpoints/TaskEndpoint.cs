@@ -6,6 +6,7 @@ using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Application.Errors;
 using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Enums;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HigiaServer.API.Endpoints;
 
@@ -39,7 +40,15 @@ public static class TaskEndpoint
             .WithName("Update Task Status")
             .WithOpenApi(x =>
             {
-                x.Summary = "Get task by id";
+                x.Summary = "Update task status";
+                return x;
+            });
+        
+        authEndpoint.MapPut("/{taskId:guid}", HandleUpdateTaskInformation)
+            .WithName("Update Task")
+            .WithOpenApi(x =>
+            {
+                x.Summary = "Update task information";
                 return x;
             });
 
@@ -48,6 +57,31 @@ public static class TaskEndpoint
 
     #region private methods
 
+    private static async Task<IResult> HandleUpdateTaskInformation(
+        Guid taskId,
+        HttpContext context, 
+        UpdateTaskRequest request, 
+        ITaskRepository taskRepository, 
+        IMapper mapper
+        )
+    {
+        CheckAuthorizationAsAdministrator(context);
+        if (await taskRepository.GetTaskById(taskId) is not { } task)
+        {
+            return Results.BadRequest("Unable to update task because no matching task was found");
+        }
+        
+        task.UpdateTask(
+            request.Title,
+            request.Description,
+            [request.Coordinates.Latitude, request.Coordinates.Longitude]);
+        
+        taskRepository.UpdateTask(task);
+        
+        context.Response.Headers.Location = $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{taskId}";
+        return Results.Ok();
+    }
+    
     private static async Task<IResult> HandleUpdateTaskStatus(
         HttpContext context,
         Guid taskId,

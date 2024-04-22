@@ -17,6 +17,13 @@ public class Task(
     public Status Status { get; private set; } = Status.New;
     public List<User> Collaborators { get; } = [];
 
+    public void UpdateTask(string? title = null, string? description = null, string[]? coordinates = null)
+    {
+        Title = title ?? Title;
+        Description = description ?? Description;
+        Coordinates = coordinates ?? Coordinates;
+    }
+    
     public void AddCollaboratorToTask(User user) => Collaborators.Add(user);
 
     public void AddCollaboratorsToTask(List<User> user) => Collaborators.AddRange(user);
