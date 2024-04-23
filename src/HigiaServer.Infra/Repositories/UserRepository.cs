@@ -14,6 +14,10 @@ public class UserRepository(HigiaServerContext context) : IUserRepository
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
     }
-    public async Task<User?> GetUserByEmail(string email) => await _context.Users.SingleOrDefaultAsync(x => x.Email == email)!;
-    public async Task<User?> GetUserById(Guid userId) => await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
+
+    public async Task<User?> GetUserByEmail(string email) =>
+        await _context.Users.SingleOrDefaultAsync(x => x.Email == email)!;
+
+    public async Task<User?> GetUserById(Guid userId) =>
+        await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
 }

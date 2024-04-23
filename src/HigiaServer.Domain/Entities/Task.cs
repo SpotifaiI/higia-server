@@ -23,7 +23,7 @@ public class Task(
         Description = description ?? Description;
         Coordinates = coordinates ?? Coordinates;
     }
-    
+
     public void AddCollaboratorToTask(User user) => Collaborators.Add(user);
 
     public void AddCollaboratorsToTask(List<User> user) => Collaborators.AddRange(user);
