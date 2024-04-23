@@ -44,7 +44,7 @@ public static class TaskEndpoint
                 return x;
             });
         
-        authEndpoint.MapPut("/{taskId:guid}", HandleUpdateTaskInformation)
+        authEndpoint.MapPut("/{taskId:guid}/info", HandleUpdateTaskInformation)
             .WithName("Update Task")
             .WithOpenApi(x =>
             {
@@ -52,17 +52,50 @@ public static class TaskEndpoint
                 return x;
             });
 
+        authEndpoint.MapPatch("/{taskId:guid}/collaborators/{collaboratorId:guid}", HandleAddCollaboratorToTask);
+
         return app;
     }
 
     #region private methods
 
+    private static async Task<IResult> HandleAddCollaboratorToTask(        
+        Guid taskId,
+        Guid collaboratorId,
+        HttpContext context, 
+        IUserRepository userRepository,
+        ITaskRepository taskRepository, 
+        UpdateTaskRequest request
+    )
+    {
+        CheckAuthorizationAsAdministrator(context);
+        if (await taskRepository.GetTaskById(taskId) is not { } task)
+        {
+            return Results.BadRequest("Unable to update task because no matching task was found");
+        }
+        
+        if (await userRepository.GetUserById(collaboratorId) is not { } collaborator)
+        {
+            return Results.BadRequest($"Collaborator with id {collaboratorId} was not found!");
+        }
+
+        if (!task.Collaborators.Contains(collaborator))
+        {
+            return Results.BadRequest($"The collaborator with id {collaboratorId} is already participating in this task");
+        }
+
+        task.AddCollaboratorToTask(collaborator);
+        taskRepository.UpdateTask(task);
+        
+        context.Response.Headers.Location = $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
+        return Results.Ok();
+    }
+
     private static async Task<IResult> HandleUpdateTaskInformation(
         Guid taskId,
         HttpContext context, 
-        UpdateTaskRequest request, 
         ITaskRepository taskRepository, 
-        IMapper mapper
+        UpdateTaskRequest request
         )
     {
         CheckAuthorizationAsAdministrator(context);
@@ -137,11 +170,12 @@ public static class TaskEndpoint
         var taskResponse = mapper.Map<TaskResponse>(task);
         return Results.Ok(new StandardSuccessResponse<TaskResponse>(taskResponse));
     }
-
+    
     private static void CheckAuthorizationAsAdministrator(HttpContext context)
     {
         if (!context.User!.Identity!.IsAuthenticated) throw new UnauthenticatedException();
         if (context.User.FindFirstValue(ClaimTypes.Role) != "admin") throw new UnauthorizedAccessException();
     }
+    
     #endregion
 }
