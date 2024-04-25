@@ -17,12 +17,18 @@ public class TaskRepository(HigiaServerContext context) : ITaskRepository
 
     public async Task<Task?> GetTaskById(Guid taskId)
     {
-        return await _context.Tasks.SingleOrDefaultAsync(x => x.Id == taskId);
+        return await _context.Tasks.Include(c => c.Collaborators).SingleOrDefaultAsync(x => x.Id == taskId);
     }
 
     public async void UpdateTask(Task task)
     {
         _context.Tasks.Update(task);
+        await _context.SaveChangesAsync();
+    }
+
+    public async void DeleteTask(Guid taskId)
+    {
+        _context.Tasks.Remove(await GetTaskById(taskId)!);
         await _context.SaveChangesAsync();
     }
 }
