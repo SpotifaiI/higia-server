@@ -36,6 +36,7 @@ public static class TaskEndpoint
                 return x;
             });
 
+        // update status
         authEndpoint.MapPatch("/{taskId:guid}/{status}", HandleUpdateTaskStatus)
             .WithName("Update Task Status")
             .WithOpenApi(x =>
@@ -43,7 +44,8 @@ public static class TaskEndpoint
                 x.Summary = "Update task status";
                 return x;
             });
-
+        
+        // update task info
         authEndpoint.MapPut("/{taskId:guid}/info", HandleUpdateTaskInformation)
             .WithName("Update Task")
             .WithOpenApi(x =>
@@ -51,12 +53,21 @@ public static class TaskEndpoint
                 x.Summary = "Update task information";
                 return x;
             });
-
+        
+        // add collaborator to task
         authEndpoint.MapPatch("/{taskId:guid}/collaborators/{collaboratorId:guid}", HandleAddCollaboratorToTask)
             .WithName("Add collaborator to task")
             .WithOpenApi(x =>
             {
                 x.Summary = "Add collaborator to task";
+                return x;
+            });
+        
+        authEndpoint.MapDelete("/{taskId:guid}", HandleDeleteTask)
+            .WithName("Delete task by id")
+            .WithOpenApi(x =>
+            {
+                x.Summary = "Delete task by id";
                 return x;
             });
 
@@ -65,6 +76,21 @@ public static class TaskEndpoint
 
     #region private methods
 
+    private static async Task<IResult> HandleDeleteTask(
+        HttpContext context, 
+        Guid taskId, 
+        ITaskRepository taskRepository)
+    {
+        CheckAuthorizationAsAdministrator(context);
+        if (await taskRepository.GetTaskById(taskId) is not { } task)
+        {
+            return Results.BadRequest("Unable to update task because no matching task was found");
+        }
+        
+        taskRepository.DeleteTask(taskId);
+        return Results.Ok(new BaseSuccessResponse("task deleted successfully"));
+    }
+    
     private static async Task<IResult> HandleAddCollaboratorToTask(
         Guid taskId,
         Guid collaboratorId,
@@ -95,9 +121,9 @@ public static class TaskEndpoint
         task.AddCollaboratorToTask(collaborator);
         taskRepository.UpdateTask(task);
 
-        context.Response.Headers.Location =
-            $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
-        return Results.Ok();
+        context.Response.Headers.Location = $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
+        
+        return Results.Ok(new BaseSuccessResponse("collaborator successfully added to task"));
     }
 
     private static async Task<IResult> HandleUpdateTaskInformation(
@@ -142,7 +168,7 @@ public static class TaskEndpoint
 
         context.Response.Headers.Location =
             $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
-        return Results.Ok();
+        return Results.Ok("task information updated successfully");
     }
 
     private static async Task<IResult> HandleAddTask(
@@ -175,7 +201,7 @@ public static class TaskEndpoint
         var taskResponse = mapper.Map<TaskResponse>(task);
         return Results.Created(
             location,
-            new StandardSuccessResponse<TaskResponse>(taskResponse, location)
+            new SuccessResponseWithT<TaskResponse>(taskResponse, location)
         );
     }
 
@@ -193,7 +219,7 @@ public static class TaskEndpoint
             return Results.NoContent();
 
         var taskResponse = mapper.Map<TaskResponse>(task);
-        return Results.Ok(new StandardSuccessResponse<TaskResponse>(taskResponse));
+        return Results.Ok(new SuccessResponseWithT<TaskResponse>(taskResponse));
     }
 
     private static void CheckAuthorizationAsAdministrator(HttpContext context)
