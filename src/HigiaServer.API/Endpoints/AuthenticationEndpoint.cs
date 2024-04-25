@@ -19,7 +19,7 @@ public static class AuthenticationEndpoint
         authEndpoint
             .MapPost("register", HandleRegister)
             .WithName("Register")
-            .Produces<StandardSuccessResponse<AuthenticationResponse>>()
+            .Produces<SuccessResponseWithT<AuthenticationResponse>>()
             .WithOpenApi(x =>
             {
                 x.Summary = "Register";
@@ -31,7 +31,7 @@ public static class AuthenticationEndpoint
         authEndpoint
             .MapPost("login", HandleLogin)
             .WithName("Login")
-            .Produces<StandardSuccessResponse<AuthenticationResponse>>()
+            .Produces<SuccessResponseWithT<AuthenticationResponse>>()
             .WithOpenApi(x =>
             {
                 x.Summary = "Login";
@@ -62,7 +62,7 @@ public static class AuthenticationEndpoint
         );
 
         repository.AddUser(user);
-        return Results.Ok(new StandardSuccessResponse<AuthenticationResponse>(authResponse));
+        return Results.Ok(new SuccessResponseWithT<AuthenticationResponse>(authResponse));
     }
 
     private static async Task<IResult> HandleLogin(
@@ -82,6 +82,6 @@ public static class AuthenticationEndpoint
             jwtTokenService.GenerateToken(user)
         );
 
-        return Results.Ok(new StandardSuccessResponse<AuthenticationResponse>(authResponse));
+        return Results.Ok(new SuccessResponseWithT<AuthenticationResponse>(authResponse));
     }
 }
