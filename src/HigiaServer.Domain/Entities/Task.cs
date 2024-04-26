@@ -28,5 +28,7 @@ public class Task(
 
     public void AddCollaboratorsToTask(List<User> user) => Collaborators.AddRange(user);
 
+    public void RemoveCollaboratorFromTask(User user) => Collaborators.Remove(user);
+
     public void UpdateTaskStatus(Status newStatus) => Status = newStatus;
 }
