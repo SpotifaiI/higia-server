@@ -41,7 +41,8 @@ public static class AuthenticationEndpoint
 
         return app;
     }
-
+    # region private methods
+    
     private static async Task<IResult> HandleRegister(
         RegisterRequest request,
         IUserRepository repository,
@@ -84,4 +85,6 @@ public static class AuthenticationEndpoint
 
         return Results.Ok(new SuccessResponseWithT<AuthenticationResponse>(authResponse));
     }
+    
+    #endregion
 }
