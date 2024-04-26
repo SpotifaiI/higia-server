@@ -71,11 +71,43 @@ public static class TaskEndpoint
                 return x;
             });
 
+        authEndpoint.MapPatch("/{taskId:guid}/{collaboratorId:guid}", HandleRemoveCollaboratorToTask)
+            .WithName("Remove collaborator to task")
+            .WithOpenApi(x =>
+            {
+                x.Summary = "Remove collaborator to task";
+                return x;
+            });
+
         return app;
     }
 
     #region private methods
 
+    private static async Task<IResult> HandleRemoveCollaboratorToTask(
+        HttpContext context,
+        Guid taskId,
+        ITaskRepository taskRepository,
+        Guid collaboratorId,
+        IUserRepository userRepository)
+    {
+        CheckAuthorizationAsAdministrator(context);
+        if (await taskRepository.GetTaskById(taskId) is not { } task)
+            return Results.BadRequest(new BaseSuccessResponse("The request could not be continued because no matching tasks were found", false));
+
+        if (await userRepository.GetUserById(collaboratorId) is not { } collaborator)
+            return Results.BadRequest(new BaseSuccessResponse("The request could not be continued because no matching collaborator were found", false));
+
+        if (!task.Collaborators.Any(c => c.Id == collaboratorId!))
+            return Results.BadRequest(new BaseSuccessResponse("Unable to update task because no matching task was found", false));
+        
+        context.Response.Headers.Location = $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
+        task.RemoveCollaboratorFromTask(collaborator);
+        
+        taskRepository.UpdateTask(task);
+        return Results.Ok(new BaseSuccessResponse("Collaborator successfully removed from task"));
+    }
+    
     private static async Task<IResult> HandleDeleteTask(
         HttpContext context, 
         Guid taskId, 
@@ -97,8 +129,7 @@ public static class TaskEndpoint
         HttpContext context,
         IUserRepository userRepository,
         ITaskRepository taskRepository,
-        UpdateTaskRequest request
-    )
+        UpdateTaskRequest request)
     {
         CheckAuthorizationAsAdministrator(context);
         if (await taskRepository.GetTaskById(taskId) is not { } task)
