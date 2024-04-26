@@ -116,7 +116,7 @@ public static class TaskEndpoint
         CheckAuthorizationAsAdministrator(context);
         if (await taskRepository.GetTaskById(taskId) is not { } task)
         {
-            return Results.BadRequest("Unable to update task because no matching task was found");
+            return Results.BadRequest(new BaseSuccessResponse("The request could not be continued because no matching tasks were found", false));
         }
         
         taskRepository.DeleteTask(taskId);
@@ -134,19 +134,20 @@ public static class TaskEndpoint
         CheckAuthorizationAsAdministrator(context);
         if (await taskRepository.GetTaskById(taskId) is not { } task)
         {
-            return Results.BadRequest("Unable to update task because no matching task was found");
+            return Results.BadRequest(new BaseSuccessResponse("Unable to update task because no matching task was found", false));
         }
 
         if (await userRepository.GetUserById(collaboratorId) is not { } collaborator)
         {
-            return Results.BadRequest($"Collaborator with id {collaboratorId} was not found!");
+            return Results.BadRequest(new BaseSuccessResponse($"Collaborator with id {collaboratorId} was not found!", false));
         }
 
-        if (!task.Collaborators.Contains(collaborator))
+        if (task.Collaborators.Contains(collaborator))
         {
-            return Results.BadRequest(
-                $"The collaborator with id {collaboratorId} is already participating in this task"
-            );
+            return Results.BadRequest(new BaseSuccessResponse(
+                $"The collaborator with id {collaboratorId} is already participating in this task",
+                false
+            ));
         }
 
         task.AddCollaboratorToTask(collaborator);
@@ -161,13 +162,12 @@ public static class TaskEndpoint
         Guid taskId,
         HttpContext context,
         ITaskRepository taskRepository,
-        UpdateTaskRequest request
-    )
+        UpdateTaskRequest request)
     {
         CheckAuthorizationAsAdministrator(context);
         if (await taskRepository.GetTaskById(taskId) is not { } task)
         {
-            return Results.BadRequest("Unable to update task because no matching task was found");
+            return Results.BadRequest(new BaseSuccessResponse("Unable to update task because no matching task was found", false));
         }
 
         task.UpdateTask(
@@ -180,15 +180,14 @@ public static class TaskEndpoint
 
         context.Response.Headers.Location =
             $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{taskId}";
-        return Results.Ok();
+        return Results.Ok(new BaseSuccessResponse("task information updated successfully"));
     }
 
     private static async Task<IResult> HandleUpdateTaskStatus(
         HttpContext context,
         Guid taskId,
         Status status,
-        ITaskRepository taskRepository
-    )
+        ITaskRepository taskRepository)
     {
         CheckAuthorizationAsAdministrator(context);
         if (await taskRepository.GetTaskById(taskId) is not { } task)
@@ -199,7 +198,7 @@ public static class TaskEndpoint
 
         context.Response.Headers.Location =
             $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
-        return Results.Ok("task information updated successfully");
+        return Results.Ok("task status updated successfully");
     }
 
     private static async Task<IResult> HandleAddTask(
@@ -240,14 +239,10 @@ public static class TaskEndpoint
         HttpContext context,
         Guid taskId,
         ITaskRepository taskRepository,
-        IMapper mapper
-    )
+        IMapper mapper)
     {
-        if (!context.User!.Identity!.IsAuthenticated)
-            throw new UnauthenticatedException();
-
-        if (await taskRepository.GetTaskById(taskId) is not { } task)
-            return Results.NoContent();
+        if (!context.User!.Identity!.IsAuthenticated) throw new UnauthenticatedException();
+        if (await taskRepository.GetTaskById(taskId) is not { } task) return Results.NoContent();
 
         var taskResponse = mapper.Map<TaskResponse>(task);
         return Results.Ok(new SuccessResponseWithT<TaskResponse>(taskResponse));
@@ -256,9 +251,14 @@ public static class TaskEndpoint
     private static void CheckAuthorizationAsAdministrator(HttpContext context)
     {
         if (!context.User!.Identity!.IsAuthenticated)
+        {
             throw new UnauthenticatedException();
+        }
+
         if (context.User.FindFirstValue(ClaimTypes.Role) != "admin")
+        {
             throw new UnauthorizedAccessException();
+        }
     }
 
     #endregion
