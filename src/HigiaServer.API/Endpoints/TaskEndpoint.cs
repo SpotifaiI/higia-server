@@ -1,4 +1,3 @@
-using System.Security.Authentication;
 using System.Security.Claims;
 using AutoMapper;
 using HigiaServer.Application.Contracts.Requests;
@@ -6,7 +5,6 @@ using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Application.Errors;
 using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Enums;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HigiaServer.API.Endpoints;
 
@@ -63,6 +61,7 @@ public static class TaskEndpoint
                 return x;
             });
         
+        // delete task
         authEndpoint.MapDelete("/{taskId:guid}", HandleDeleteTask)
             .WithName("Delete task by id")
             .WithOpenApi(x =>
@@ -71,6 +70,7 @@ public static class TaskEndpoint
                 return x;
             });
 
+        // remove collaborator from task
         authEndpoint.MapPatch("/{taskId:guid}/{collaboratorId:guid}", HandleRemoveCollaboratorToTask)
             .WithName("Remove collaborator to task")
             .WithOpenApi(x =>
