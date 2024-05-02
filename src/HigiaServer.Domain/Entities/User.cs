@@ -1,6 +1,6 @@
 namespace HigiaServer.Domain.Entities;
 
-public class User(bool isAdmin, string name, string email, string password, string? number)
+public class User(bool isAdmin, string name, string email, string password, string? number = null)
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; private set; } = name;

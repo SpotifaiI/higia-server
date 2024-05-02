@@ -11,30 +11,27 @@ builder.Services.AddCustomSwagger();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfra(builder.Configuration);
 
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("admin", policy => policy.RequireRole("admin"))
+    .AddPolicy("collaborator", policy => policy.RequireRole("collaborator"));
+
+builder.Services.AddAuthentication(x =>
 {
-    options.AddPolicy("admin", policy => policy.RequireRole("admin"));
-    options.AddPolicy("collaborator", policy => policy.RequireRole("collaborator"));
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    var key = Encoding.ASCII.GetBytes(
+        builder.Configuration.GetValue<string>("JwtSettings:SecretKey")!
+    );
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
 });
-builder
-    .Services.AddAuthentication(x =>
-    {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(x =>
-    {
-        var key = Encoding.ASCII.GetBytes(
-            builder.Configuration.GetValue<string>("JwtSettings:SecretKey")!
-        );
-        x.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
 
 var app = builder.Build();
 

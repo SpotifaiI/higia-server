@@ -10,7 +10,15 @@ public class HigiaServerContext : Microsoft.EntityFrameworkCore.DbContext
     public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseInMemoryDatabase(databaseName: "HigiaServerDb");
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase(databaseName: "HigiaServerDb");
+        modelBuilder.Entity<User>().HasData(new User(
+            isAdmin: true,
+            name: "admin",
+            email: "admin@admin.com",
+            password: "adminadmin"
+        ));
     }
 }
