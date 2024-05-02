@@ -1,13 +1,12 @@
 using System.Security.Claims;
-
 using AutoMapper;
+
 using HigiaServer.Application.Contracts.Requests;
 using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Application.Errors;
 using HigiaServer.Application.Repositories;
 using HigiaServer.Application.Services;
 using HigiaServer.Domain.Entities;
-using Microsoft.AspNetCore.Authentication;
 
 namespace HigiaServer.API.Endpoints;
 
@@ -86,8 +85,8 @@ public static class AuthenticationEndpoint
     {
         if (await repository.GetUserByEmail(request.Email) is not { } user)
             throw new EmailGivenNotFoundException(request.Email);
-        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
-            throw new InvalidPasswordException();
+            
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password)) throw new InvalidPasswordException();
 
         var authResponse = new AuthenticationResponse(
             mapper.Map<UserResponse>(user),
