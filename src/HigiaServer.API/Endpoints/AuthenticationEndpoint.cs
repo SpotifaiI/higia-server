@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 using AutoMapper;
 using HigiaServer.Application.Contracts.Requests;
 using HigiaServer.Application.Contracts.Responses;
@@ -44,14 +46,23 @@ public static class AuthenticationEndpoint
     # region private methods
     
     private static async Task<IResult> HandleRegister(
+        HttpContext context,
         RegisterRequest request,
         IUserRepository repository,
         IMapper mapper,
         IJwtTokenService jwtTokenService
     )
     {
-        if (await repository.GetUserByEmail(request.Email) != null)
-            throw new DuplicateEmailException(request.Email);
+        if (!context.User!.Identity!.IsAuthenticated)
+        {
+            throw new UnauthenticatedException();
+        }
+        if (context.User.FindFirstValue(ClaimTypes.Role) != "admin")
+        {
+            throw new UnauthorizedAccessException();
+        }
+
+        if (await repository.GetUserByEmail(request.Email) != null) throw new DuplicateEmailException(request.Email);
 
         request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
         var user = mapper.Map<User>(request);
