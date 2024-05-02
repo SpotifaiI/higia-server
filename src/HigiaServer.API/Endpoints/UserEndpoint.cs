@@ -2,6 +2,8 @@ using System.Security.Claims;
 
 using AutoMapper;
 
+using HigiaServer.Application.Contracts.Requests;
+using HigiaServer.Application.Contracts.Responses;
 using HigiaServer.Application.Errors;
 using HigiaServer.Application.Repositories;
 
@@ -14,7 +16,13 @@ public static class UserEndpoint
         var userEndpoint = app.MapGroup("higia-server/api/user").WithTags("User");
 
         // update info user
-        userEndpoint.MapPut("", HandleUpdaterInfoUser);
+        userEndpoint.MapPut("/{userId:guid}", HandleUpdaterInfoUser)
+            .WithName("Update user information")
+            .WithOpenApi(x =>
+            {
+                x.Summary = "Update user information";
+                return x;
+            });
         
         return app;
     }
@@ -22,16 +30,30 @@ public static class UserEndpoint
     #region 
     
     public static async Task<IResult> HandleUpdaterInfoUser(
+        Guid userId,
+        UpdateInfoUserRequest request,
         HttpContext context,
-        IUserRepository repository,
+        IUserRepository userRepository,
         IMapper mapper
     )
     {
-        CheckAuthorizationAsAdministrator(context);
-        return Results.Ok();
+        if (!context.User!.Identity!.IsAuthenticated) throw new UnauthenticatedException();
+        if (await userRepository.GetUserById(userId) is not { } user)
+        {
+            return Results.BadRequest(new BaseResponse($"User with id {userId} was not found!", false));
+        }
+
+        user.UpdateInfoUser(
+            name: request.Name,
+            email: request.Email,
+            number: request.Number
+        );
+
+        await userRepository.UpdateUser(user);
+        return Results.Ok(new BaseResponse("user information updated successfully", false));
     }
 
-        private static void CheckAuthorizationAsAdministrator(HttpContext context)
+    private static void CheckAuthorizationAsAdministrator(HttpContext context)
     {
         if (!context.User!.Identity!.IsAuthenticated)
         {
