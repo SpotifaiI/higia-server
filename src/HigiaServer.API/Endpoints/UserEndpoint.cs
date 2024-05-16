@@ -42,7 +42,8 @@ public static class UserEndpoint
         {
             return Results.BadRequest(new BaseResponse($"User with id {userId} was not found!", false));
         }
-
+        
+        // update user information
         user.UpdateInfoUser(
             name: request.Name,
             email: request.Email,
@@ -51,19 +52,6 @@ public static class UserEndpoint
 
         await userRepository.UpdateUser(user);
         return Results.Ok(new BaseResponse("user information updated successfully", false));
-    }
-
-    private static void CheckAuthorizationAsAdministrator(HttpContext context)
-    {
-        if (!context.User!.Identity!.IsAuthenticated)
-        {
-            throw new UnauthenticatedException();
-        }
-
-        if (context.User.FindFirstValue(ClaimTypes.Role) != "admin")
-        {
-            throw new UnauthorizedAccessException();
-        }
     }
 
     #endregion

@@ -6,8 +6,6 @@ using HigiaServer.Application.Errors;
 using HigiaServer.Application.Repositories;
 using HigiaServer.Domain.Enums;
 
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace HigiaServer.API.Endpoints;
 
 public static class TaskEndpoint
@@ -134,15 +132,16 @@ public static class TaskEndpoint
         UpdateTaskRequest request)
     {
         CheckAuthorizationAsAdministrator(context);
+
         if (await taskRepository.GetTaskById(taskId) is not { } task)
-        {
             return Results.BadRequest(new BaseResponse("Unable to update task because no matching task was found", false));
-        }
+
         if (await userRepository.GetUserById(collaboratorId) is not { } collaborator)
-        {
             return Results.BadRequest(new BaseResponse($"Collaborator with id {collaboratorId} was not found!", false));
-        }
-        if (collaborator.IsAdmin) return Results.BadRequest(new BaseResponse("Only collaborators can be added to the task.", false));
+
+        if (collaborator.IsAdmin) 
+            return Results.BadRequest(new BaseResponse("Only collaborators can be added to the task.", false));
+
         if (task.Collaborators.Contains(collaborator))
         {
             return Results.BadRequest(new BaseResponse(
@@ -191,14 +190,12 @@ public static class TaskEndpoint
         ITaskRepository taskRepository)
     {
         CheckAuthorizationAsAdministrator(context);
-        if (await taskRepository.GetTaskById(taskId) is not { } task)
-            return Results.NoContent();
+        if (await taskRepository.GetTaskById(taskId) is not { } task) return Results.NoContent();
 
         task.UpdateTaskStatus(status);
         taskRepository.UpdateTask(task);
 
-        context.Response.Headers.Location =
-            $"{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
+        context.Response.Headers.Location = "{context.Request.Scheme}://{context.Request.Host}/{context.Request.Path}/{task.Id}";
         return Results.Ok("task status updated successfully");
     }
 
