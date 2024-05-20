@@ -5,5 +5,5 @@ public enum Status
     New = 0,
     Active = 1,
     Paused = 2,
-    Closed = 3
+    Complete = 3
 }

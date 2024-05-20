@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 using HigiaServer.Domain.Enums;
 
 namespace HigiaServer.Domain.Entities;
@@ -13,7 +15,7 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
     public string[] Coordinates { get; private set; } = coordinates;
     public Status Status { get; private set; } = Status.New;
     public List<User> Collaborators { get; private set; } = [];
-    public RecordTask? RecordTask { get; private set; } = new RecordTask();
+    public RecordTask RecordTask { get; private set; } = new RecordTask();
 
     #endregion
     #region [Public Methods]
@@ -31,7 +33,49 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
 
     public void RemoveCollaboratorFromTask(User user) => Collaborators.Remove(user);
 
-    public void UpdateTaskStatus(Status newStatus) => Status = newStatus != Status.New ? newStatus : Status;
+    public void UpdateTaskStatus(Status newStatus)
+    {
+        if(newStatus == Status.New) return;
+
+        switch (newStatus)
+        {
+            case Status.Active: StartTask();  break;
+            case Status.Paused: PauseTask(); break;
+            case Status.Complete: CompleteTask(); break;
+
+            default: throw new ArgumentOutOfRangeException(nameof(newStatus), newStatus, null);
+        }
+    }
+
+    #endregion
+
+    #region [Private Methods]
+    private void StartTask()
+    {
+        if(Status == Status.New)
+        {
+            Status = Status.Active;
+            RecordTask.RecordActiveTask();
+        }
+    }
+
+    private void PauseTask()
+    {
+        if(Status == Status.Active)
+        {
+            Status = Status.Paused;
+            RecordTask.RecordPausedTask();
+        }
+    }
+
+    private void CompleteTask()
+    {
+        if(Status == Status.Active || Status == Status.Paused)
+        {
+            Status = Status.Complete;
+            RecordTask.RecordCompleteTask();
+        }
+    }
 
     #endregion
 }
