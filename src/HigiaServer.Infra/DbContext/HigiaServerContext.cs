@@ -7,6 +7,7 @@ namespace HigiaServer.Infra.DbContext;
 public class HigiaServerContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<Task> Tasks { get; set; }
+    public DbSet<RecordTask> RecordTasks { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -18,6 +18,7 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
     public RecordTask RecordTask { get; private set; } = new RecordTask();
 
     #endregion
+    
     #region [Public Methods]
 
     public void UpdateTask(string? title = null, string? description = null, string[]? coordinates = null)
@@ -42,13 +43,11 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
             case Status.Active: StartTask();  break;
             case Status.Paused: PauseTask(); break;
             case Status.Complete: CompleteTask(); break;
-
-            default: throw new ArgumentOutOfRangeException(nameof(newStatus), newStatus, null);
         }
     }
 
     #endregion
-
+    
     #region [Private Methods]
     private void StartTask()
     {
