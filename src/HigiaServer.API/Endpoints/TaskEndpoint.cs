@@ -12,10 +12,10 @@ public static class TaskEndpoint
 {
     public static IEndpointRouteBuilder AddTaskEndpoint(this IEndpointRouteBuilder app)
     {
-        var authEndpoint = app.MapGroup("higia-server/api/tasks").WithTags("Tasks");
+        var taskEndpoint = app.MapGroup("higia-server/api/tasks").WithTags("Tasks");
 
         // add task
-        authEndpoint.MapPost("/", HandleAddTask)
+        taskEndpoint.MapPost("/", HandleAddTask)
             .WithName("Add new task")
             .Produces<TaskResponse>(StatusCodes.Status201Created)
             .WithOpenApi(x =>
@@ -25,7 +25,7 @@ public static class TaskEndpoint
             });
 
         // get task by id
-        authEndpoint.MapGet("/{taskId:guid}", HandleGetTask)
+        taskEndpoint.MapGet("/{taskId:guid}", HandleGetTask)
             .WithName("Get task by id")
             .Produces<TaskResponse>()
             .WithOpenApi(x =>
@@ -35,7 +35,7 @@ public static class TaskEndpoint
             });
 
         // update status
-        authEndpoint.MapPatch("/{taskId:guid}/{status}", HandleUpdateTaskStatus)
+        taskEndpoint.MapPatch("/{taskId:guid}/{status}", HandleUpdateTaskStatus)
             .WithName("Update Task Status")
             .WithOpenApi(x =>
             {
@@ -44,7 +44,7 @@ public static class TaskEndpoint
             });
         
         // update task info
-        authEndpoint.MapPut("/{taskId:guid}/info", HandleUpdateTaskInformation)
+        taskEndpoint.MapPut("/{taskId:guid}/info", HandleUpdateTaskInformation)
             .WithName("Update Task")
             .WithOpenApi(x =>
             {
@@ -53,7 +53,7 @@ public static class TaskEndpoint
             });
         
         // add collaborator to task
-        authEndpoint.MapPatch("/{taskId:guid}/collaborators/{collaboratorId:guid}", HandleAddCollaboratorToTask)
+        taskEndpoint.MapPatch("/{taskId:guid}/collaborators/{collaboratorId:guid}", HandleAddCollaboratorToTask)
             .WithName("Add collaborator to task")
             .WithOpenApi(x =>
             {
@@ -62,7 +62,7 @@ public static class TaskEndpoint
             });
         
         // delete task
-        authEndpoint.MapDelete("/{taskId:guid}", HandleDeleteTask)
+        taskEndpoint.MapDelete("/{taskId:guid}", HandleDeleteTask)
             .WithName("Delete task by id")
             .WithOpenApi(x =>
             {
@@ -71,13 +71,15 @@ public static class TaskEndpoint
             });
 
         // remove collaborator from task
-        authEndpoint.MapPatch("/{taskId:guid}/{collaboratorId:guid}", HandleRemoveCollaboratorToTask)
+        taskEndpoint.MapPatch("/{taskId:guid}/{collaboratorId:guid}", HandleRemoveCollaboratorToTask)
             .WithName("Remove collaborator to task")
             .WithOpenApi(x =>
             {
                 x.Summary = "Remove collaborator to task";
                 return x;
             });
+
+        
 
         return app;
     }

@@ -1,5 +1,3 @@
-using System.Security.Claims;
-
 using AutoMapper;
 
 using HigiaServer.Application.Contracts.Requests;
