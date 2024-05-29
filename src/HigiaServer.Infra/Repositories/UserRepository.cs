@@ -20,10 +20,4 @@ public class UserRepository(HigiaServerContext context) : IUserRepository
 
     public async Task<User?> GetUserById(Guid userId) =>
         await _context.Users.SingleOrDefaultAsync(x => x.Id == userId);
-
-    public async System.Threading.Tasks.Task UpdateUser(User user)
-    {
-        _context.Update(user);
-        await _context.SaveChangesAsync();
-    }
 }
