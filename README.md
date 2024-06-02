@@ -1,5 +1,26 @@
 # Higia Server
 
+🌎 Server do app que ajuda o meio ambiente enquanto registra sua produtividade. 
+
+# Integrantes
+
+- [x] Cristian Prochnow
+- [x] Gustavo Henrique Dias
+- [x] Lucas Willian de Souza Serpa
+- [x] Marlon de Souza
+- [x] Ryan Gabriel Mazzei Bromati
+
+# Rodando o projeto
+
+Para rodar o projeto, o primeiro passo é [instalar o Docker][docker-desktop] na sua máquina. Após isso, abra o projeto e na raiz rode os comandos de _build_ do Docker.
+
+```shell
+$ docker build --tag higia-server:latest -f /caminho/ate/projeto/Dockerfile .
+$ docker run -it -d -p "8080:8080" -v "/caminho/ate/raiz/project:/app" higia-server:latest bash
+```
+
+# Estrutura de Arquivos
+
 ```
 ├── Dockerfile
 ├── docs
@@ -65,3 +86,5 @@
         └── Utils
             └── JwtSettings.cs
 ```
+
+[docker-desktop]: https://docs.docker.com/desktop/install/windows-install/
