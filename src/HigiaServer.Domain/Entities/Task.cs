@@ -18,7 +18,6 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
     public RecordTask RecordTask { get; private set; } = new RecordTask();
 
     #endregion
-    
     #region [Public Methods]
 
     public void UpdateTask(string? title = null, string? description = null, string[]? coordinates = null)
@@ -47,7 +46,6 @@ public class Task(string title, string[] coordinates, UrgencyLevel urgencyLevel,
     }
 
     #endregion
-    
     #region [Private Methods]
     private void StartTask()
     {
