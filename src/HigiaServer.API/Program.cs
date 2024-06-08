@@ -1,7 +1,9 @@
 using System.Text;
+
 using HigiaServer.API.Endpoints;
 using HigiaServer.API.Extensions;
 using HigiaServer.Infra;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -34,6 +36,12 @@ builder.Services.AddAuthentication(x =>
 });
 
 var app = builder.Build();
+
+app.UseCors(options => options
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
 
 app.UseHttpsRedirection();
 app.AddAuthenticationEndpoint();
