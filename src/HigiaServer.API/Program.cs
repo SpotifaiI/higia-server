@@ -35,13 +35,13 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", cors =>
-    cors.AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin()
-));
-
 var app = builder.Build();
+
+app.UseCors(options => options
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+);
 
 app.UseHttpsRedirection();
 app.AddAuthenticationEndpoint();
